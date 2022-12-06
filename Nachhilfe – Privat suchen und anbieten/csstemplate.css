@@ -1,0 +1,74 @@
+.nav-link[href*="edit"] {
+    background-color: #e1f4dab8;
+}
+.nav-link[href*="edit"]:before {
+    content: '✒ ';
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.versteckt { 
+    display: none;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #476a6f !important;
+    border-color: #004a56;
+}
+
+.userpicture {
+    -webkit-box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+}
+
+.bg-suche {
+    background-color: #F5EBF2;
+}
+
+.bg-eintrag {
+    background-color: #E8F0E6;
+}
+
+.bg-suche-eintrag {
+    background-color: #fff9e6;
+}
+
+.bg-biete-eintrag {
+    background-color: #cfe4e6;
+}
+
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 50em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 68em) {
+    .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media (min-width: 83em) {
+    .card-columns {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+}

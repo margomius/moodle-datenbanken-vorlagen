@@ -1,0 +1,119 @@
+<preset>
+
+<settings>
+<intro>&lt;h3 style=&quot;text-align: left;&quot;&gt;Nachhilfe von und für Schüler:innen der NAOS! 😊&lt;/h3&gt;
+&lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Hier kannst du angeben, wenn du Nachhilfe suchst oder anbieten möchtest und du findest hier auch andere Schüler:innen, die Nachhilfe suchen oder anbieten.&lt;br&gt;&lt;/p&gt;
+
+&lt;a class=&quot;btn btn-info collapsed active shadow-sm mb-2&quot; data-toggle=&quot;collapse&quot; href=&quot;#collapseExample&quot; role=&quot;button&quot; aria-expanded=&quot;false&quot; aria-pressed=&quot;true&quot; aria-controls=&quot;collapseExample&quot;&gt;
+Anleitung
+&lt;/a&gt;
+&lt;div class=&quot;collapse&quot; id=&quot;collapseExample&quot; style=&quot;&quot;&gt;
+    &lt;div class=&quot;card card-body shadow&quot;&gt;
+        &lt;h4&gt;1. Listenansicht&lt;/h4&gt;Dies ist eine Übersicht aller Einträge. Klicke auf &quot;Details&quot;, um einen Eintrag in der Einzelansicht angezeigt zu bekommen. Klicke auf das Profilbild, um zum Profil der Person zu gelangen und ihr eine Mitteilung zu schreiben.&amp;nbsp;
+        &lt;span style=&quot;font-size: 0.9375rem;&quot;&gt;Standardmäßig werden dir in der Listenansicht 10 Einträge pro Seite angezeigt. Wenn es mehr Einträge gibt, kannst du oben und unten durch die verschiedenen Seiten navigieren. Wähle im Dropdown-Menü &quot;Einträge pro Seite&quot; aus, wie viele Einträge du auf einer
+    Seite sehen möchtest und klicke anschließend auf &quot;Einstellungen speichern&quot;.&lt;/span&gt;
+        &lt;p&gt;&lt;/p&gt;
+        &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;&lt;/p&gt;
+        &lt;h4&gt;2. Einzelansicht&lt;/h4&gt;In der Einzelansicht findest du unter dem Punkt &quot;Weitere Angaben zu mir&quot; noch mehr Informationen, wenn die Person welche eingegeben hat. Außerdem findest du auch nochmal Links zum Profil, um Kontakt aufzunehmen.
+        &lt;p&gt;&lt;/p&gt;
+        &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;&lt;/p&gt;
+        &lt;h4&gt;3. Suche&lt;/h4&gt;Hier kannst du sehr präzise nach Einträgen suchen. Zum Beispiel wählst du &quot;Biete&quot;, für Klassenstufe: &quot;07&quot; in Fächer: &quot;Mathematik&quot; und bekommst alle Schüler:innen angezeigt, die für 7. Klässler:innen Nachhilfe in Mathematik anbieten.
+        Wähle &quot;Suche&quot; aus, um Schüler:innen zu finden, denen du Nachhilfe geben kannst. Wenn du über die Suche niemanden findest, solltest du einen Eintrag hinzufügen (siehe unten), um in Zukunft von anderen Schüler:innen gefunden zu werden.
+        &lt;p&gt;&lt;/p&gt;
+        &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;&lt;/p&gt;
+        &lt;h4&gt;4. Eintrag hinzufügen&lt;/h4&gt;Wenn du selbst Nachhilfe suchst oder anbieten möchtest, kannst du einen Eintrag hinzufügen und so werden auch andere Schüler:innen darauf aufmerksam.&lt;br&gt;Fülle das Formular aus und klicke unten auf &quot;Speichern und anzeigen&quot;.
+        &lt;p&gt;&lt;/p&gt;
+        &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Wenn du einen Eintrag hinzugefügt hast, siehst du in der Listenansicht und in der Einzelansicht zwei kleine Symbole, mit denen du deinen Eintrag bearbeiten oder löschen kannst.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</intro>
+<comments>0</comments>
+<requiredentries>0</requiredentries>
+<requiredentriestoview>0</requiredentriestoview>
+<maxentries>5</maxentries>
+<rssarticles>0</rssarticles>
+<approval>1</approval>
+<manageapproved>1</manageapproved>
+<defaultsortdir>0</defaultsortdir>
+<defaultsort>0</defaultsort>
+</settings>
+
+<field>
+<type>radiobutton</type>
+<name>Suche oder Biete</name>
+<required>1</required>
+<param1>Suche
+Biete</param1>
+</field>
+
+<field>
+<type>checkbox</type>
+<name>Fächer</name>
+<required>1</required>
+<param1>Biologie
+Chemie
+Deutsch
+Englisch
+Erdkunde
+Französisch
+Geschichte
+Informatik
+Kunst
+Latein
+Mathematik
+Musik
+Physik
+PoWi
+Religion
+Spanisch
+Sport</param1>
+</field>
+
+<field>
+<type>textarea</type>
+<name>Angaben zur eigenen Person</name>
+<required>0</required>
+<param2>40</param2>
+<param3>15</param3>
+<param4>1</param4>
+<param5>0</param5>
+</field>
+
+<field>
+<type>checkbox</type>
+<name>Biete oder suche für Klassenstufe</name>
+<required>1</required>
+<param1>05
+06
+07
+08
+09
+10
+E1/2
+Q1/2
+Q3/4</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Name</name>
+<required>1</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Eigene Klassenstufe</name>
+<required>1</required>
+<param1>5. Klasse
+6. Klasse
+7. Klasse
+8. Klasse
+9. Klasse
+10. Klasse
+E1/2
+Q1/2
+Q3/4
+Student
+Lehrer</param1>
+</field>
+
+</preset>
