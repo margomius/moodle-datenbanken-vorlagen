@@ -1,7 +1,7 @@
 <preset>
 
-<settings>
-<intro>&lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Eine Liste geeigneter iPad-Apps für die Schule inkl. aller Apps, die sich auf den iPads der iPad-Koffer befinden. Hier können App-Wünsche abgegeben werden.&lt;/p&gt;
+    <settings>
+        <intro>&lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Eine Liste geeigneter iPad-Apps für die Schule inkl. aller Apps, die sich auf den iPads der iPad-Koffer befinden. Hier können App-Wünsche abgegeben werden.&lt;/p&gt;
 &lt;a class=&quot;btn btn-info active shadow-sm mb-2 collapsed&quot; data-toggle=&quot;collapse&quot; href=&quot;#collapseAnleitung&quot; role=&quot;button&quot; aria-expanded=&quot;false&quot; aria-pressed=&quot;true&quot; aria-controls=&quot;collapseAnleitung&quot;&gt;
     Anleitung
 &lt;/a&gt;
@@ -22,78 +22,78 @@
         &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Hier können Apps als Empfehlung oder Installations-Wunsch hinzugefügt werden. Dabei sollte mindestens ein Name und ein Link zum &lt;a href=&quot;https://www.apple.com/de/app-store/&quot; target=&quot;_blank&quot;&gt;App-Store&lt;/a&gt; angegeben werden. Dafür empfiehlt sich eine Google Suche mit dem Suchbegriff &lt;em&gt;&quot;[Name der App] app store&quot;&lt;/em&gt; Wenn eine App deinstalliert werden soll, zu der es schon einen Eintrag gibt, dann kann einfach ein neuer Eintrag mit dem Status &quot;Bitte deinstallieren&quot; erstellt werden. Der Link zum App-Store wird dann nicht benötigt.&lt;/p&gt;
     &lt;/div&gt;
 &lt;/div&gt;</intro>
-<comments>1</comments>
-<requiredentries>0</requiredentries>
-<requiredentriestoview>0</requiredentriestoview>
-<maxentries>0</maxentries>
-<rssarticles>0</rssarticles>
-<approval>1</approval>
-<manageapproved>0</manageapproved>
-<defaultsortdir>0</defaultsortdir>
-<defaultsort>0</defaultsort>
-</settings>
+        <comments>1</comments>
+        <requiredentries>0</requiredentries>
+        <requiredentriestoview>0</requiredentriestoview>
+        <maxentries>0</maxentries>
+        <rssarticles>0</rssarticles>
+        <approval>1</approval>
+        <manageapproved>0</manageapproved>
+        <defaultsortdir>0</defaultsortdir>
+        <defaultsort>0</defaultsort>
+    </settings>
 
-<field>
-<type>text</type>
-<name>Name</name>
-<description>Name</description>
-<required>1</required>
-</field>
+    <field>
+        <type>text</type>
+        <name>Name</name>
+        <description>Name</description>
+        <required>1</required>
+    </field>
 
-<field>
-<type>textarea</type>
-<name>Beschreibung</name>
-<description>Beschreibung</description>
-<required>0</required>
-<param2>50</param2>
-<param3>10</param3>
-<param4>1</param4>
-<param5>0</param5>
-</field>
+    <field>
+        <type>textarea</type>
+        <name>Beschreibung</name>
+        <description>Beschreibung</description>
+        <required>0</required>
+        <param2>50</param2>
+        <param3>10</param3>
+        <param4>1</param4>
+        <param5>0</param5>
+    </field>
 
-<field>
-<type>menu</type>
-<name>Status</name>
-<description>Status</description>
-<required>1</required>
-<param1>Empfehlung
+    <field>
+        <type>menu</type>
+        <name>Status</name>
+        <description>Status</description>
+        <required>1</required>
+        <param1>Empfehlung
 Bitte installieren
 Installiert
 Bitte deinstallieren
 Deinstalliert (siehe Kommentar)</param1>
-</field>
+    </field>
 
-<field>
-<type>text</type>
-<name>Link</name>
-<description>Link</description>
-<required>1</required>
-</field>
+    <field>
+        <type>text</type>
+        <name>Link</name>
+        <description>Link</description>
+        <required>1</required>
+    </field>
 
-<field>
-<type>text</type>
-<name>Ordner</name>
-<description>Ordner</description>
-<required>1</required>
-</field>
+    <field>
+        <type>text</type>
+        <name>Ordner</name>
+        <description>Ordner</description>
+        <required>1</required>
+    </field>
 
-<field>
-<type>textarea</type>
-<name>Kommentar</name>
-<description>Kommentar</description>
-<required>0</required>
-<param2>50</param2>
-<param3>10</param3>
-<param4>1</param4>
-<param5>0</param5>
-</field>
+    <field>
+        <type>textarea</type>
+        <name>Kommentar</name>
+        <description>Kommentar</description>
+        <required>0</required>
+        <param2>50</param2>
+        <param3>10</param3>
+        <param4>1</param4>
+        <param5>0</param5>
+    </field>
 
-<field>
-<type>checkbox</type>
-<name>Fächer</name>
-<description>Fächer</description>
-<required>0</required>
-<param1>Arbeitslehre
+    <field>
+        <type>checkbox</type>
+        <name>Fächer</name>
+        <description>Fächer</description>
+        <required>0</required>
+        <param1>Arbeitslehre
 Biologie
 Chemie
 Deutsch
@@ -117,6 +117,6 @@ Politik und Wirtschaft
 Religion
 Spanisch
 Sport</param1>
-</field>
+    </field>
 
 </preset>
