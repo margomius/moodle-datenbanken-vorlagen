@@ -71,6 +71,13 @@ Deinstalliert (siehe Kommentar)</param1>
 </field>
 
 <field>
+<type>text</type>
+<name>Ordner</name>
+<description>Ordner</description>
+<required>1</required>
+</field>
+
+<field>
 <type>textarea</type>
 <name>Kommentar</name>
 <description>Kommentar</description>
