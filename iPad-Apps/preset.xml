@@ -74,7 +74,7 @@ Deinstalliert (siehe Kommentar)</param1>
         <type>text</type>
         <name>Ordner</name>
         <description>Ordner</description>
-        <required>1</required>
+        <required>0</required>
     </field>
 
     <field>
