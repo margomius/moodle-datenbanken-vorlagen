@@ -1,0 +1,85 @@
+<preset>
+
+<settings>
+<intro>&lt;a class=&quot;btn btn-info collapsed shadow-sm&quot; data-toggle=&quot;collapse&quot; href=&quot;#collapseExample&quot; role=&quot;button&quot; aria-expanded=&quot;false&quot; aria-pressed=&quot;true&quot; aria-controls=&quot;collapseExample&quot;&gt;&lt;i class=&quot;fa fa-info-circle
+&quot;&gt;&lt;/i&gt;&amp;nbsp;So fügen Sie ein Projekt hinzu!&lt;/a&gt;
+&lt;div class=&quot;collapse&quot; id=&quot;collapseExample&quot; style=&quot;&quot;&gt;
+    &lt;div class=&quot;card card-body shadow&quot;&gt;
+        &lt;ol&gt;
+            &lt;li&gt;Klicken Sie auf &quot;Eintrag hinzufügen&quot;&lt;/li&gt;
+            &lt;li&gt;Füllen Sie das Formular aus&lt;/li&gt;
+            &lt;li&gt;Klicken Sie auf &quot;Speichern und anzeigen&quot;&lt;/li&gt;
+        &lt;/ol&gt;
+        &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Wenn Sie einen Eintrag hinzugefügt haben, sehen Sie in der Einzelansicht und in der Listenansicht zwei kleine Symbole, mit denen Sie den Eintrag bearbeiten oder löschen können.&lt;/p&gt;
+        &lt;p dir=&quot;ltr&quot; style=&quot;text-align: left;&quot;&gt;Weitere Möglichkeiten:&lt;br&gt;&lt;/p&gt;
+        &lt;ol&gt;
+            &lt;li&gt;Kommentare schreiben (&quot;Listenansicht&quot; und &quot;Einzelansicht&quot;)&lt;/li&gt;
+            &lt;li&gt;Die Liste schnell durchsuchen und filtern (&quot;Listenansicht&quot;)&lt;/li&gt;
+            &lt;li&gt;Die erweitere Suche nutzen (&quot;Suche&quot;)&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</intro>
+<comments>1</comments>
+<requiredentries>0</requiredentries>
+<requiredentriestoview>0</requiredentriestoview>
+<maxentries>0</maxentries>
+<rssarticles>0</rssarticles>
+<approval>0</approval>
+<manageapproved>1</manageapproved>
+<defaultsortdir>0</defaultsortdir>
+<defaultsort>0</defaultsort>
+</settings>
+
+<field>
+<type>text</type>
+<name>Lerngruppe</name>
+<required>1</required>
+</field>
+
+<field>
+<type>radiobutton</type>
+<name>Art der Lerngruppe</name>
+<required>1</required>
+<param1>Klasse
+Kurs
+AG
+Sonstige Lerngruppe</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Projektleitung</name>
+<required>1</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Titel</name>
+<required>1</required>
+</field>
+
+<field>
+<type>textarea</type>
+<name>Projektbeschreibung</name>
+<required>1</required>
+<param2>60</param2>
+<param3>15</param3>
+<param4>1</param4>
+<param5>0</param5>
+</field>
+
+<field>
+<type>text</type>
+<name>Ort</name>
+<required>1</required>
+</field>
+
+<field>
+<type>radiobutton</type>
+<name>Nachhaltigkeit</name>
+<required>1</required>
+<param1>Ja
+Nein</param1>
+</field>
+
+</preset>
