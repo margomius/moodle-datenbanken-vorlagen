@@ -8,6 +8,7 @@ Each folder is a different database preset and contains
 
 * Folder: "Preset" = Folder with the preset files
 * File: "[Name of preset].zip" = zip-archiv to import into database activity
+* **(Possible)** Folder: "Screenshots" = screenshots of the database
 
 ## How To
 

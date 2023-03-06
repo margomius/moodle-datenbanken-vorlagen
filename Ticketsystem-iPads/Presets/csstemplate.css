@@ -226,6 +226,11 @@ tbody>tr.Erledigt:hover {
     display: none
 }
 
+/* "Neuer Eintrag" entfernen */
+#page-mod-data-edit #region-main h3:first-of-type {
+    display: none;
+}
+
 /* Druckversion */
 @media print {
 
