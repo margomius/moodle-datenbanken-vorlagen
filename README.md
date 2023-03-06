@@ -6,8 +6,8 @@ A collection of presets to use in the Database Activity in [Moodle](https://mood
 
 Each folder is a different database preset and contains
 
-* "Vorlagrn" ("Preset") = Folder with the preset files
-* "...-Vorlagensatz" = zip-archiv to import into database activity
+* Folder: "Preset" = Folder with the preset files
+* File: "[Name of preset].zip" = zip-archiv to import into database activity
 
 ## How To
 

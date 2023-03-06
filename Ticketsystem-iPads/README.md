@@ -2,7 +2,7 @@
 
 ## Download
 
-Download Preset (.zip): [Ticketsystem-iPads](https://moodle.org/).
+Download Preset: [Ticketsystem-iPads.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Ticketsystem-iPads/Ticketsystem-iPads.zip).
 
 ## Features
 
