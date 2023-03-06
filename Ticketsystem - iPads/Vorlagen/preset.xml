@@ -1,0 +1,61 @@
+<preset>
+
+<settings>
+<intro>&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-size: 0.9375rem;&quot;&gt;Melden Sie ein Problem/Wunsch über &lt;a href=&quot;https://www.example.com&quot; style=&quot;background-color: #e1f4dab8;&quot;&gt;&amp;nbsp;📝&amp;nbsp;&lt;span&gt;Ticket hinzufügen&lt;/span&gt;&amp;nbsp;&lt;/a&gt;. In der Listenansicht sehen Sie, ob ein Ticket &lt;span class=&quot;badge badge-danger&quot;&gt;Offen&lt;/span&gt;, in &lt;span class=&quot;badge badge-warning&quot;&gt;Bearbeitung&lt;/span&gt; oder &lt;span class=&quot;badge badge-success&quot;&gt;Erledigt&lt;/span&gt; ist.&lt;/span&gt;&lt;/p&gt;
+&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-size: 0.9375rem;&quot;&gt;Hier erfahren Sie, wie Sie über den Status Ihres Tickets informiert werden:&amp;nbsp;&lt;a href=&quot;https://www.example.com&amp;amp;group=0#toc-4&quot; target=&quot;_blank&quot;&gt;Datenbank beobachten&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</intro>
+<comments>0</comments>
+<requiredentries>0</requiredentries>
+<requiredentriestoview>0</requiredentriestoview>
+<maxentries>0</maxentries>
+<rssarticles>0</rssarticles>
+<approval>0</approval>
+<manageapproved>1</manageapproved>
+<defaultsortdir>0</defaultsortdir>
+<defaultsort>0</defaultsort>
+</settings>
+
+<field>
+<type>menu</type>
+<name>iPad-Aufbewahrung</name>
+<required>1</required>
+<param1>iPad-Koffer 1
+iPad-Koffer 2
+iPad-Koffer 3
+iPad-Wagen 1
+iPad-Wagen 2
+iPad-Wagen 3
+Allgemein</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>iPad-Nummer(n)</name>
+<required>0</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Status</name>
+<required>0</required>
+<param1>Offen
+Bearbeitung
+Erledigt</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Rückmeldung</name>
+<required>0</required>
+</field>
+
+<field>
+<type>textarea</type>
+<name>Beschreibung</name>
+<required>1</required>
+<param2>60</param2>
+<param3>10</param3>
+<param4>1</param4>
+<param5>0</param5>
+</field>
+
+</preset>

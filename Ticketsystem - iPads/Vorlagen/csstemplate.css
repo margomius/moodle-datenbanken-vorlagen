@@ -1,0 +1,246 @@
+/* Support-Felder werden standardmäßig ausgeblendet und durch Javascript für Trainer:innen eingeblendet */
+.path-mod-data .adminonly {
+    display: none;
+}
+
+/* "Eintrag hinzufügen" wird farblich hervorgehoben" */
+.nav-link[title="Eintrag hinzufügen"] {
+    font-size: 0;
+}
+
+.nav-link[title="Eintrag hinzufügen"]:after {
+    content: 'Ticket hinzufügen';
+    font-size: .9375rem;
+}
+
+.nav-link[href*="edit"] {
+    background-color: #e1f4dab8;
+    font-size: 0;
+}
+
+.nav-link[href*="edit"]:after {
+    content: '📝 Ticket hinzufügen';
+    font-size: .9375rem;
+}
+
+/* Tabelle */
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+table.table-bordered>tbody>tr>td {
+    border: 1px solid #99cdd5;
+}
+
+#mydatatable {
+    margin-bottom: 15px !important;
+}
+
+​table.table tr td p {
+    margin-bottom: 0;
+}
+
+input[value="Ins Portfolio exportieren"] {
+    margin-top: 0.25rem;
+}
+
+
+/* Farbige Zeilen abhängig vom Ticket-Status */
+tbody>.Offen {
+    background-color: #ffe0cc !important;
+}
+
+tbody>tr.Offen:hover {
+    background-color: #ffd8c0 !important;
+}
+
+tbody>.Bearbeitung {
+    background-color: #fff5cc !important;
+}
+
+tbody>tr.Bearbeitung:hover {
+    background-color: #FFF2BC !important;
+}
+
+tbody>.Erledigt {
+    background-color: #ddecd2 !important;
+}
+
+tbody>tr.Erledigt:hover {
+    background-color: #d4e8c7 !important;
+}
+
+.Offen .card-header {
+    background-color: #ffd0b3 !important;
+}
+
+.Bearbeitung .card-header {
+    background-color: #fff0b3 !important;
+}
+
+.Erledigt .card-header {
+    background-color: #cbe3bb !important;
+}
+
+/* Badges für den Ticket-Status in der Einzelansicht */
+.badge-info.Offen {
+    background-color: #ffd0b3;
+    color: #000;
+    font-size: 100%;
+    font-weight: 400;
+}
+
+.badge-info.Bearbeitung {
+    background-color: #fff0b3;
+    color: #000;
+    font-size: 100%;
+    font-weight: 400;
+}
+
+.badge-info.Erledigt {
+    background-color: #cbe3bb;
+    color: #000;
+    font-size: 100%;
+    font-weight: 400;
+}
+
+/* CSS for dropdown-menu in list view */
+#region-main .dropdown-menu .icon.fa.fa-search-plus.fa-fw::after {
+    content: ' Einzelansicht';
+    font-family: 'Titillium Web', Segoe UI, sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-cog.fa-fw::after {
+    content: ' Bearbeiten';
+    font-family: 'Titillium Web', Segoe UI, sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-pencil.fa-fw::after {
+    content: ' Bearbeiten';
+    font-family: 'Titillium Web', Segoe UI, sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-trash.fa-fw::after {
+    content: ' Löschen';
+    font-family: 'Titillium Web', Segoe UI, sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-ban.fa-fw.iconsmall::after {
+    content: ' Nicht freigeben';
+    font-family: 'Titillium Web', Segoe UI, sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-thumbs-up.fa-fw.iconsmall::after {
+    content: ' Zulassen';
+    font-family: 'Titillium Web', Segoe UI, sans-serif;
+}
+
+#region-main .dropdown-item:empty {
+    display: none;
+}
+
+.dropdown-item:not(.text-truncate) {
+    white-space: nowrap;
+}
+
+/* Headlines */
+#region-main h4 {
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    font-weight: 300;
+}
+
+/* responsive images */
+#page-mod-data-view img.list_picture {
+    max-width: 100%;
+}
+
+/* Button color */
+#region-main .btn-outline-primary {
+    color: #008196 !important;
+    border-color: #008196 !important;
+}
+
+#region-main .btn-outline-primary:hover,
+#region-main .btn-outline-primary:active,
+#region-main .btn-outline-primary:focus {
+    background-color: #008196 !important;
+    color: #ffffff !important;
+}
+
+#region-main .dropdown-item:hover .icon {
+    color: #fff;
+}
+
+/* Header new entry */
+#page-mod-data-edit #region-main .card-header {
+    background-color: #008196 !important;
+}
+
+#page-mod-data-edit #region-main .card-header h4 {
+    color: #ffffff;
+}
+
+#region-main .dropdown-item:hover {
+    background-color: #008196;
+}
+
+/* Headlines formfields */
+#region-main h6 {
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-bottom: 0.7em;
+}
+
+/* margin after Atto editor */
+.mod-data-input:has(.editor_atto_wrap) {
+    margin-bottom: 20px;
+}
+
+/* Edit Icons color and bigger size */
+#region-main .card-header .icon {
+    color: #ffffff;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Icons of dropdown */
+#region-main .dropdown-item .icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Style of table header in list view */
+#region-main th {
+    background-color: #008196;
+    color: #ffffff;
+}
+
+#region-main:has(.nav-tabs > .nav-item:first-of-type > .nav-link.active) .datapreferences {
+    display: none !important;
+}
+
+#region-main>div[role=main]>br:first-of-type {
+    display: none
+}
+
+/* Druckversion */
+@media print {
+
+    #page-header,
+    #page-footer,
+    .intro,
+    .nav-tabs,
+    .datapreferences,
+    .btn-secondary,
+    i.icon,
+    .comment-area,
+    .pagination,
+    input,
+    .footnote,
+    .activity-navigation {
+        display: none;
+    }
+}
