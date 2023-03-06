@@ -2,7 +2,6 @@
 
 <settings>
 <intro>&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-size: 0.9375rem;&quot;&gt;Melden Sie ein Problem/Wunsch über &lt;a href=&quot;https://www.example.com&quot; style=&quot;background-color: #e1f4dab8;&quot;&gt;&amp;nbsp;📝&amp;nbsp;&lt;span&gt;Ticket hinzufügen&lt;/span&gt;&amp;nbsp;&lt;/a&gt;. In der Listenansicht sehen Sie, ob ein Ticket &lt;span class=&quot;badge badge-danger&quot;&gt;Offen&lt;/span&gt;, in &lt;span class=&quot;badge badge-warning&quot;&gt;Bearbeitung&lt;/span&gt; oder &lt;span class=&quot;badge badge-success&quot;&gt;Erledigt&lt;/span&gt; ist.&lt;/span&gt;&lt;/p&gt;
-&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;font-size: 0.9375rem;&quot;&gt;Hier erfahren Sie, wie Sie über den Status Ihres Tickets informiert werden:&amp;nbsp;&lt;a href=&quot;https://www.example.com&amp;amp;group=0#toc-4&quot; target=&quot;_blank&quot;&gt;Datenbank beobachten&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</intro>
 <comments>0</comments>
 <requiredentries>0</requiredentries>
 <requiredentriestoview>0</requiredentriestoview>
