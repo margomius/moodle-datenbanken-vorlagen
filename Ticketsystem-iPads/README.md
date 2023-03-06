@@ -19,3 +19,4 @@ Download Preset: [Ticketsystem-iPads.zip](https://github.com/margomius/moodle-da
 
 Inspiration, code snippets, etc.
 * Stefan TRMSC (https://github.com/TRMSC/moodle-ticketsystem-database-template)
+* Stefan Fassnacht (https://twitter.com/FassnachtStefan)
