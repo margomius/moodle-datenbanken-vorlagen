@@ -2,7 +2,7 @@
 
 ## Download
 
-Download Preset: [Nachhilfe-Privat-suchen-und-anbieten.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Nachhilfe-Privat-suchen-und-anbieten/Nachhilfe-Privat-suchen-und-anbieten.zip).
+Download Preset: [Nachhilfe-Privat-suchen-und-anbieten.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Nachhilfe-Privat-suchen-und-anbieten/Nachhilfe-Privat-suchen-und-anbieten.zip)
 
 ## Features
 
