@@ -218,10 +218,6 @@ tbody>tr.Erledigt:hover {
     color: #ffffff;
 }
 
-#region-main:has(.nav-tabs > .nav-item:first-of-type > .nav-link.active) .datapreferences {
-    display: none !important;
-}
-
 #region-main>div[role=main]>br:first-of-type {
     display: none
 }

@@ -2,7 +2,7 @@
 
 ## Download
 
-Download Preset: [iPad-Apps.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/iPad-Apps/iPad-Apps.zip)
+Download Preset: [iPad-Apps-Vorlagensatz.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/iPad-Apps/iPad-Apps-Vorlagensatz.zip)
 
 ## Features
 

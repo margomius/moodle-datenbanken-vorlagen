@@ -2,7 +2,7 @@
 
 ## Download
 
-Download Preset: [Datenbank-Sammlung.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Datenbank-Sammlung/Datenbank-Sammlung.zip)
+Download Preset: [Datenbank-Sammlung-Vorlagensatz.zip](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Datenbank-Sammlung/Datenbank-Sammlung-Vorlagensatz.zip)
 
 ## Description
 
