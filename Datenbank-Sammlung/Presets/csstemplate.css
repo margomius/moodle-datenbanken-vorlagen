@@ -1,0 +1,28 @@
+#region-main .dropdown-menu .icon.fa.fa-search-plus.fa-fw::after {
+content: " Einzelansicht";
+font-family: "Titillium Web",Segoe UI,sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-cog.fa-fw::after {
+content: " Bearbeiten";
+font-family: "Titillium Web",Segoe UI,sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-trash.fa-fw::after {
+content: " Löschen";
+font-family: "Titillium Web",Segoe UI,sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-ban.fa-fw.iconsmall::after {
+content: " Nicht freigeben";
+font-family: "Titillium Web",Segoe UI,sans-serif;
+}
+
+#region-main .dropdown-menu .icon.fa.fa-thumbs-up.fa-fw.iconsmall::after {
+content: " Zulassen";
+font-family: "Titillium Web",Segoe UI,sans-serif;
+}
+
+#region-main .dropdown-item:empty {
+display:none;
+}

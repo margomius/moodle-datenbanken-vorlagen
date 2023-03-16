@@ -1,0 +1,281 @@
+<preset>
+
+<settings>
+<intro></intro>
+<comments>0</comments>
+<requiredentries>0</requiredentries>
+<requiredentriestoview>0</requiredentriestoview>
+<maxentries>0</maxentries>
+<rssarticles>0</rssarticles>
+<approval>0</approval>
+<manageapproved>1</manageapproved>
+<defaultsortdir>0</defaultsortdir>
+<defaultsort>0</defaultsort>
+</settings>
+
+<field>
+<type>menu</type>
+<name>Art</name>
+<required>0</required>
+<param1>Suche
+Biete
+Fahrgemeinschaft</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Wohnort</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Montag_Von</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Montag_Nach</name>
+<required>0</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Montag_Hinfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>menu</type>
+<name>Montag_Rückfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Montag_Anmerkung</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Dienstag_Von</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Dienstag_Nach</name>
+<required>0</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Dienstag_Hinfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>menu</type>
+<name>Dienstag_Rückfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Dienstag_Anmerkung</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Mittwoch_Von</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Mittwoch_Nach</name>
+<required>0</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Mittwoch_Hinfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>menu</type>
+<name>Mittwoch_Rückfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Mittwoch_Anmerkung</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Donnerstag_Von</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Donnerstag_Nach</name>
+<required>0</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Donnerstag_Hinfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>menu</type>
+<name>Donnerstag_Rückfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Donnerstag_Anmerkung</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Freitag_Von</name>
+<required>0</required>
+</field>
+
+<field>
+<type>text</type>
+<name>Freitag_Nach</name>
+<required>0</required>
+</field>
+
+<field>
+<type>menu</type>
+<name>Freitag_Hinfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>menu</type>
+<name>Freitag_Rückfahrt</name>
+<required>0</required>
+<param1>1. Stunde
+2. Stunde
+3. Stunde
+4. Stunde
+5. Stunde
+6. Stunde
+7. Stunde
+8. Stunde
+9. Stunde
+10. Stunde</param1>
+</field>
+
+<field>
+<type>text</type>
+<name>Freitag_Anmerkung</name>
+<required>0</required>
+</field>
+
+</preset>

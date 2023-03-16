@@ -1,0 +1,12 @@
+.trnormal td {
+   background-color: #FFFFFF;
+ }
+ .trhighlight td {
+   background-color: #cccccc;
+ }
+
+img {
+    max-width: 100%;
+    max-height: 600px;
+    height: auto;      
+}

@@ -1,0 +1,18 @@
+</tbody>
+</table> <!-- Optional JavaScript --> <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'
+    integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo'
+    crossorigin='anonymous'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'
+    integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1'
+    crossorigin='anonymous'></script> <!-- DataTables JavaScript -->
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js'></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js'></script>
+<script type='text/javascript'
+    src='https://cdn.datatables.net/v/bs4/jq-3.6.0/jszip-2.5.0/dt-1.13.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/r-2.4.0/datatables.min.js'></script>
+<script> $(document).ready(function () { $('#mydatatable').DataTable({ responsive: true, paging: false, autoWidth: false, info: false, dom: 'frtipB', buttons: [{ extend: 'copy', text: 'Kopieren', className: 'btn btn-secondary mx-1 mb-1' }, { extend: 'excel', text: 'Excel', className: 'btn btn-secondary mr-1 mb-1' }, { extend: 'csvHtml5', text: 'CSV', fieldBoundary: '', fieldSeparator: ';', className: 'btn btn-secondary mr-1 mb-1' }, { extend: 'pdf', text: 'PDF', className: 'btn btn-secondary mr-1 mb-1' }, { extend: 'print', text: 'Drucken', className: 'btn btn-secondary mr-1 mb-1' }], oLanguage: { 'sSearch': 'Suche' } }); }); </script>
+<style>
+    div.dt-buttons {
+        float: right;
+    }
+</style>

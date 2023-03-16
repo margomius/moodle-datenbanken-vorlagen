@@ -1,0 +1,281 @@
+<div class="container-fluid my-3">
+    <div class="[[Art]] card">
+        <div class="card-body">
+            <h4 class="mt-0"><strong>##user##</strong> 🌳 <span class="badge badge-info [[Art]]">[[Art]]</span> <span class="pull-right"><em>##approvalstatus##</em>&ensp;##edit####delete####approve####disapprove##</span></h4>
+            <p style="margin-bottom: 0;"><strong>Hinzugefügt/Aktualisiert: </strong><br>##timemodified##</p>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <table class="table table-bordered hover display compact sm order-column" style="width:100%">
+        <thead class="table-info">
+            <tr>
+                <th>Stunde</th>
+                <th>Montag</th>
+                <th>Dienstag</th>
+                <th>Mittwoch</th>
+                <th>Donnerstag</th>
+                <th>Freitag</th>
+            </tr>
+        </thead>
+        <tbody id="stundenplan">
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>1. Stunde</strong><br>
+                        7:45 - 8:30</div>
+                </td>
+                <td id="Montag-1-Stunde">
+                    <div id="Montag-[[Montag_Hinfahrt]]" class="eingabe hinfahrt"><strong>Hinfahrt: </strong>Zur <i
+                            class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Montag_Hinfahrt]]</span><br>von <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Montag_Von]]<br>
+                    </div>
+                    <div id="Montag-[[Montag_Rückfahrt]]" class="eingabe rückfahrt"><strong>Rückfahrt: </strong>Nach der
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Montag_Rückfahrt]]</span><br>nach
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Montag_Nach]]
+                        <br>
+                    </div>
+                </td>
+                <td id="Dienstag-1-Stunde">
+                    <div id="Dienstag-[[Dienstag_Hinfahrt]]" class="eingabe hinfahrt"><strong>Hinfahrt: </strong>Zur <i
+                            class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Dienstag_Hinfahrt]]</span><br>von <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Dienstag_Von]]<br>
+                    </div>
+                    <div id="Dienstag-[[Dienstag_Rückfahrt]]" class="eingabe rückfahrt"><strong>Rückfahrt: </strong>Nach
+                        der <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Dienstag_Rückfahrt]]</span><br>
+                        nach <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Dienstag_Nach]]
+                        <br>
+                    </div>
+                </td>
+                <td id="Mittwoch-1-Stunde">
+                    <div id="Mittwoch-[[Mittwoch_Hinfahrt]]" class="eingabe hinfahrt"><strong>Hinfahrt: </strong>Zur <i
+                            class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Mittwoch_Hinfahrt]]</span><br>von <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Mittwoch_Von]]<br>
+                    </div>
+                    <div id="Mittwoch-[[Mittwoch_Rückfahrt]]" class="eingabe rückfahrt"><strong>Rückfahrt: </strong>Nach
+                        der <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Mittwoch_Rückfahrt]]</span><br>
+                        nach <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Mittwoch_Nach]]
+                        <br>
+                    </div>
+                </td>
+                <td id="Donnerstag-1-Stunde">
+                    <div id="Donnerstag-[[Donnerstag_Hinfahrt]]" class="eingabe hinfahrt"><strong>Hinfahrt: </strong>Zur
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Donnerstag_Hinfahrt]]</span><br>von
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Donnerstag_Von]]<br>
+                    </div>
+                    <div id="Donnerstag-[[Donnerstag_Rückfahrt]]" class="eingabe rückfahrt"><strong>Rückfahrt:
+                        </strong>Nach der
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Donnerstag_Rückfahrt]]</span><br>
+                        nach <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Donnerstag_Nach]]
+                        <br>
+                    </div>
+                </td>
+                <td id="Freitag-1-Stunde">
+                    <div id="Freitag-[[Freitag_Hinfahrt]]" class="eingabe hinfahrt"><strong>Hinfahrt: </strong>Zur <i
+                            class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Freitag_Hinfahrt]]</span><br>von <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Freitag_Von]]<br>
+                    </div>
+                    <div id="Freitag-[[Freitag_Rückfahrt]]" class="eingabe rückfahrt"><strong>Rückfahrt: </strong>Nach
+                        der <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span>[[Freitag_Rückfahrt]]</span><br>nach
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        [[Freitag_Nach]]
+                        <br>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>2. Stunde</strong><br>
+                        08:30 - 9:15</div>
+                <td id="Zelle-Montag-2-Stunde"></td>
+                <td id="Zelle-Dienstag-2-Stunde"></td>
+                <td id="Zelle-Mittwoch-2-Stunde"></td>
+                <td id="Zelle-Donnerstag-2-Stunde"></td>
+                <td id="Zelle-Freitag-2-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>3. Stunde</strong><br>
+                        09:35 - 10:20</div>
+                <td id="Zelle-Montag-3-Stunde"></td>
+                <td id="Zelle-Dienstag-3-Stunde"></td>
+                <td id="Zelle-Mittwoch-3-Stunde"></td>
+                <td id="Zelle-Donnerstag-3-Stunde"></td>
+                <td id="Zelle-Freitag-3-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>4. Stunde</strong><br>
+                        10:20 - 11:05</div>
+                <td id="Zelle-Montag-4-Stunde"></td>
+                <td id="Zelle-Dienstag-4-Stunde"></td>
+                <td id="Zelle-Mittwoch-4-Stunde"></td>
+                <td id="Zelle-Donnerstag-4-Stunde"></td>
+                <td id="Zelle-Freitag-4-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>5. Stunde</strong><br>
+                        11:30 - 12:15</div>
+                <td id="Zelle-Montag-5-Stunde"></td>
+                <td id="Zelle-Dienstag-5-Stunde"></td>
+                <td id="Zelle-Mittwoch-5-Stunde"></td>
+                <td id="Zelle-Donnerstag-5-Stunde"></td>
+                <td id="Zelle-Freitag-5-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>6. Stunde</strong><br>
+                        12:15 - 13:00</div>
+                <td id="Zelle-Montag-6-Stunde"></td>
+                <td id="Zelle-Dienstag-6-Stunde"></td>
+                <td id="Zelle-Mittwoch-6-Stunde"></td>
+                <td id="Zelle-Donnerstag-6-Stunde"></td>
+                <td id="Zelle-Freitag-6-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>7. Stunde</strong><br>
+                        13:50 - 14:35</div>
+                <td id="Zelle-Montag-7-Stunde"></td>
+                <td id="Zelle-Dienstag-7-Stunde"></td>
+                <td id="Zelle-Mittwoch-7-Stunde"></td>
+                <td id="Zelle-Donnerstag-7-Stunde"></td>
+                <td id="Zelle-Freitag-7-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>8. Stunde</strong><br>
+                        14:35 - 15:20</div>
+                <td id="Zelle-Montag-8-Stunde"></td>
+                <td id="Zelle-Dienstag-8-Stunde"></td>
+                <td id="Zelle-Mittwoch-8-Stunde"></td>
+                <td id="Zelle-Donnerstag-8-Stunde"></td>
+                <td id="Zelle-Freitag-8-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>9. Stunde</strong><br>
+                        15:30 - 16:15</div>
+                <td id="Zelle-Montag-9-Stunde"></td>
+                <td id="Zelle-Dienstag-9-Stunde"></td>
+                <td id="Zelle-Mittwoch-9-Stunde"></td>
+                <td id="Zelle-Donnerstag-9-Stunde"></td>
+                <td id="Zelle-Freitag-9-Stunde"></td>
+            </tr>
+            <tr>
+                <td class="[[Art]]">
+                    <div><strong>10. Stunde</strong><br>
+                        16:15 - 17:00</div>
+                <td id="Zelle-Montag-10-Stunde"></td>
+                <td id="Zelle-Dienstag-10-Stunde"></td>
+                <td id="Zelle-Mittwoch-10-Stunde"></td>
+                <td id="Zelle-Donnerstag-10-Stunde"></td>
+                <td id="Zelle-Freitag-10-Stunde"></td>
+            </tr>
+            <tr style="background-color: #00000008;">
+                <td>
+                    <div><strong>Anmerkungen</strong><br>
+                    </div>
+                <td>
+                    <div class="eingabe"><span>[[Montag_Anmerkung]]</span></div>
+                </td>
+                <td>
+                    <div class="eingabe"><span>[[Dienstag_Anmerkung]]</span></div>
+                </td>
+                <td>
+                    <div class="eingabe"><span>[[Mittwoch_Anmerkung]]</span></div>
+                </td>
+                <td>
+                    <div class="eingabe"><span>[[Donnerstag_Anmerkung]]</span></div>
+                </td>
+                <td>
+                    <div class="eingabe"><span>[[Freitag_Anmerkung]]</span></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<style>
+    .table th,
+    .table td {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+</style>
+<script>
+    const spanElemente = document.querySelectorAll("span");
+    spanElemente.forEach(span => {
+        if (span.textContent.trim() === "") {
+            const parentElement = span.parentNode;
+            if (parentElement.classList.contains("eingabe")) {
+                parentElement.style.display = "none";
+            }
+        }
+    });
+
+    // Schleife über alle Wochentage
+    var wochentage = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+    for (var i = 0; i < wochentage.length; i++) {
+        var wochentag = wochentage[i];
+        // Schleife über alle Stunden
+        for (var j = 1; j <= 10; j++) {
+            var stunde = j + ". Stunde";
+            var element = document.getElementById(wochentag + "-" + stunde);
+            if (element) {
+                var newId = wochentag + "-" + stunde.replace(". ", "-");
+                element.id = newId;
+            }
+        }
+    }
+
+    // Iteriere über die Wochentage
+    ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'].forEach(function (tag) {
+        // Iteriere über die Stunden
+        for (var stunde = 1; stunde <= 10; stunde++) {
+            // Überprüfe, ob das <div>-Element mit der ID "[Tag]-[Stunde]-Stunde" existiert
+            var divId = tag + '-' + stunde + '-Stunde';
+            var divElement = document.getElementById(divId);
+            if (divElement !== null) {
+                // Wenn das Element existiert, verschiebe es in die <td>-Zelle mit der ID "Zelle-[Tag]-[Stunde]-Stunde"
+                var tdId = 'Zelle-' + divId;
+                var tdElement = document.getElementById(tdId);
+                if (tdElement !== null) {
+                    tdElement.appendChild(divElement);
+                }
+            }
+        }
+    });
+
+    const tdElements = document.querySelectorAll('td');
+
+    tdElements.forEach(td => {
+        const divHinfahrt = td.querySelector('.hinfahrt');
+        const divRueckfahrt = td.querySelector('.rückfahrt');
+        if (divHinfahrt && divHinfahrt.style.display !== 'none') {
+            td.classList.add('hinfahrt');
+        }
+        if (divRueckfahrt && divRueckfahrt.style.display !== 'none') {
+            td.classList.add('rückfahrt');
+        }
+    });
+
+
+
+</script>
