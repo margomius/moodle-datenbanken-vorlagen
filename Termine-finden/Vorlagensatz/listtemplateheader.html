@@ -1,0 +1,1123 @@
+<script>
+    // Termine finden v1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
+    // GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    //
+    // Dieser Code wurde mit Unterstützung von ChatGPT geschrieben und ist möglicherweise nicht perfekt.
+    // Ich empfehle, den Code zu überprüfen, bevor er eingesetzt oder verändert wird.
+    // Ich übernehme keine Verantwortung für Fehler oder Probleme, die durch Einsetzen des Codes verursacht werden könnten.
+
+
+
+    // Hole die aktuelle URL
+    var currentUrl = window.location.href;
+
+    // Überprüfe, ob die URL auf "view.php" endet
+    if (currentUrl.endsWith('view.php')) {
+        // Wenn ja, soll nichts passieren
+    } else {
+        // Überprüfe, ob die URL den Parameter "perpage" mit dem Wert "1000" enthält
+        if (currentUrl.indexOf('perpage=1000') === -1) {
+            // Überprüfe, ob der Parameter "perpage" in der URL vorhanden ist
+            if (currentUrl.indexOf('perpage=') !== -1) {
+                // Wenn der Parameter gefunden wurde, ändere seinen Wert auf "1000"
+                currentUrl = currentUrl.replace(/perpage=\d+/, 'perpage=1000');
+            } else {
+                // Andernfalls füge den Parameter hinzu
+                if (currentUrl.indexOf('?') === -1) {
+                    currentUrl += '?perpage=1000';
+                } else {
+                    currentUrl += '&perpage=1000';
+                }
+            }
+
+            // Rufe die aktualisierte URL auf
+            window.location.href = currentUrl;
+        }
+    }
+
+</script>
+
+<!-- ++++++++++ html2canvas laden, um Screenshot zu kopieren -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+<div class="container mt-4">
+    <a class="btn btn-secondary mb-1 pull-right" data-toggle="collapse" href="#collapsePreference" role="button"
+        aria-expanded="false" aria-pressed="true" aria-controls="collapsePreference">
+        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Suche</a>
+    <a id="video-tutorial" class="btn btn-lila mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
+        aria-expanded="false" aria-controls="collapseVideo"><i class="fa fa-youtube"
+            aria-hidden="true"></i>&nbsp;&nbsp;Video-Tutorial</a>
+    <button id="anleitung" class="btn btn-secondary mb-1" onclick="AnleitungEinblenden(); return false;"><i
+            class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;Erklärungen einblenden </button>
+    <div class="collapse mt-2" id="collapsePreference">
+        <div id="PreferenceContainer" class="card card-body border border-secondary"></div>
+    </div>
+    <div id="EnableVideo">
+        <div id="collapseVideo" class="collapse mt-2">
+            <div class="card card-body">
+                <div id="insertIframe" class="iframe-container">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-7">
+                            <h6>&nbsp; Einträge: &nbsp;<span id="AllePersonen"
+                                    class="badge badge-light badge-lg"></span></h6>
+                        </div>
+                        <div class="col-5 d-flex align-items-center justify-content-end">
+                            <button id="deactivateAll" type="button" class="btn btn-sm btn-lila mr-2 pull-right">
+                                <span class="d-none d-sm-block"><i class="fa fa-square-o"></i>&nbsp;Keine</span><span
+                                    class="d-sm-none"><i class="fa fa-square-o"></i></span></button>
+                            <button id="activateAll" type="button" class="btn btn-sm btn-lila mr-3 pull-right">
+                                <span class="d-none d-sm-block"><i
+                                        class="fa fa-check-square-o"></i>&nbsp;Alle</span><span class="d-sm-none"><i
+                                        class="fa fa-check-square-o"></i></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="Name" class="card-body"></div>
+            </div>
+            <div class="alert alert-dark anleitung mb-0" role="alert">Klicke auf eine Person, um sie im Stundenplan
+                auszublenden. Klicke auf die Buttons in der Kopfzeile, um alle Personen auszublenden <i
+                    class="fa fa-square-o"></i> / einzublenden <i class="fa fa-check-square-o"></i>.
+            </div>
+        </div>
+        <div id="Einstellungen" class="col-md-4 mb-3 align-self-end">
+            <div class="alert alert-dark anleitung mb-0" role="alert">Die Termine mit den meisten
+                Verfügbarkeiten
+                werden grün hinterlegt. Termine mit den zweitmeisten Verfügbarkeiten werden gelb hinterlegt.
+            </div>
+            <button id="Highlights" type="button" class="btn btn-sm btn-primary btn-block">
+                <i class="fa fa-star"></i> &nbsp; Beliebte Termine hervorheben</button>
+            </button>
+            <button id="avatar" type="button" class="btn btn-sm btn-lila btn-block mt-1">
+                <i class="fa fa-user"></i> &nbsp; Icons statt Namen anzeigen</button>
+            </button>
+            <button id="groupButton" type="button" class="btn btn-sm btn-lila btn-block mt-1">
+                <i class="fa fa-users"></i> &nbsp; Nur Summen anzeigen</button>
+            </button>
+        </div>
+    </div>
+</div>
+<div id="stundenplanContainer" class="container">
+    <div class="alert alert-dark anleitung mb-0" role="alert">Klicke auf eine Stunde/Pause im Stundenplan, um unter der
+        Tabelle eine
+        Zusammenfassung des Termins angezeigt zu bekommen. <br>
+        Klicke auf den Namen einer Person, um zu ihrer Einzelansicht zu gelangen.</div>
+    <table id="stundenplan" class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th id="d-spalte-0" style="padding-left: 0.75rem;" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-1" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-2" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-3" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-4" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-5" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-6" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-7" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-0" style="padding-left: 0.6rem;" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-1" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-2" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-3" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-4" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-5" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-6" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-7" class="text-center d-table-cell d-sm-none"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="Zeile01">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile01"></strong><br>
+                        <span id="ZeitZeile01"></span>
+                    </div>
+                </td>
+                <td id="Mo-1" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-1" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-1" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-1" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-1" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-1" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-1" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile02">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile02"></strong><br>
+                        <span id="ZeitZeile02"></span>
+                    </div>
+                </td>
+                <td id="Mo-2" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-2" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-2" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-2" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-2" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-2" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-2" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile03">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile03"></strong><br>
+                        <span id="ZeitZeile03"></span>
+                    </div>
+                </td>
+                <td id="Mo-3" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-3" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-3" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-3" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-3" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-3" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-3" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile04">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile04"></strong><br>
+                        <span id="ZeitZeile04"></span>
+                    </div>
+                </td>
+                <td id="Mo-4" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-4" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-4" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-4" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-4" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-4" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-4" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile05">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile05"></strong><br>
+                        <span id="ZeitZeile05"></span>
+                    </div>
+                </td>
+                <td id="Mo-5" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-5" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-5" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-5" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-5" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-5" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-5" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile06">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile06"></strong><br>
+                        <span id="ZeitZeile06"></span>
+                    </div>
+                </td>
+                <td id="Mo-6" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-6" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-6" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-6" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-6" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-6" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-6" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile07">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile07"></strong><br>
+                        <span id="ZeitZeile07"></span>
+                    </div>
+                </td>
+                <td id="Mo-7" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-7" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-7" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-7" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-7" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-7" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-7" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile08">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile08"></strong><br>
+                        <span id="ZeitZeile08"></span>
+                    </div>
+                </td>
+                <td id="Mo-8" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-8" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-8" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-8" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-8" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-8" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-8" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile09">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile09"></strong><br>
+                        <span id="ZeitZeile09"></span>
+                    </div>
+                </td>
+                <td id="Mo-9" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-9" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-9" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-9" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-9" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-9" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-9" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile10">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile10"></strong><br>
+                        <span id="ZeitZeile10"></span>
+                    </div>
+                </td>
+                <td id="Mo-10" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-10" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-10" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-10" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-10" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-10" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-10" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile11">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile11"></strong><br>
+                        <span id="ZeitZeile11"></span>
+                    </div>
+                </td>
+                <td id="Mo-11" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-11" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-11" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-11" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-11" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-11" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-11" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile12">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile12"></strong><br>
+                        <span id="ZeitZeile12"></span>
+                    </div>
+                </td>
+                <td id="Mo-12" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-12" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-12" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-12" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-12" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-12" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-12" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile13">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile13"></strong><br>
+                        <span id="ZeitZeile13"></span>
+                    </div>
+                </td>
+                <td id="Mo-13" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-13" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-13" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-13" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-13" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-13" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-13" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile14">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile14"></strong><br>
+                        <span id="ZeitZeile14"></span>
+                    </div>
+                </td>
+                <td id="Mo-14" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-14" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-14" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-14" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-14" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-14" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-14" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile15">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile15"></strong><br>
+                        <span id="ZeitZeile15"></span>
+                    </div>
+                </td>
+                <td id="Mo-15" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-15" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-15" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-15" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-15" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-15" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-15" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile16">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile16"></strong><br>
+                        <span id="ZeitZeile16"></span>
+                    </div>
+                </td>
+                <td id="Mo-16" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-16" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-16" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-16" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-16" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-16" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-16" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+            <tr id="Zeile17">
+                <td style="padding-left: 0.7rem; padding-right: 0.5rem;">
+                    <div><strong id="TextZeile17"></strong><br>
+                        <span id="ZeitZeile17"></span>
+                    </div>
+                </td>
+                <td id="Mo-17" class="text-center spalte-1" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Di-17" class="text-center spalte-2" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Mi-17" class="text-center spalte-3" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Do-17" class="text-center spalte-4" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Fr-17" class="text-center spalte-5" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="Sa-17" class="text-center spalte-6" role="button">
+                    <div class="cell-content"></div>
+                </td>
+                <td id="So-17" class="text-center spalte-7" role="button">
+                    <div class="cell-content"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col text-right">
+            <button id="screenshotTabelle" type="button" class="btn btn-lila mb-1 ">
+                <i class="fa fa-calendar"></i> Screenshot Tabelle
+            </button>
+        </div>
+    </div>
+    <div id="Klicke" class="alert alert-info my-2 text-center" role="alert">Klicke auf eine Zelle in der Tabelle, um
+        Details zu einem Termin zu sehen!
+    </div>
+</div>
+<div id="selectedContainer" class="container mb-3 mt-2" style="display: none;">
+    <div class="row">
+        <div class="col-sm text-right">
+            <div class="btn-group mb-1" role="group">
+                <button id="buttonAnmerkung" type="button" class="btn btn-lila mb-1 mr-1">
+                    <i class="fa fa-comment"></i> Anmerkungen ein/ausblenden
+                </button>
+                <button id="copy" type="button" class="btn btn-lila mb-1 mr-1">
+                    <i class="fa fa-clipboard"></i> Zusammenfassung kopieren
+                </button>
+                <button id="screenshot" type="button" class="btn btn-lila mb-1 ">
+                    <i class="fa fa-picture-o"></i> Screenshot Zusammenfassung
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h6>&nbsp; Ausgewählter Termin</h6>
+                        </div>
+                    </div>
+                </div>
+                <div id="achtung" class="alert alert-warning mb-2" role="alert"><strong>Hinweis:</strong>&nbsp;&nbsp;Der
+                    ausgewählte Termin gehört nicht zu den beliebtesten. Die beliebtesten Termine sind grün
+                    hervorgehoben.</div>
+                <div id="selectedContent" class="card-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Einzelansichten" class="container mt-3 mb-2">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h6>&nbsp; Einzelansichten</h6>
+                        </div>
+                    </div>
+                </div>
+                <div id="EinzelansichtContent" class="card-body">
+                </div>
+            </div>
+            <div class="alert alert-dark anleitung mb-2" role="alert">Wähle eine Personen aus, um die jeweilige
+                Einzelansicht zu öffnen. Eigene Einträge können dort bearbeitet oder gelöscht werden.</div>
+        </div>
+    </div>
+</div>
+<div id="deleteContainer" class="container adminonly mt-3 mb-2">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h6>&nbsp; Einträge löschen (Trainer:innen)</h6>
+                        </div>
+                    </div>
+                </div>
+                <div id="deleteContent" class="card-body">
+                </div>
+            </div>
+            <div class="alert alert-dark anleitung mb-2" role="alert">Wähle Personen aus und klicke auf "Auswahl
+                löschen".
+                Alternativ gibt es unten den Button "Alle auswählen"/"Nichts auswählen"</div>
+        </div>
+    </div>
+</div>
+<div id="TrainerContainer" class="container adminonly mt-6">
+    <div class="card">
+        <div class="card-footer text-center text-muted">
+            Nur für Trainer:innen sichtbar
+        </div>
+        <div class="card-body px-3 mt-2 px-md-6">
+            <h4 class="card-title mt-2">Terminfindung konfigurieren</h4>
+            <p class="card-text">
+                In dieser Datenbank-Vorlage lassen sich die Anzahl und Inhalte der Spalten und Zeilen konfigurieren.<br>
+                Der <i class="fa fa-cog" aria-hidden="true"></i> – Button führt direkt zur Konfiguration (Alternativ:
+                "Vorlagen" > "JavaScript").<br>
+                Über den <i class="fa fa-undo" aria-hidden="true"></i> – Button lässt sich die Standard-Konfiguration anzeigen, bearbeiten und kopieren.
+            </p>
+            <a id="config" class="btn btn-lila mb-1" href="#"><i class="fa fa-cog"
+                    aria-hidden="true"></i>&nbsp;&nbsp;Terminfindung konfigurieren</a>
+            <a id="ShowReset" class="btn btn-secondary mb-1" href="#"><i class="fa fa-undo"
+                    aria-hidden="true"></i>&nbsp;&nbsp;Standard Konfiguration anzeigen</a>
+        </div>
+        <div id="resetConfig" class="card-body px-3 px-md-6">
+                <p class="card-text">Hier ist die Standard-Konfiguration des Vorlagensatzes.<br>
+                    Diese kann über den Button kopiert und unter "Terminfindung konfigurieren" eingefügt werden.</p>
+                <div class="row">
+                <div class="col-md-8">
+                    <textarea id="OrigConfig" class="form-control form-control-sm input-block-level mt-2 mb-2" placeholder="Fehler: Konfiguration konnte nicht geladen werden!" style="height: 12em;"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <button id="copyConfig" type="button" class="btn btn-lila mt-2">Konfiguration kopieren</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="card-body px-3 px-md-6">
+            <h4 class="card-title mt-2">Video-Tutorials</h4>
+            <p class="card-text">
+                Die Erstellung, Nutzung und Konfiguration der Datenbank-Vorlage ist in den verlinkten Video-Tutorials
+                erklärt. <br>
+                Das Video-Tutorial für Teilnehmer:innen lässt sich über die Konfiguration für alle einblenden.<br>
+                Dadurch erscheint ein Button in der Kopfzeile, über den das YouTube-Video eingebettet abgespielt werden
+                kann.
+            </p>
+            <a class="btn btn-info mb-1" href="#" target="_blank"><i class="fa fa-youtube"
+                    aria-hidden="true"></i>&nbsp;&nbsp;Tutorial für Trainer:innen</a>
+            <a class="btn btn-info mb-1" href="#" target="_blank"><i class="fa fa-youtube"
+                    aria-hidden="true"></i>&nbsp;&nbsp;Tutorial für Teilnehmer:innen</a>
+            <a class="btn btn-dark mb-1" href="#" target="_blank"><i class="fa fa-github"
+                    aria-hidden="true"></i>&nbsp;&nbsp;Download Vorlagensatz</a>
+        </div>
+        <hr>
+        <div class="card-body px-3 px-md-6">
+            <h4 class="card-title">Button-Generator für Moodle-Kurs</h4>
+            <p>Diese Datenbank-Aktivität wird nach dem ersten Aufruf der Seite direkt erneut geladen, damit alle
+                Einträge
+                angezeigt werden.<br>
+                Dies lässt sich vermeiden, wenn die Datenbank direkt über einen Link mit der Endung "&perpage=1000"
+                aufgerufen
+                wird.<br>
+                Hier kann mit den folgenden Optionen der HTML-Code für einen Button generiert werden.<br>
+                Wenn dieser HTML-Code mit der Aktivität "Textfeld" im Moodle-Kurs eingefügt wird, läd die Datenbank für
+                alle User:innen schneller.</p>
+        </div>
+        <div class="card-body mb-2">
+            <form class="form-horizontal generator" autocomplete="off">
+                <div class="container-fluid">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label form-control-sm text-md-right">Button Text:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="buttonText" class="form-control form-control-sm" name="btnText"
+                                value="Termin finden">
+                        </div>
+                    </div>
+                    <div class="form-group row section-btn-type">
+                        <label class="col-md-2 col-form-label form-control-sm text-md-right">Farbe:</label>
+                        <div class="col-md-10">
+                            <div class="btn-group btn-group-toggle btn-group-sm flex-wrap" data-toggle="buttons">
+                                <label class="btn btn-primary mb-1 mr-1 active">
+                                    <input type="radio" name="btnType" value="primary" checked=""> Primary
+                                </label>
+                                <label class="btn btn-secondary mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="secondary"> Secondary
+                                </label>
+                                <label class="btn btn-success mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="success"> Success
+                                </label>
+                                <label class="btn btn-danger mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="danger"> Danger
+                                </label>
+                                <label class="btn btn-warning mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="warning"> Warning
+                                </label>
+                                <label class="btn btn-info mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="info"> Info
+                                </label>
+                                <label class="btn btn-dark mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="dark"> Dark
+                                </label>
+                                <label class="btn btn-light mb-1 mr-1">
+                                    <input type="radio" name="btnType" value="light"> Light
+                                </label>
+                                <label class="btn btn-link mb-1">
+                                    <input type="radio" name="btnType" value="link"> Link
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group custom row section-btn-style">
+                        <label class="col-md-2 col-form-label form-control-sm text-md-right">Stil:</label>
+                        <div class="col-md-10">
+                            <div class="btn-group btn-group-toggle btn-group-sm flex-wrap" data-toggle="buttons">
+                                <label class="btn btn-secondary mb-1 mr-1 active">
+                                    <input type="radio" name="btnStyle" value="" checked=""> Normal
+                                </label>
+                                <label class="btn btn-secondary mb-1">
+                                    <input type="radio" name="btnStyle" value="outline-"> Outline
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group custom row">
+                        <label class="col-md-2 col-form-label form-control-sm text-md-right">Größe:</label>
+                        <div class="col-md-10">
+                            <div class="btn-group btn-group-toggle btn-group-sm flex-wrap mr-1" data-toggle="buttons">
+                                <label class="btn btn-secondary mb-1 mr-1">
+                                    <input type="radio" name="btnSize" value="btn-sm"> Klein
+                                </label>
+                                <label class="btn btn-secondary mb-1 mr-1 active">
+                                    <input type="radio" name="btnSize" value="" checked=""> Normal
+                                </label>
+                                <label class="btn btn-secondary mb-1">
+                                    <input type="radio" name="btnSize" value="btn-lg"> Groß
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group custom row mt-5">
+                        <label class="col-md-2 col-form-label form-control-sm text-md-right">Vorschau:</label>
+                        <div class="col-md-10">
+                            <div id="preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-group custom row mt-3">
+                        <label class="col-md-2 col-form-label form-control-sm text-md-right mt-2">HTML-Code:</label>
+                        <div class="col-md-8">
+                            <textarea id="output" class="form-control form-control-sm input-block-level mt-2"
+                                placeholder="Fehler: HTML-Code konnte nicht geladen werden!" style="height: 6em;"></textarea>
+                            <button id="copyBtn" type="button" class="btn btn-lila mt-2">Code
+                                kopieren</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center text-muted">
+            <div class="col-md-12 col-sm-12 center-col text-center">
+                <a href="https://twitter.com/margomius" target="_blank" class="btn social-icon button"
+                    data-abc="true"><i class="fa fa-twitter btn-round"></i></a>
+                <a href="https://bildung.social/@margomius" target="_blank" class="btn social-icon button"
+                    data-abc="true"><i class="fa fa-mastodon btn-round"><strong>m</strong></i></a>
+                <a href="https://github.com/margomius" target="_blank" class="btn social-icon button" data-abc="true"><i
+                        class="fa fa-github btn-round"></i></a>
+                <a href="https://www.youtube.de/@margomius" target="_blank" class="btn social-icon button"
+                    data-abc="true"><i class="fa fa-youtube btn-round"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="alert alert-light text-right" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+        Datenbank: Termine finden v1.0 — <nobr>GNU General Public Licence 3.0 —</nobr>
+        <nobr>Copyright © 2023 — <a href="https://www.margomius.com/" target="_blank">@margomius</a></nobr>
+    </div>
+</div>
+
+<script>
+
+    // ++++++++++ Moodle 4: Abstand über Formular entfernen ++++++++++
+    const datapreferencesElement = document.querySelector('.datapreferences');
+
+    if (datapreferencesElement) {
+        datapreferencesElement.className = 'datapreferences';
+    }
+
+    const dataListviewContent = document.querySelector('#data-listview-content');
+    if (dataListviewContent) {
+        dataListviewContent.classList.remove('py-3');
+        dataListviewContent.classList.add('pb-3');
+    }
+
+    // ++++++++++ Schnellsuche in Button verstecken ++++++++++
+    // Finde .datapreferences
+    const dataPreferences = document.querySelector('#options');
+
+    // Füge Container mit .datapreferences in den Button ein
+    const preferenceContainer = document.querySelector('#PreferenceContainer');
+    preferenceContainer.appendChild(dataPreferences);
+
+    // ++++++++++ Schnellsuche in Button verstecken ++++++++++
+    function AnleitungEinblenden() {
+        var anleitungElemente = document.querySelectorAll(".anleitung");
+        for (var i = 0; i < anleitungElemente.length; i++) {
+            var anleitungElement = anleitungElemente[i];
+            if (window.getComputedStyle(anleitungElement).getPropertyValue("display") === "none") {
+                anleitungElement.style.display = "block";
+            } else {
+                anleitungElement.style.display = "none";
+            }
+        }
+    }
+
+    // ++++++++++ Zeilen/Stunden abhängig von den Einstellungen ein- bzw. ausblenden ++++++++++
+
+    if (typeof AnzahlZeilen === 'number' && AnzahlZeilen >= 1 && AnzahlZeilen <= 17) {
+        for (let i = 1; i <= AnzahlZeilen; i++) {
+            const ZeilenName = `Zeile${i.toString().padStart(2, '0')}Anzeigen`;
+            eval(`${ZeilenName} = true;`);
+
+            for (let j = i + 1; j <= 17; j++) {
+                const ZeilenName = `Zeile${j.toString().padStart(2, '0')}Anzeigen`;
+                eval(`${ZeilenName} = false;`);
+            }
+        }
+    }
+
+    if (Zeile01Anzeigen === false) {
+        document.querySelector("#Zeile01").style.display = "none";
+    } else {
+        document.querySelector("#Zeile01").style.display = "";
+    }
+
+    if (Zeile02Anzeigen === false) {
+        document.querySelector("#Zeile02").style.display = "none";
+    } else {
+        document.querySelector("#Zeile02").style.display = "";
+    }
+
+    if (Zeile03Anzeigen === false) {
+        document.querySelector("#Zeile03").style.display = "none";
+    } else {
+        document.querySelector("#Zeile03").style.display = "";
+    }
+
+    if (Zeile04Anzeigen === false) {
+        document.querySelector("#Zeile04").style.display = "none";
+    } else {
+        document.querySelector("#Zeile04").style.display = "";
+    }
+
+    if (Zeile05Anzeigen === false) {
+        document.querySelector("#Zeile05").style.display = "none";
+    } else {
+        document.querySelector("#Zeile05").style.display = "";
+    }
+
+    if (Zeile06Anzeigen === false) {
+        document.querySelector("#Zeile06").style.display = "none";
+    } else {
+        document.querySelector("#Zeile06").style.display = "";
+    }
+
+    if (Zeile07Anzeigen === false) {
+        document.querySelector("#Zeile07").style.display = "none";
+    } else {
+        document.querySelector("#Zeile07").style.display = "";
+    }
+
+    if (Zeile08Anzeigen === false) {
+        document.querySelector("#Zeile08").style.display = "none";
+    } else {
+        document.querySelector("#Zeile08").style.display = "";
+    }
+
+    if (Zeile09Anzeigen === false) {
+        document.querySelector("#Zeile09").style.display = "none";
+    } else {
+        document.querySelector("#Zeile09").style.display = "";
+    }
+
+    if (Zeile10Anzeigen === false) {
+        document.querySelector("#Zeile10").style.display = "none";
+    } else {
+        document.querySelector("#Zeile10").style.display = "";
+    }
+
+    if (Zeile11Anzeigen === false) {
+        document.querySelector("#Zeile11").style.display = "none";
+    } else {
+        document.querySelector("#Zeile11").style.display = "";
+    }
+
+    if (Zeile12Anzeigen === false) {
+        document.querySelector("#Zeile12").style.display = "none";
+    } else {
+        document.querySelector("#Zeile12").style.display = "";
+    }
+
+    if (Zeile13Anzeigen === false) {
+        document.querySelector("#Zeile13").style.display = "none";
+    } else {
+        document.querySelector("#Zeile13").style.display = "";
+    }
+
+    if (Zeile14Anzeigen === false) {
+        document.querySelector("#Zeile14").style.display = "none";
+    } else {
+        document.querySelector("#Zeile14").style.display = "";
+    }
+
+    if (Zeile15Anzeigen === false) {
+        document.querySelector("#Zeile15").style.display = "none";
+    } else {
+        document.querySelector("#Zeile15").style.display = "";
+    }
+
+    if (Zeile16Anzeigen === false) {
+        document.querySelector("#Zeile16").style.display = "none";
+    } else {
+        document.querySelector("#Zeile16").style.display = "";
+    }
+
+    if (Zeile17Anzeigen === false) {
+        document.querySelector("#Zeile17").style.display = "none";
+    } else {
+        document.querySelector("#Zeile17").style.display = "";
+    }
+
+    // ++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++
+    for (let i = 1; i <= 17; i++) {
+        if (eval("DunkleZeile" + ("0" + i).slice(-2)) === true) {
+            document.querySelector("#Zeile" + ("0" + i).slice(-2)).classList.add("dunkler");
+        }
+    }
+
+    // ++++++++++ Ersetze die Platzhalter durch die definierten Variablen in den Einstellungen ++++++++++
+    document.getElementById("d-spalte-0").innerHTML = TextSpalte00;
+    document.getElementById("d-spalte-1").innerHTML = TextSpalte01;
+    document.getElementById("d-spalte-2").innerHTML = TextSpalte02;
+    document.getElementById("d-spalte-3").innerHTML = TextSpalte03;
+    document.getElementById("d-spalte-4").innerHTML = TextSpalte04;
+    document.getElementById("d-spalte-5").innerHTML = TextSpalte05;
+    document.getElementById("d-spalte-6").innerHTML = TextSpalte06;
+    document.getElementById("d-spalte-7").innerHTML = TextSpalte07;
+
+    document.getElementById("d-0").innerHTML = AbkSpalte00;
+    document.getElementById("d-1").innerHTML = AbkSpalte01;
+    document.getElementById("d-2").innerHTML = AbkSpalte02;
+    document.getElementById("d-3").innerHTML = AbkSpalte03;
+    document.getElementById("d-4").innerHTML = AbkSpalte04;
+    document.getElementById("d-5").innerHTML = AbkSpalte05;
+    document.getElementById("d-6").innerHTML = AbkSpalte06;
+    document.getElementById("d-7").innerHTML = AbkSpalte07;
+
+    document.getElementById("TextZeile01").innerHTML = TextZeile01;
+    document.getElementById("ZeitZeile01").innerHTML = ZeitZeile01;
+    document.getElementById("TextZeile02").innerHTML = TextZeile02;
+    document.getElementById("ZeitZeile02").innerHTML = ZeitZeile02;
+    document.getElementById("TextZeile03").innerHTML = TextZeile03;
+    document.getElementById("ZeitZeile03").innerHTML = ZeitZeile03;
+    document.getElementById("TextZeile04").innerHTML = TextZeile04;
+    document.getElementById("ZeitZeile04").innerHTML = ZeitZeile04;
+    document.getElementById("TextZeile05").innerHTML = TextZeile05;
+    document.getElementById("ZeitZeile05").innerHTML = ZeitZeile05;
+    document.getElementById("TextZeile06").innerHTML = TextZeile06;
+    document.getElementById("ZeitZeile06").innerHTML = ZeitZeile06;
+    document.getElementById("TextZeile07").innerHTML = TextZeile07;
+    document.getElementById("ZeitZeile07").innerHTML = ZeitZeile07;
+    document.getElementById("TextZeile08").innerHTML = TextZeile08;
+    document.getElementById("ZeitZeile08").innerHTML = ZeitZeile08;
+    document.getElementById("TextZeile09").innerHTML = TextZeile09;
+    document.getElementById("ZeitZeile09").innerHTML = ZeitZeile09;
+    document.getElementById("TextZeile10").innerHTML = TextZeile10;
+    document.getElementById("ZeitZeile10").innerHTML = ZeitZeile10;
+    document.getElementById("TextZeile11").innerHTML = TextZeile11;
+    document.getElementById("ZeitZeile11").innerHTML = ZeitZeile11;
+    document.getElementById("TextZeile12").innerHTML = TextZeile12;
+    document.getElementById("ZeitZeile12").innerHTML = ZeitZeile12;
+    document.getElementById("TextZeile13").innerHTML = TextZeile13;
+    document.getElementById("ZeitZeile13").innerHTML = ZeitZeile13;
+    document.getElementById("TextZeile14").innerHTML = TextZeile14;
+    document.getElementById("ZeitZeile14").innerHTML = ZeitZeile14;
+    document.getElementById("TextZeile15").innerHTML = TextZeile15;
+    document.getElementById("ZeitZeile15").innerHTML = ZeitZeile15;
+    document.getElementById("TextZeile16").innerHTML = TextZeile16;
+    document.getElementById("ZeitZeile16").innerHTML = ZeitZeile16;
+    document.getElementById("TextZeile17").innerHTML = TextZeile17;
+    document.getElementById("ZeitZeile17").innerHTML = ZeitZeile17;
+
+    // ++++++++++ Spalten ein-/ausblenden durch die definierten Variablen in den Einstellungen ++++++++++
+    let Spalte01Anzeigen = false
+    let Spalte02Anzeigen = false
+    let Spalte03Anzeigen = false
+    let Spalte04Anzeigen = false
+    let Spalte05Anzeigen = false
+    let Spalte06Anzeigen = false
+    let Spalte07Anzeigen = false
+
+    for (let i = 1; i <= AnzahlSpalten; i++) {
+        const SpaltenName = `Spalte${i.toString().padStart(2, '0')}Anzeigen`;
+        eval(`${SpaltenName} = true;`);
+    }
+
+    for (let i = 1; i <= 7; i++) {
+        const SpalteAnzeigen = eval(`Spalte${String(i).padStart(2, '0')}Anzeigen`);
+        if (SpalteAnzeigen === false) {
+            const SpalteID = document.querySelector(`#d-spalte-${i}`);
+            SpalteID.classList.remove('d-sm-table-cell');
+            const S_ID = document.querySelector(`#d-${i}`);
+            S_ID.classList.remove('d-table-cell');
+            S_ID.classList.add('d-none');
+            const SpalteListe = document.querySelectorAll(`.spalte-${i}`);
+            for (let j = 0; j < SpalteListe.length; j++) {
+                SpalteListe[j].style.display = "none";
+            }
+        } else {
+            const SpalteID = document.querySelector(`#d-spalte-${i}`);
+            SpalteID.classList.add('d-sm-table-cell');
+            const S_ID = document.querySelector(`#d-${i}`);
+            S_ID.classList.add('d-table-cell');
+            S_ID.classList.remove('d-none');
+            const SpalteListe = document.querySelectorAll(`.spalte-${i}`);
+            for (let j = 0; j < SpalteListe.length; j++) {
+                SpalteListe[j].style.display = "table-cell";
+            }
+        }
+    }
+
+</script>

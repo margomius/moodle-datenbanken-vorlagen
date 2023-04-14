@@ -1,0 +1,1230 @@
+<script>
+    // Termine finden v1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
+    // GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    //
+    // Dieser Code wurde mit Unterstützung von ChatGPT geschrieben und ist möglicherweise nicht perfekt.
+    // Ich empfehle, den Code zu überprüfen, bevor er eingesetzt oder verändert wird.
+    // Ich übernehme keine Verantwortung für Fehler oder Probleme, die durch Einsetzen des Codes verursacht werden könnten.
+
+
+
+    // ++++++++++ Gib allen Einträgen die Klassen "id-" und "farbe-" ++++++++++
+    // Finde alle div-Elemente mit der Klasse "eingabe"
+    const divEingabe = document.querySelectorAll("div.eingabe");
+
+    // Iteriere über jedes div-Element und füge den entsprechenden Klassen hinzu
+    for (let i = 0; i < divEingabe.length; i++) {
+        const div = divEingabe[i];
+        const as = div.querySelectorAll("a, span");
+
+        // Füge den a- und span-Elementen die entsprechende Klasse hinzu
+        for (let j = 0; j < as.length; j++) {
+            const a = as[j];
+            a.classList.add(`id-${i + 1}`);
+        }
+    }
+
+    // Gehe durch jedes gefundenen div-Element und füge den a-Elementen und span-Elementen eine Klasse hinzu
+    let klasseNummer = 1;
+    for (let i = 0; i < divEingabe.length; i++) {
+        const links = divEingabe[i].querySelectorAll('a');
+        for (let j = 0; j < links.length; j++) {
+            links[j].classList.add('farbe-' + klasseNummer);
+        }
+        const spans = divEingabe[i].querySelectorAll('span');
+        for (let k = 0; k < spans.length; k++) {
+            spans[k].classList.add('farbe-' + klasseNummer);
+        }
+        klasseNummer++;
+        if (klasseNummer > 30) {
+            klasseNummer = 1;
+        }
+    }
+
+    // ++++++++++ Links in #Einzelansichten verschieben ++++++++++
+    const einzelansichtLinks = document.querySelectorAll('.eingabe a.einzelansicht');
+    const einzelansichtContent = document.querySelector('#EinzelansichtContent');
+
+    einzelansichtLinks.forEach(link => {
+        einzelansichtContent.appendChild(link);
+        // Fügen Sie die folgenden CSS-Regeln hinzu, um den Zoom-Effekt bei Hover zu aktivieren
+        link.style.transition = 'transform 0.1s ease-in-out';
+        link.addEventListener('mouseenter', () => {
+            link.style.transform = 'scale(1.1)';
+        });
+        link.addEventListener('mouseleave', () => {
+            link.style.transform = 'scale(1)';
+        });
+    });
+
+
+    // ++++++++++ Einträge in richtige Zellen verschieben ++++++++++
+    // Alle <a>-Elemente mit einer 'class'-Attribut auswählen
+    const links = document.querySelectorAll("a[class]");
+
+    // Alle <td>-Elemente mit einer 'id'-Attribut auswählen
+    const tds = document.querySelectorAll("td[id]");
+
+    // Über jedes <a>-Element in der Liste 'links' iterieren
+    links.forEach(link => {
+        // Die erste Klasse des <a>-Elements abrufen
+        const firstClass = link.classList[0];
+
+        // Das <td>-Element mit der entsprechenden ID suchen
+        const td = document.getElementById(firstClass);
+
+        // Wenn das <td>-Element gefunden wurde, füge das <a>-Element in das div.cell-content-Element hinzu
+        if (td) {
+            const cellContentDiv = td.querySelector('.cell-content');
+            if (cellContentDiv) {
+                cellContentDiv.appendChild(link);
+            }
+        }
+    });
+
+
+    // ++++++++++ Einträge mit Inhalt bekommen die Klasse "aktiviert" ++++++++++
+    // Alle a-Elemente mit der Klasse "badge" auswählen
+    const badgeLinks = document.querySelectorAll('a.badge');
+
+    // Für jedes ausgewählte a-Element prüfen, ob es einen Inhalt hat
+    badgeLinks.forEach(link => {
+        if (link.textContent.trim().length > 0) {
+            // Wenn ja, ein Leerzeichen direkt hinter dem a-Element einfügen
+            link.insertAdjacentText('afterend', ' ');
+
+            // Klasse "aktiviert" zum a-Element hinzufügen
+            link.classList.add('aktiviert');
+        }
+    });
+
+    // ++++++++++ Ausgefüllte Anmerkungen bekommen die Klasse "aktiv" ++++++++++
+    // finde alle Elemente mit .eingabe > .Anmerkung
+    const elements = document.querySelectorAll('.eingabe > .Anmerkung');
+
+    // Schleife über alle gefundenen Elemente
+    elements.forEach(element => {
+        // Überprüfe, ob das Element mehr Textinhalt als "&nbsp;" hat,
+        // aber nur für den Textinhalt nach dem span-Element
+        const text = element.querySelector('.AnmerkungName').nextSibling.textContent.trim();
+        if (text.length > 0) {
+            // Füge dem Element die Klasse "aktiv" hinzu
+            element.classList.add('aktiv');
+        }
+    });
+
+
+
+    // ++++++++++ Zellen mit den meisten Einträgen farbig hervorheben ++++++++++
+    function highlightZelle() {
+        // Finde alle Tabellenzellen in der Tabelle mit der ID "stundenplan"
+        const zellen = document.querySelectorAll("#stundenplan td");
+
+        // Initialisiere eine leere Map zum Zählen der Anzahl von ".aktiviert"-Elementen in jeder Zelle
+        const zaehlungen = new Map();
+
+        // Iteriere über jede Zelle und zähle die Anzahl von ".aktiviert"-Elementen
+        zellen.forEach((zelle) => {
+            const aktiviertElems = Array.from(zelle.querySelectorAll('.aktiviert'))
+                .filter(elem => elem.style.display !== 'none');
+            zaehlungen.set(zelle, aktiviertElems.length);
+        });
+
+        // Finde die maximale Anzahl von ".aktiviert"-Elementen
+        const maxAnzahl = Math.max(...zaehlungen.values());
+
+        // Iteriere über jede Zelle und hebe diejenigen hervor, die die maximale Anzahl von ".aktiviert"-Elementen haben
+        zellen.forEach((zelle) => {
+            const zellZaehlung = zaehlungen.get(zelle);
+            if (zellZaehlung > 0 && zellZaehlung === maxAnzahl) {
+                zelle.classList.add('highlight');
+            } else if (zellZaehlung > 0) {
+                // Wenn die Anzahl der ".aktiviert"-Elemente in dieser Zelle nicht die höchste ist,
+                // reduziere die Opacity von allen ".aktiviert"-Elementen in dieser Zelle auf 50%
+                const aktiviertElems = zelle.querySelectorAll(".aktiviert");
+                aktiviertElems.forEach((elem) => {
+                    elem.style.opacity = "0.4";
+                });
+                // Wenn diese Zelle ein Element weniger hat als die mit den meisten Elementen, färbe sie mit der Hintertgrundfarbe #fff5cc
+                if (zellZaehlung === maxAnzahl - 1) {
+                    zelle.classList.add('second-highlight');
+                }
+                zelle.classList.remove('highlight')
+            }
+        });
+
+        const HighlightElements = document.querySelectorAll('#stundenplan td.text-center.highlight');
+        const achtungElement = document.querySelector('#achtung');
+        if (HighlightElements.length > 0 && lastClickedTd) { // Prüfen, ob das Element vorhanden ist
+            if (!lastClickedTd.classList.contains('highlight')) {
+                achtungElement.style.display = 'block';
+            } else {
+                achtungElement.style.display = 'none';
+            }
+        } else {
+        }
+    }
+
+    function highlightNone() {
+        // Wenn die Checkbox deaktiviert ist, entferne die Hintergrundfarbe von allen Zellen
+        // und setzen Sie die Opacity aller ".aktiviert"-Elemente auf 100%
+        const zellen = document.querySelectorAll("#stundenplan td");
+        zellen.forEach((zelle) => {
+            zelle.classList.remove('highlight');
+            zelle.classList.remove('second-highlight');
+            const aktiviertElems = zelle.querySelectorAll(".aktiviert");
+            aktiviertElems.forEach((elem) => {
+                elem.style.opacity = "1";
+            });
+        });
+        const achtungElement = document.querySelector('#achtung');
+        achtungElement.style.display = 'none';
+    }
+
+    // Finde das Button-Element mit der ID "Highlights"
+    const buttonHighlights = document.querySelector('#Highlights');
+    let HighlightStatus = false;
+
+    // Füge einen Event-Listener hinzu, um den Code auszuführen, wenn das Button-Element geklickt wird
+    buttonHighlights.addEventListener('click', function () {
+        if (HighlightStatus) {
+            highlightNone();
+            buttonHighlights.style.backgroundColor = "#478b58";
+            buttonHighlights.innerHTML = "<i class='fa fa-star'></i> &nbsp; Beliebte Termine hervorheben";
+        } else {
+            highlightZelle();
+            buttonHighlights.style.backgroundColor = "#3e6548";
+            buttonHighlights.innerHTML = '<i class="fa fa-star-o"></i> &nbsp; Keine Termine hervorheben';
+        }
+        HighlightStatus = !HighlightStatus;
+    });
+
+
+    // ++++++++++ Einträge unter "Alle Namen" alphabetisch sortieren ++++++++++
+    const nameSpans = document.querySelectorAll("span.Name"); // Finde alle span-Elemente mit der Klasse .name
+    const nameDiv = document.querySelector("#Name"); // Finde das div-Element mit der ID #Name
+
+    nameSpans.forEach(span => {
+        nameDiv.appendChild(span); // Schiebe jedes span-Element in das div-Element
+    });
+
+    // Konvertiere die NodeList in ein Array, damit es sortiert werden kann
+    const nameArray = Array.from(nameSpans);
+
+    // Sortiere das Array alphabetisch nach dem Inhalt der span-Elemente
+    nameArray.sort(function (a, b) {
+        return a.innerText.localeCompare(b.innerText);
+    });
+
+    // Entferne alle span-Elemente aus dem div-Element
+    while (nameDiv.firstChild) {
+        nameDiv.removeChild(nameDiv.firstChild);
+    }
+
+    // Füge die sortierten span-Elemente in das div-Element ein, mit einem Leerzeichen dazwischen
+    nameArray.forEach(function (nameSpan, index) {
+        nameDiv.appendChild(nameSpan);
+        if (index < nameArray.length - 1) {
+            const space = document.createTextNode(" ");
+            nameDiv.appendChild(space);
+        }
+    });
+
+
+    // ++++++++++ Button der Namen erstellen und aktivieren/deaktivieren ++++++++++
+    // Alle span-Elemente innerhalb des Elements mit der ID "Name" auswählen
+    const spans = document.querySelectorAll("#Name span");
+
+    // Ein leeres Objekt anlegen, um den Status der Buttons zu speichern
+    const buttonStates = {};
+
+    // Für jedes span-Element einen Button erstellen
+    spans.forEach(span => {
+        // ID des Buttons aus der 4. Klasse des span-Elements holen
+        const id = span.classList[3];
+
+        // Button-Element erstellen und Attribute setzen
+        const button = document.createElement("button");
+        button.classList.add("btn", "btn-sm");
+        button.style.backgroundColor = getComputedStyle(span).getPropertyValue('background-color');
+        button.style.color = getComputedStyle(span).getPropertyValue('color');
+        button.style.border = "none";
+        button.style.fontSize = "85%";
+        button.style.fontWeight = "500";
+        button.id = id;
+        button.textContent = span.textContent;
+        button.style.margin = "2px";
+
+        // Füge die folgenden CSS-Regeln hinzu, um den Zoom-Effekt bei Hover zu aktivieren
+        button.style.transition = 'transform 0.1s ease-in-out';
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'scale(1.1)';
+        });
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'scale(1)';
+        });
+
+        // Event-Listener hinzufügen, um das Klicken auf den Button zu behandeln
+        button.addEventListener("click", event => {
+            // Standardverhalten des Browsers unterdrücken
+            event.preventDefault();
+            // Prüfen, ob der Button bereits aktiv ist (d.h. die Elemente ausgeblendet sind)
+            if (buttonStates[id]) {
+                document.querySelectorAll(`#stundenplan .${id}.aktiviert`).forEach(el => el.style.display = "inline-block");
+                button.style.opacity = 1;
+            } else {
+                document.querySelectorAll(`#stundenplan .${id}.aktiviert`).forEach(el => el.style.display = "none");
+                button.style.opacity = 0.3;
+            };
+            buttonStates[id] = !buttonStates[id];
+            updateAllePersonen();
+            if (HighlightStatus) {
+                highlightNone();
+                highlightZelle();
+            };
+            updateAufzaehlungen(lastClickedTd);
+            UpdateGruppen();
+        });
+
+        // Button-Element an das Ende des Elements mit der ID "Name" anhängen
+        document.getElementById("Name").appendChild(button);
+
+        // Ursprüngliches span-Element entfernen
+        span.remove();
+
+        // Buttons zählen
+        updateAllePersonen();
+    });
+
+    function updateAllePersonen() {
+        const buttons = document.querySelectorAll('#Name button');
+        const activeButtons = Array.from(buttons).filter(button => !buttonStates[button.id]);
+        document.querySelector('#AllePersonen').textContent = activeButtons.length;
+    }
+
+
+    // ++++++++++ Alle Namen aktivieren/deaktivieren ++++++++++
+    document.getElementById("deactivateAll").addEventListener("click", () => {
+        spans.forEach(span => {
+            const id = span.classList[3];
+            buttonStates[id] = true;
+            document.querySelectorAll(`#stundenplan .${id}.aktiviert`).forEach(el => el.style.display = "none");
+            const button = document.getElementById(id);
+            button.style.opacity = 0.3;
+        });
+        if (HighlightStatus) {
+            highlightNone();
+            highlightZelle();
+        }
+        updateAufzaehlungen(lastClickedTd);
+        const achtungElement = document.querySelector('#achtung');
+        achtungElement.style.display = 'none';
+        UpdateGruppen();
+    });
+
+    document.getElementById("activateAll").addEventListener("click", () => {
+        spans.forEach(span => {
+            const id = span.classList[3];
+            buttonStates[id] = false;
+            document.querySelectorAll(`#stundenplan .${id}.aktiviert`).forEach(el => el.style.display = "inline-block");
+            const button = document.getElementById(id);
+            button.style.opacity = 1;
+        });
+        if (HighlightStatus) {
+            highlightNone();
+            highlightZelle();
+        }
+        updateAufzaehlungen(lastClickedTd);
+        UpdateGruppen();
+    });
+
+    // Event-Listener hinzufügen, um das Klicken auf den Button "AllePersonen" zu behandeln
+    document.querySelector("#AllePersonen").addEventListener("update", () => {
+        updateAllePersonen();
+    });
+
+    // Event-Listener hinzufügen, um das Klicken auf die Buttons "activateAll" und "deactivateAll" zu behandeln
+    document.querySelector("#activateAll").addEventListener("click", () => {
+        updateAllePersonen();
+        document.querySelector("#AllePersonen").dispatchEvent(new Event("update"));
+    });
+
+    document.querySelector("#deactivateAll").addEventListener("click", () => {
+        updateAllePersonen();
+        document.querySelector("#AllePersonen").dispatchEvent(new Event("update"));
+    });
+
+
+    // ++++++++++ Buttons IDs auslesen ++++++++++
+    {
+        const nameElement = document.querySelector("#Name");
+        const buttons = nameElement.querySelectorAll("button");
+        const buttonIds = [];
+        buttons.forEach(button => {
+            buttonIds.push(button.id);
+        });
+    }
+
+
+    // ++++++++++ Hinweis-Text einblenden ++++++++++
+    const hovertds = document.querySelectorAll('#stundenplan td.text-center');
+    const selectedContainer = document.getElementById('selectedContainer');
+    const selected = document.querySelector('#selectedContent');
+    let lastClickedTd = null;
+
+    hovertds.forEach(td => {
+        td.addEventListener('mouseover', () => {
+            if (td !== lastClickedTd) {
+                const hoverdivs = td.querySelector('.cell-content');
+                hoverdivs.style.transform = 'scale(1.1)';
+                hoverdivs.style.transition = 'transform 0.1s ease-in-out';
+            }
+        });
+        td.addEventListener('mouseout', () => {
+            if (td !== lastClickedTd) {
+                const hoverdivs = td.querySelector('.cell-content');
+                hoverdivs.style.transform = 'scale(1)';
+            }
+        });
+        td.addEventListener('click', () => {
+            const aufzaehlung1 = getAufzaehlung1(td);
+            const aufzaehlung2 = getAufzaehlung2(td);
+            const aufzaehlung3 = getAufzaehlung3(td);
+            const aufzaehlung4 = getAufzaehlung4(td);
+            //const TagTD = td.closest('table').querySelector(`th:nth-child(${td.cellIndex})`).textContent;
+            const TagTD = td.closest('table').querySelector(`th:nth-child(${td.cellIndex + 1})`).textContent;
+            const stundeDiv = td.parentNode.querySelector('td:first-child > div');
+            const stundeZeile1 = stundeDiv.querySelector('strong').textContent;
+            const stundeZeile2 = stundeDiv.querySelector('span').textContent;
+            const TagStunde = `<strong>${TagTD}, ${stundeZeile1} </strong>(${stundeZeile2})`;
+            const hinweisText = `<div class="alert alert-primary mb-2" role="alert">${TagStunde}</div>${aufzaehlung1}${aufzaehlung3}${aufzaehlung2}${aufzaehlung4}`;
+            selected.innerHTML = hinweisText;
+            selectedContainer.style.display = 'block';
+            if (lastClickedTd) {
+                lastClickedTd.classList.remove('clicked');
+            }
+            const hoverdivs = td.querySelector('.cell-content');
+            hoverdivs.style.transform = 'scale(1)';
+            td.classList.add('clicked');
+            const HighlightElements = document.querySelectorAll('#stundenplan td.text-center.highlight');
+            const achtungElement = document.querySelector('#achtung');
+            if (HighlightElements.length > 0) {
+                if (!td.classList.contains('highlight')) {
+                    achtungElement.style.display = 'block';
+                } else {
+                    achtungElement.style.display = 'none';
+                }
+            } else {
+            }
+            const KlickeAlert = document.querySelector('#Klicke');
+            KlickeAlert.style.display = 'none';
+            lastClickedTd = td;
+        });
+    });
+
+    function getAufzaehlung1(td) {
+        const sichtbareAs = Array.from(td.querySelectorAll('a.aktiviert:not([style*="display: none;"])'));
+        const classValues = sichtbareAs.map(a => a.classList.item(2));
+        const alleaktiviertenButtons = Array.from(document.querySelectorAll('#Name button'));
+        const deaktivierteButtons = alleaktiviertenButtons.filter(btn => classValues.includes(btn.id) && !buttonStates[btn.id]);
+        const AlleText = document.querySelector('#AllePersonen').textContent;
+        if (deaktivierteButtons.length > 0) {
+            const spanElements = deaktivierteButtons.map(btn => {
+                const spanElement = document.createElement('span');
+                spanElement.textContent = btn.textContent;
+                spanElement.classList.add(btn.id, 'badge');
+                spanElement.style.backgroundColor = btn.style.backgroundColor;
+                spanElement.style.color = getComputedStyle(btn).color;
+                return spanElement;
+            });
+            const anzahl = sichtbareAs.length;
+            if (anzahl > 0) {
+                const badge = document.createElement('span');
+                badge.classList.add('badge', 'badge-dark', 'badge-lg');
+                badge.textContent = anzahl;
+                const aufzaehlung = spanElements.map(span => span.outerHTML).sort().join(', ');
+                return '<div id="ZusammenfassungGruen" class="alert alert-success mb-2" role="alert">' + badge.outerHTML + '&nbsp;von&nbsp;' + AlleText + '&nbsp;<strong>verfügbar:</strong>&nbsp;' + aufzaehlung + '</div>';
+            } else {
+                return '';
+            }
+        } else {
+            return '';
+        }
+    }
+
+    function getAufzaehlung2(td) {
+        const aktiviertAs = Array.from(td.querySelectorAll('a.aktiviert'));
+        const class3Values = aktiviertAs.map(a => a.classList.item(2));
+        const alleButtons = Array.from(document.querySelectorAll('#Name button'));
+        const deaktivierteButtons = alleButtons.filter(btn => !class3Values.includes(btn.id) && !buttonStates[btn.id]);
+        const AlleText = document.querySelector('#AllePersonen').textContent;
+
+        if (deaktivierteButtons.length > 0) {
+            const spanElements = deaktivierteButtons.map(btn => {
+                const spanElement = document.createElement('span');
+                spanElement.textContent = btn.textContent;
+                spanElement.classList.add(btn.id, 'badge');
+                spanElement.style.backgroundColor = btn.style.backgroundColor;
+                spanElement.style.color = getComputedStyle(btn).color;
+                return spanElement;
+            });
+
+            const textInButtons = spanElements.map(span => span.outerHTML).join(', ');
+            const anzahl = deaktivierteButtons.length;
+            const badge = document.createElement('span');
+            badge.classList.add('badge', 'badge-dark', 'badge-lg');
+            badge.textContent = anzahl;
+            return '<div id="ZusammenfassungRot" class="alert alert-danger mb-2" role="alert">' + badge.outerHTML + '&nbsp;von&nbsp;' + AlleText + '&nbsp;<strong>nicht verfügbar:</strong>&nbsp;' + textInButtons + '</div>';
+        } else {
+            return '';
+        }
+    }
+
+    function getAufzaehlung3(td) {
+        const anmerkungenGruen = document.querySelector('#AnmerkungenGruen');
+        if (anmerkungenGruen) {
+            const anmerkungenAktiv = anmerkungenGruen.querySelectorAll('.Anmerkung.aktiv');
+            for (let i = 0; i < anmerkungenAktiv.length; i++) {
+                anmerkungenAktiv[i].remove();
+            }
+        }
+        const sichtbareAs = Array.from(td.querySelectorAll('a.aktiviert:not([style*="display: none;"])'));
+        const classes = new Set(sichtbareAs.map(span => span.classList[2]));
+        const relevantElements = Array.from(document.querySelectorAll('.eingabe .Anmerkung.aktiv > .AnmerkungName')).filter(e => classes.has(e.classList[2]));
+        const result = relevantElements.map(e => {
+            const container = e.closest('.Anmerkung.aktiv');
+            const copy = container.cloneNode(true);
+            const label = copy.querySelector('.AnmerkungName');
+            return copy.outerHTML;
+        }).join('');
+        if (result) {
+            if (AnmerkungenEingeblendet) {
+                return '<div id="AnmerkungenGruen" class="alert alert-success mb-2" role="alert"><strong>Anmerkungen:</strong>' + result + '</div>';
+
+            } else {
+                return '<div id="AnmerkungenGruen" class="alert alert-success mb-2" role="alert" style="display: none;"><strong>Anmerkungen:</strong>' + result + '</div>';
+            }
+        } else {
+            return '';
+        }
+    }
+
+    function getAufzaehlung4(td) {
+        const anmerkungenRot = document.querySelector('#AnmerkungenRot');
+        if (anmerkungenRot) {
+            const anmerkungenAktivRot = anmerkungenRot.querySelectorAll('.Anmerkung.aktiv');
+            for (let i = 0; i < anmerkungenAktivRot.length; i++) {
+                anmerkungenAktivRot[i].remove();
+            }
+        }
+        const aktiviertAs = Array.from(td.querySelectorAll('a.aktiviert'));
+        const class3Values = aktiviertAs.map(a => a.classList.item(2));
+
+        const alleButtons = Array.from(document.querySelectorAll('#Name button'));
+        const deaktivierteButtons = alleButtons.filter(btn => !class3Values.includes(btn.id) && !buttonStates[btn.id]);
+        const deaktivierteButtonIDs = deaktivierteButtons.map(btn => btn.id);
+        const anmerkungElemente = Array.from(document.querySelectorAll('.eingabe .Anmerkung.aktiv > .AnmerkungName'));
+        const anmerkungKlassen = anmerkungElemente.map(elem => elem.classList[2]);
+        const uebereinstimmendeKlassen = anmerkungKlassen.filter(klasse => deaktivierteButtonIDs.includes(klasse));
+        const gemeinsameElemente = anmerkungElemente.filter(elem => uebereinstimmendeKlassen.includes(elem.classList[2]));
+        const resultRed = gemeinsameElemente.map(e => {
+            const containerRed = e.closest('.Anmerkung.aktiv');
+            const copyRed = containerRed.cloneNode(true);
+            const labelRed = copyRed.querySelector('.AnmerkungName');
+            return copyRed.outerHTML;
+        }).join('');
+        if (resultRed) {
+            if (AnmerkungenEingeblendet) {
+                return '<div id="AnmerkungenRot" class="alert alert-danger mb-2" role="alert"><strong>Anmerkungen:</strong>' + resultRed + '</div>';
+            } else {
+                return '<div id="AnmerkungenRot" class="alert alert-danger mb-2" role="alert" style="display: none;"><strong>Anmerkungen:</strong>' + resultRed + '</div>';
+            }
+        } else {
+            return '';
+        }
+    }
+
+
+    // Funktion zum Aktualisieren der Aufzählungen
+    function updateAufzaehlungen() {
+        if (lastClickedTd) {
+            const aufzaehlung1 = getAufzaehlung1(lastClickedTd);
+            const aufzaehlung2 = getAufzaehlung2(lastClickedTd);
+            const aufzaehlung3 = getAufzaehlung3(lastClickedTd);
+            const aufzaehlung4 = getAufzaehlung4(lastClickedTd);
+            const TagTD = lastClickedTd.closest('table').querySelector(`th:nth-child(${lastClickedTd.cellIndex + 1})`).textContent;
+            const stundeDiv = lastClickedTd.parentNode.querySelector('td:first-child > div');
+            const stundeZeile1 = stundeDiv.querySelector('strong').textContent;
+            const stundeZeile2 = stundeDiv.querySelector('span').textContent;
+            const TagStunde = `<strong>${TagTD}, ${stundeZeile1} </strong>(${stundeZeile2})`;
+            const hinweisText = `<div class="alert alert-primary mb-2" role="alert">${TagStunde}</div>${aufzaehlung1}${aufzaehlung3}${aufzaehlung2}${aufzaehlung4}`;
+            selected.innerHTML = hinweisText;
+        }
+    }
+
+
+    // ++++++++++ Anmerkungen ausblenden/einblenden ++++++++++
+    const buttonAnmerkung = document.querySelector('#buttonAnmerkung');
+    let AnmerkungenEingeblendet = true;
+
+    buttonAnmerkung.addEventListener("click", function () {
+        const zusammenfassungGruen = document.querySelector('#AnmerkungenGruen');
+        const zusammenfassungRot = document.querySelector('#AnmerkungenRot');
+
+        if (zusammenfassungGruen) {
+            zusammenfassungGruen.style.display = AnmerkungenEingeblendet ? 'none' : 'block';
+        }
+
+        if (zusammenfassungRot) {
+            zusammenfassungRot.style.display = AnmerkungenEingeblendet ? 'none' : 'block';
+        }
+
+        AnmerkungenEingeblendet = !AnmerkungenEingeblendet;
+
+        if (AnmerkungenEingeblendet) {
+            buttonAnmerkung.style.opacity = 1;
+        } else {
+            buttonAnmerkung.style.opacity = 0.5;
+        }
+    });
+
+
+    // ++++++++++ Zusammenfassung in Zwischenablage kopieren ++++++++++
+    const copyButton = document.querySelector('#copy');
+
+    copyButton.addEventListener('click', () => {
+        const textToCopy = selected.innerText;
+
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                console.log('Text copied to clipboard');
+                const popup = document.createElement('div');
+                popup.classList.add('popup-info');
+                popup.innerHTML = '<h2>Termin kopiert</h2><br><div><i class="fa fa-clipboard fa-2x" aria-hidden="true"></i></div><div>Der ausgewählte Termin wurde als Text in die Zwischenablage kopiert!</div><br>';
+                document.body.appendChild(popup);
+                setTimeout(() => {
+                    popup.remove();
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error('Failed to copy text: ', error);
+            });
+    });
+
+    // ++++++++++ Screenshot (Tabelle)) in Zwischenablage kopieren und als Datei speichern ++++++++++
+    const screenshotTableButton = document.getElementById('screenshotTabelle');
+    const selectedTableScreen = document.getElementById('stundenplan');
+
+    screenshotTableButton.addEventListener('click', function () {
+        html2canvas(selectedTableScreen).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                try {
+                    navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                } catch (error) {
+                    const popup = document.createElement('div');
+                    popup.classList.add('popup-error');
+                    popup.innerHTML = '<h2 style="background-color: #ffc199 !important;">Fehler</h2><br><div style="background-color: ffe8d9 !important;"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></div><div style="background-color: ffe8d9 !important;">Die Zwischenablage-Funktion wird von Ihrem Browser nicht unterstützt!</div><br>';
+                    document.body.appendChild(popup);
+                    setTimeout(() => {
+                        popup.remove();
+                    }, 3000);
+                }
+                const popup = document.createElement('div');
+                popup.classList.add('popup-info');
+                popup.innerHTML = '<h2>Screenshot</h2><br><div><i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></div><div>Ein Bildschirmfoto wurde in die Zwischenablage kopiert und heruntergeladen!</div><br>';
+                document.body.appendChild(popup);
+                setTimeout(() => {
+                    popup.remove();
+                }, 3000);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = 'screenshot.png';
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    });
+
+
+    // ++++++++++ Screenshot (Zusammenfassung) in Zwischenablage kopieren und als Datei speichern ++++++++++
+    const screenshotButton = document.getElementById('screenshot');
+    const selectedContentScreen = document.getElementById('selectedContent');
+
+    screenshotButton.addEventListener('click', function () {
+        html2canvas(selectedContentScreen).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                try {
+                    navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                } catch (error) {
+                    const popup = document.createElement('div');
+                    popup.classList.add('popup-error');
+                    popup.innerHTML = '<h2 style="background-color: #ffc199 !important;">Fehler</h2><br><div style="background-color: ffe8d9 !important;"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></div><div style="background-color: ffe8d9 !important;">Die Zwischenablage-Funktion wird von Ihrem Browser nicht unterstützt!</div><br>';
+                    document.body.appendChild(popup);
+                    setTimeout(() => {
+                        popup.remove();
+                    }, 3000);
+                }
+                const popup = document.createElement('div');
+                popup.classList.add('popup-info');
+                popup.innerHTML = '<h2>Screenshot</h2><br><div><i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></div><div>Ein Bildschirmfoto wurde in die Zwischenablage kopiert und heruntergeladen!</div><br>';
+                document.body.appendChild(popup);
+                setTimeout(() => {
+                    popup.remove();
+                }, 3000);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = 'screenshot.png';
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    });
+
+    // ++++++++++ Moodle-Namen für Trainer:innen anzeigen ++++++++++
+    const adminControl = document.querySelectorAll('.navbar .custom-control-input').length;
+    if (adminControl > 0) {
+        // Moodle 4
+        document.querySelectorAll('.adminonly').forEach(el => {
+            el.style.display = 'inherit';
+            BulkDelete();
+        });
+    } else {
+        const adminControl = document.querySelectorAll('.nav-link[href*="field"]').length;
+        if (adminControl > 0) {
+            // Moodle 3
+            document.querySelectorAll('.adminonly').forEach(el => {
+                el.style.display = 'inherit';
+                BulkDelete();
+            });
+        }
+    }
+
+
+    // ++++++++++ Card für Bulk Löschen erstellen ++++++++++
+    function BulkDelete() {
+        const deleteEls = document.querySelectorAll('.delete');
+        const deleteContent = document.querySelector('#deleteContent');
+        const sortedDeleteEls = Array.from(deleteEls).sort((a, b) => a.textContent.localeCompare(b.textContent));
+
+        sortedDeleteEls.forEach(deleteEl => {
+            const labelEl = document.createElement('label');
+            labelEl.innerHTML = deleteEl.innerHTML;
+            labelEl.classList = deleteEl.classList;
+            // Fügen Sie die folgenden CSS-Regeln hinzu, um den Zoom-Effekt bei Hover zu aktivieren
+            labelEl.style.transition = 'transform 0.1s ease-in-out';
+            labelEl.addEventListener('mouseenter', () => {
+                labelEl.style.transform = 'scale(1.1)';
+            });
+            labelEl.addEventListener('mouseleave', () => {
+                labelEl.style.transform = 'scale(1)';
+            });
+            deleteContent.appendChild(labelEl);
+            deleteEl.remove();
+        });
+    }
+
+
+    // ++++++++++ Links der Einträge deaktivieren ++++++++++
+    const stundenplanElement = document.querySelector('#stundenplan');
+    const stundenplanLinks = stundenplanElement.getElementsByTagName('a');
+
+    for (let i = 0; i < stundenplanLinks.length; i++) {
+        stundenplanLinks[i].addEventListener('click', function (e) {
+            e.preventDefault();
+        });
+    }
+
+    // ++++++++++ Button: Avatare statt namen ++++++++++
+    // Finde den Button mit der ID "avatar"
+    const AvatarButton = document.querySelector("#avatar");
+
+    // Hänge einen Event-Listener an den Button, der beim Klick ausgeführt wird
+    AvatarButton.addEventListener("click", function () {
+        // Finde alle Elemente mit der Klasse "aktiviert"
+        const aktiviertElements = document.querySelectorAll("#stundenplan a.aktiviert");
+
+        // Überprüfe, ob die Elemente bereits modifiziert wurden
+        const bereitsModifiziert = aktiviertElements[0].innerHTML.includes('<i class="fa fa-user" aria-hidden="true"></i>');
+
+        // Wenn die Elemente bereits modifiziert wurden, setze ihren ursprünglichen Text zurück
+        if (bereitsModifiziert) {
+            aktiviertElements.forEach(function (element) {
+                element.innerHTML = element.dataset.origtext;
+                AvatarButton.style.backgroundColor = '#774997'
+                AvatarButton.innerHTML = '<i class="fa fa-user"></i> &nbsp; Icons statt Namen anzeigen'
+            });
+        } else {
+            // Andernfalls modifiziere die Elemente
+            aktiviertElements.forEach(function (element) {
+                // Speichere den ursprünglichen Text des Elements
+                element.dataset.origtext = element.innerHTML;
+                // Ersetze den Text durch den Font Awesome-Code
+                element.innerHTML = '<i class="fa fa-user" aria-hidden="true"></i>';
+                AvatarButton.style.backgroundColor = '#57356e'
+                AvatarButton.innerHTML = '<i class="fa fa-font"></i> &nbsp; Namen statt Icons anzeigen'
+            });
+        }
+    });
+
+    // ++++++++++ Button: Gruppen zusammenfassen ++++++++++
+    // Finde den Button mit der ID "avatar"
+    const groupButton = document.querySelector("#groupButton");
+    const AvatarButtonHide = document.querySelector("#avatar");
+    let AlleGruppiert = false;
+
+    // Hänge einen Event-Listener an den Button, der beim Klick ausgeführt wird
+    groupButton.addEventListener("click", function () {
+        if (AlleGruppiert) {
+            groupButton.style.backgroundColor = '#774997'
+            groupButton.innerHTML = '<i class="fa fa-users"></i> &nbsp; Nur Summen anzeigen'
+            AvatarButtonHide.style.display = '';
+            Gruppen();
+        } else {
+            groupButton.style.backgroundColor = '#57356e'
+            groupButton.innerHTML = '<i class="fa fa-user"></i> &nbsp; Einzelne Einträge anzeigen'
+            AvatarButtonHide.style.display = 'none';
+            Gruppen();
+        }
+        AlleGruppiert = !AlleGruppiert;
+    });
+
+    function Gruppen() {
+        if (AlleGruppiert) {
+            const gruppen = document.querySelectorAll('span.gruppe');
+            for (let i = 0; i < gruppen.length; i++) {
+                gruppen[i].remove();
+            }
+            const neuesSpans = document.querySelectorAll('#stundenplan td.text-center span:not(.gruppe)');
+            for (let i = 0; i < neuesSpans.length; i++) {
+                const neuesSpan = neuesSpans[i];
+                const aElem = neuesSpan.querySelector('a.aktiviert');
+                const zelle = neuesSpan.closest('td');
+                zelle.appendChild(aElem);
+                neuesSpan.remove();
+                zelle.appendChild(document.createTextNode(" "));
+            }
+        } else {
+            const gruppen = document.querySelectorAll('span.gruppe');
+            for (let i = 0; i < gruppen.length; i++) {
+                gruppen[i].remove();
+            }
+            const neuesSpans = document.querySelectorAll('#stundenplan td.text-center span:not(.gruppe)');
+            for (let i = 0; i < neuesSpans.length; i++) {
+                const neuesSpan = neuesSpans[i];
+                const aElem = neuesSpan.querySelector('a.aktiviert');
+                const zelle = neuesSpan.closest('td');
+                zelle.appendChild(aElem);
+                neuesSpan.remove();
+                zelle.appendChild(document.createTextNode(" "));
+            }
+            const ZellenGruppe = document.querySelectorAll('#stundenplan td.text-center');
+            const anzahlAElem = {}; // Objekt, um Anzahl der aElemente pro Zelle zu speichern
+            let minAElemCount = Infinity; // niedrigste Anzahl von aElementen
+            let maxAElemCount = 0; // höchste Anzahl von aElementen
+            for (let i = 0; i < ZellenGruppe.length; i++) {
+                const aElemente = ZellenGruppe[i].querySelectorAll('a.aktiviert:not([style*="display: none;"])');
+                anzahlAElem[i] = aElemente.length; // speichert die Anzahl der aElemente in der aktuellen Zelle
+                if (anzahlAElem[i] < minAElemCount) {
+                    minAElemCount = anzahlAElem[i];
+                }
+                if (anzahlAElem[i] > maxAElemCount) {
+                    maxAElemCount = anzahlAElem[i];
+                }
+            }
+            const minFontSize = 1; // minimale Schriftgröße
+            const maxFontSize = 2; // maximale Schriftgröße
+            for (let i = 0; i < ZellenGruppe.length; i++) {
+                const aElemente = ZellenGruppe[i].querySelectorAll('a.aktiviert:not([style*="display: none;"])');
+                if (aElemente.length > 0) {
+                    const aElemCount = anzahlAElem[i]; // Anzahl der a-Elemente in der aktuellen Zelle
+                    const fontSize = `${minFontSize + (maxFontSize - minFontSize) * (aElemCount - minAElemCount) / (maxAElemCount - minAElemCount)}rem`;
+                    const neueSpan = document.createElement('span');
+                    neueSpan.classList.add('gruppe');
+                    neueSpan.innerHTML = `${aElemente.length}`;
+                    neueSpan.style.fontSize = fontSize;
+                    ZellenGruppe[i].appendChild(neueSpan);
+                    for (let j = 0; j < aElemente.length; j++) {
+                        const neuesSpan = document.createElement('span');
+                        neuesSpan.style.display = 'none';
+                        neuesSpan.appendChild(aElemente[j]);
+                        ZellenGruppe[i].appendChild(neuesSpan);
+                    }
+                }
+            }
+        }
+    }
+
+    function UpdateGruppen() {
+        if (AlleGruppiert) {
+            const gruppen = document.querySelectorAll('span.gruppe');
+            for (let i = 0; i < gruppen.length; i++) {
+                gruppen[i].remove();
+            }
+            const neuesSpans = document.querySelectorAll('#stundenplan td.text-center span:not(.gruppe)');
+            for (let i = 0; i < neuesSpans.length; i++) {
+                const neuesSpan = neuesSpans[i];
+                const aElem = neuesSpan.querySelector('a.aktiviert');
+                const zelle = neuesSpan.closest('td');
+                zelle.appendChild(aElem);
+                neuesSpan.remove();
+                zelle.appendChild(document.createTextNode(" "));
+            }
+            const ZellenGruppe = document.querySelectorAll('#stundenplan td.text-center');
+            const anzahlAElem = {}; // Objekt, um Anzahl der aElemente pro Zelle zu speichern
+            let minAElemCount = Infinity; // niedrigste Anzahl von aElementen
+            let maxAElemCount = 0; // höchste Anzahl von aElementen
+            for (let i = 0; i < ZellenGruppe.length; i++) {
+                const aElemente = ZellenGruppe[i].querySelectorAll('a.aktiviert:not([style*="display: none;"])');
+                anzahlAElem[i] = aElemente.length; // speichert die Anzahl der aElemente in der aktuellen Zelle
+                if (anzahlAElem[i] < minAElemCount) {
+                    minAElemCount = anzahlAElem[i];
+                }
+                if (anzahlAElem[i] > maxAElemCount) {
+                    maxAElemCount = anzahlAElem[i];
+                }
+            }
+            const minFontSize = 1; // minimale Schriftgröße
+            const maxFontSize = 2; // maximale Schriftgröße
+            for (let i = 0; i < ZellenGruppe.length; i++) {
+                const aElemente = ZellenGruppe[i].querySelectorAll('a.aktiviert:not([style*="display: none;"])');
+                if (aElemente.length > 0) {
+                    const aElemCount = anzahlAElem[i]; // Anzahl der a-Elemente in der aktuellen Zelle
+                    const fontSize = `${minFontSize + (maxFontSize - minFontSize) * (aElemCount - minAElemCount) / (maxAElemCount - minAElemCount)}rem`;
+                    const neueSpan = document.createElement('span');
+                    neueSpan.classList.add('gruppe');
+                    neueSpan.innerHTML = `${aElemente.length}`;
+                    neueSpan.style.fontSize = fontSize;
+                    ZellenGruppe[i].appendChild(neueSpan);
+                    for (let j = 0; j < aElemente.length; j++) {
+                        const neuesSpan = document.createElement('span');
+                        neuesSpan.style.display = 'none';
+                        neuesSpan.appendChild(aElemente[j]);
+                        ZellenGruppe[i].appendChild(neuesSpan);
+                    }
+                }
+            }
+        } else {
+        }
+    }
+
+
+    // ++++++++++ Icons und Gruppen situativ aktivieren/deaktivieren ++++++++++
+    const DefaultZellen = document.querySelectorAll('#stundenplan td.text-center');
+    const bildschirmBreite = window.innerWidth;
+    const avatarButtonDefault = document.querySelector('#avatar');
+    const groupButtonDefault = document.querySelector('#groupButton');
+
+    let maxAnzahlAktivierte = 0;
+    DefaultZellen.forEach(zelle => {
+        const DefaultLinks = zelle.querySelectorAll('a.aktiviert:not([style*="display: none;"])');
+        if (DefaultLinks.length > maxAnzahlAktivierte) {
+            maxAnzahlAktivierte = DefaultLinks.length;
+        }
+    });
+
+    if (bildschirmBreite < 768) {
+        if (maxAnzahlAktivierte > 3) {
+            avatarButtonDefault.click();
+        }
+        if (maxAnzahlAktivierte > 6) {
+            groupButtonDefault.click();
+        }
+    } else if (bildschirmBreite < 992) {
+        if (maxAnzahlAktivierte > 5) {
+            avatarButtonDefault.click();
+        }
+        if (maxAnzahlAktivierte > 8) {
+            groupButtonDefault.click();
+        }
+    } else {
+        if (maxAnzahlAktivierte > 8) {
+            avatarButtonDefault.click();
+        }
+        if (maxAnzahlAktivierte > 12) {
+            groupButtonDefault.click();
+        }
+    }
+
+
+    // ++++++++++ YouTube Video abhängig von Einstellungen laden ++++++++++
+    if (VideoTutorial === true) {
+        document.querySelector('#video-tutorial').style.display = 'inline-block';
+        document.querySelector('#EnableVideo').style.display = 'block';
+        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/3ORsUGVNxGs?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
+    }
+
+
+    // ++++++++++ Direkter Link zu Einstellungen (Vorlagen für Javascript) ++++++++++
+    let currentDBUrl = window.location.href;
+    let dataUrl = currentDBUrl.match(/.*\/data\//)[0];
+    let cssLink = document.querySelector('link[rel="stylesheet"][href*="css.php"]');
+    let cssUrl = cssLink.href;
+    let cssParam = cssUrl.match(/d=\d+/)[0];
+
+    let jsPresetUrl = dataUrl + "templates.php?" + cssParam + "&mode=jstemplate";
+    let jsPresetLink = document.getElementById("config");
+    jsPresetLink.href = jsPresetUrl;
+
+
+    // ++++++++++ Button Generator ++++++++++
+    // Event Listener für Änderungen an den Eingabefeldern registrieren
+    const btnText = document.querySelector('input[name="btnText"]');
+    const btnType = document.querySelectorAll('input[name="btnType"]');
+    const btnStyle = document.querySelectorAll('input[name="btnStyle"]');
+    const btnSize = document.querySelectorAll('input[name="btnSize"]');
+
+    btnText.addEventListener('input', generateButton);
+    btnType.forEach(radio => radio.addEventListener('change', generateButton));
+    btnStyle.forEach(radio => radio.addEventListener('change', generateButton));
+    btnSize.forEach(radio => radio.addEventListener('change', generateButton));
+
+    // Funktion zur Generierung des Buttons und des HTML-Codes
+    function generateButton() {
+        // Ausgewählte Werte aus den Eingabefeldern auslesen
+        const selectedType = document.querySelector('input[name="btnType"]:checked').value;
+        const selectedStyle = document.querySelector('input[name="btnStyle"]:checked').value;
+        const selectedSize = document.querySelector('input[name="btnSize"]:checked').value;
+        const text = btnText.value;
+
+        // HTML-Code für den Button generieren
+        const buttonContent = `<a type="button" href="${currentUrl}" class="btn btn-${selectedStyle}${selectedType} ${selectedSize}"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;${text}</a>`;
+
+        // Vorschau-Button aktualisieren
+        document.getElementById("preview").innerHTML = buttonContent;
+
+        // HTML-Code in das Output-Feld einfügen
+        document.getElementById("output").value = buttonContent;
+    }
+
+    // Seite initialisieren
+    generateButton();
+
+    // HTML-Code kopieren
+    const copyBtn = document.querySelector('#copyBtn');
+    const output = document.querySelector('#output');
+
+    copyBtn.addEventListener('click', () => {
+        try {
+            navigator.clipboard.writeText(output.value)
+        } catch (error) {
+            const popup = document.createElement('div');
+            popup.classList.add('popup-error');
+            popup.innerHTML = '<h2 style="background-color: #ffc199 !important;">Fehler</h2><br><div style="background-color: ffe8d9 !important;"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></div><div style="background-color: ffe8d9 !important;">Die Zwischenablage-Funktion wird von Ihrem Browser nicht unterstützt!</div><br>';
+            document.body.appendChild(popup);
+            setTimeout(() => {
+                popup.remove();
+            }, 2000);
+        }
+        const popup = document.createElement('div');
+        popup.classList.add('popup-info');
+        popup.innerHTML = '<h2><i class="fa fa-code" aria-hidden="true"></i>&nbsp;&nbsp;HTML-Code kopiert</h2>';
+        document.body.appendChild(popup);
+        setTimeout(() => {
+            popup.remove();
+        }, 2000);
+    });
+
+
+    // ++++++++++ Konfiguration zurücksetzen ++++++++++
+    // zeige resetConfig an oder blende es aus, wenn ShowReset geklickt wird
+    document.getElementById("ShowReset").addEventListener("click", function (event) {
+        event.preventDefault();
+        const resetConfig = document.getElementById("resetConfig");
+        if (resetConfig.style.display === 'block') {
+            resetConfig.style.display = 'none';
+        } else {
+            resetConfig.style.display = 'block';
+        }
+    });
+
+    // kopiere Inhalt von OrigConfig in die Zwischenablage, wenn copyConfig geklickt wird
+    document.getElementById("copyConfig").addEventListener("click", function (event) {
+        event.preventDefault();
+        const config = document.getElementById("OrigConfig");
+        config.select();
+
+        try {
+            document.execCommand("copy");
+
+            const popup = document.createElement('div');
+            popup.classList.add('popup-info');
+            popup.innerHTML = '<h2><i class="fa fa-code" aria-hidden="true"></i>&nbsp;&nbsp;Konfiguration kopiert</h2>';
+            document.body.appendChild(popup);
+            setTimeout(() => {
+                popup.remove();
+            }, 2000);
+        } catch (error) {
+            const popup = document.createElement('div');
+            popup.classList.add('popup-error');
+            popup.innerHTML = '<h2 style="background-color: #ffc199 !important;">Fehler</h2><br><div style="background-color: ffe8d9 !important;"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></div><div style="background-color: ffe8d9 !important;">Die Zwischenablage-Funktion wird von Ihrem Browser nicht unterstützt!</div><br>';
+            document.body.appendChild(popup);
+            setTimeout(() => {
+                popup.remove();
+            }, 2000);
+        }
+    });
+
+
+    // ++++++++++ Standard Konfiguration ++++++++++
+</script>
+
+<p id="StandardConfig" class="d-none">
+// ++++++++++ Anleitung ++++++++++
+//
+// Hier kann die Datenbank konfiguriert werden.
+// Einfach den jeweiligen Wert hinter dem "=" verändern.
+// Nach Änderungen muss ggf. mit [Strg + F5] aktualisiert werden!
+//
+// ++++++++++ EINSTELLUNGEN ++++++++++
+
+// ++++++++++ Moodle-Namen für Teilnehmer:innen erzwingen ++++++++++
+
+const MoodleName = false;               // false = Eigene Eingabe; true = Moodle-Name
+
+// ++++++++++ Video-Tutorial für Teilnehmer:innen ein-/ausblenden ++++++++++
+
+const VideoTutorial = false;            // false = ausgeblendet; true = eingeblendet
+
+// ++++++++++ Spalten ein-/ausblenden und Spalten-Überschriften eingeben ++++++++++
+
+const TextSpalte00 = "Stunde"           // Überschrift Spalte 0 (Kann nicht ausgeblendet werden)
+const AbkSpalte00 = "Std."              // Kurzer Text für schmale Bildschirme
+
+
+const AnzahlSpalten = 5                 // Anzahl der Spalten (1-7), die eingeblendet werden
+
+
+const TextSpalte01 = "Montag"           // Überschrift Spalte 1
+const AbkSpalte01 = "Mo"                // Kurzer Text für schmale Bildschirme
+
+const TextSpalte02 = "Dienstag"
+const AbkSpalte02 = "Di"
+
+const TextSpalte03 = "Mittwoch"
+const AbkSpalte03 = "Mi"
+
+const TextSpalte04 = "Donnerstag"
+const AbkSpalte04 = "Do"
+
+const TextSpalte05 = "Freitag"
+const AbkSpalte05 = "Fr"
+
+const TextSpalte06 = "Samstag"
+const AbkSpalte06 = "Sa"
+
+const TextSpalte07 = "Sonntag"
+const AbkSpalte07 = "So"
+
+// ++++++++++ X Zeilen ein-/ausblenden ++++++++++
+// "AnzahlZeilen" = 0, dann werden die Zeilen durch die Einstellungen unten ein-/ausgeblendet.
+// "AnzahlZeilen" = X, dann werden X Zeilen eingeblendet, unabhängig von den Einstellungen unten.
+
+const AnzahlZeilen = 0                  // Mögliche Anzahl: 1 - 17  |   0 = deaktiviert
+
+// ++++++++++ Zeilen individuell ein-/ausblenden und Zeilen-Texte eingeben ++++++++++
+// Um Zeilen einzeln ein-/auszublenden, muss die Zeile "AnzahlZeilen" mit "//" auskommentiert sein.
+
+let Zeile01Anzeigen = true;             // false = ausgeblendet true = eingeblendet
+const TextZeile01 = "1. Stunde"         // Fetter Text, der in der ersten Spalte der ersten Zeile steht
+const ZeitZeile01 = "07:45 - 08:30"     // Normaler Text, der darunter steht
+
+let Zeile02Anzeigen = true;
+const TextZeile02 = "2. Stunde"
+const ZeitZeile02 = "08:30 - 09:15"
+
+let Zeile03Anzeigen = true;
+const TextZeile03 = "1. Pause"
+const ZeitZeile03 = "09:15 - 09:35"
+
+let Zeile04Anzeigen = true;
+const TextZeile04 = "3. Stunde"
+const ZeitZeile04 = "09:35 - 10:20"
+
+let Zeile05Anzeigen = true;
+const TextZeile05 = "4. Stunde"
+const ZeitZeile05 = "10:20 - 11:05"
+
+let Zeile06Anzeigen = true;
+const TextZeile06 = "2. Pause"
+const ZeitZeile06 = "11:05 - 11:30"
+
+let Zeile07Anzeigen = true;
+const TextZeile07 = "5. Stunde"
+const ZeitZeile07 = "11:30 - 12:15"
+
+let Zeile08Anzeigen = true;
+const TextZeile08 = "6. Stunde"
+const ZeitZeile08 = "12:15 - 13:00"
+
+let Zeile09Anzeigen = true;
+const TextZeile09 = "Mittagspause"
+const ZeitZeile09 = "13:00 - 13:50"
+
+let Zeile10Anzeigen = true;
+const TextZeile10 = "7. Stunde"
+const ZeitZeile10 = "13:50 - 14:35"
+
+let Zeile11Anzeigen = true;
+const TextZeile11 = "8. Stunde"
+const ZeitZeile11 = "14:35 - 15:20"
+
+// ++++++++++ 5 weitere Einträge ein-/ausblenden (standardmäßig ausgeblendet) ++++++++++
+
+let Zeile12Anzeigen = false;            // false = ausgeblendet true = eingeblendet
+const TextZeile12 = "9. Stunde"         // Fetter Text, der in der ersten Spalte der 12. Zeile steht
+const ZeitZeile12 = "15:30 - 16:15"     // Text, der darunter steht
+
+let Zeile13Anzeigen = false;
+const TextZeile13 = "10. Stunde"
+const ZeitZeile13 = "16:15 - 17:00"
+
+let Zeile14Anzeigen = false;
+const TextZeile14 = "11. Stunde"
+const ZeitZeile14 = "17:00 - 17:45"
+
+let Zeile15Anzeigen = false;
+const TextZeile15 = "12. Stunde"
+const ZeitZeile15 = "17:45 - 18:30"
+
+let Zeile16Anzeigen = false;
+const TextZeile16 = "13. Stunde"
+const ZeitZeile16 = "18:30 - 19:15"
+
+let Zeile17Anzeigen = false;
+const TextZeile17 = "14. Stunde"
+const ZeitZeile17 = "19:15 - 20:00"
+
+// ++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++
+
+const DunkleZeile01 = false             // false = Zeile nicht dunkler; true = Zeile dunkler
+const DunkleZeile02 = false
+const DunkleZeile03 = true
+const DunkleZeile04 = false
+const DunkleZeile05 = false
+const DunkleZeile06 = true
+const DunkleZeile07 = false
+const DunkleZeile08 = false
+const DunkleZeile09 = true
+const DunkleZeile10 = false
+const DunkleZeile11 = false
+const DunkleZeile12 = false
+const DunkleZeile13 = false
+const DunkleZeile14 = false
+const DunkleZeile15 = false
+const DunkleZeile16 = false
+const DunkleZeile17 = false
+
+
+// +++++++++++++++++ EINSTELLUNGEN ENDE +++++++++++++++++
+
+
+// Termine finden v.1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
+// GNU General Public Licence 3.0 - http://www.gnu.de/documents/gpl-3.0.en.html
+</p>
+
+<script>
+    // +++++++++++++++++++++ Javascript Konfiguration +++++++++++++++++++++++++
+    document.getElementById('OrigConfig').value = document.querySelector("#StandardConfig").textContent;
+</script>

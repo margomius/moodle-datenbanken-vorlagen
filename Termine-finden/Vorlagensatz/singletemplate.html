@@ -1,0 +1,1024 @@
+<!-- Termine finden v.1.0 - Copyright (C) 2023, @margomius - https://margomius.com/ -->
+<!-- GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html -->
+
+<!-- ++++++++++ html2canvas laden, um Screenshot zu kopieren -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+<div class="container mt-2">
+    <a id="listlink" class="btn btn-success mb-1 mr-2" href="#"><i class="fa fa-calendar"
+            aria-hidden="true"></i>&nbsp;&nbsp;Listenansicht</a>
+    <a id="video-tutorial" class="btn btn-lila mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
+        aria-expanded="false" aria-controls="collapseVideo"><i class="fa fa-youtube"
+            aria-hidden="true"></i>&nbsp;&nbsp;Video-Tutorial</a>
+    <div id="EnableVideo">
+        <div id="collapseVideo" class="collapse mt-2">
+            <div class="card card-body">
+                <div id="insertIframe" class="iframe-container">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="einzelansicht" class="container">
+    <div class="row mb-3 mt-2">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Einzelansicht <span class="pull-right">##edit## ##delete##</span> </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h3>[[Name]]</h3>
+                            <span class="anmerkung"><strong>Anmerkung: </strong>[[Anmerkung]]</span>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <span class="adminonly" style="font-size: 0.9rem;">##user##</span>
+                            <h5><span id="termine" class="badge"
+                                    style="background-color: #ddecd2;margin-top: 0.4rem;"></span></h5>
+                            <span style="font-size: 0.9rem;">##timemodified##</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="einzel" class="table table-sm table-bordered einzel mb-2">
+        <thead>
+            <tr>
+                <th id="d-spalte-0" style="padding-left: 0.75rem;" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-1" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-2" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-3" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-4" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-5" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-6" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-7" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-0" style="padding-left: 0.6rem;" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-1" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-2" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-3" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-4" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-5" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-6" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-7" class="text-center d-table-cell d-sm-none"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="Zeile01">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile01"></strong><br>
+                        <span id="ZeitZeile01"></span>
+                    </div>
+                </td>
+                <td id="Mo-1" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-1" style="display: none;">[[Mo-1]]</span>
+                </td>
+                <td id="Di-1" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-1" style="display: none;">[[Di-1]]</span>
+                </td>
+                <td id="Mi-1" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-1" style="display: none;">[[Mi-1]]</span>
+                </td>
+                <td id="Do-1" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-1" style="display: none;">[[Do-1]]</span>
+                </td>
+                <td id="Fr-1" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-1" style="display: none;">[[Fr-1]]</span>
+                </td>
+                <td id="Sa-1" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-1" style="display: none;">[[Sa-1]]</span>
+                </td>
+                <td id="So-1" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-1" style="display: none;">[[So-1]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile02">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile02"></strong><br>
+                        <span id="ZeitZeile02"></span>
+                    </div>
+                </td>
+                <td id="Mo-2" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-2" style="display: none;">[[Mo-2]]</span>
+                </td>
+                <td id="Di-2" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-2" style="display: none;">[[Di-2]]</span>
+                </td>
+                <td id="Mi-2" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-2" style="display: none;">[[Mi-2]]</span>
+                </td>
+                <td id="Do-2" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-2" style="display: none;">[[Do-2]]</span>
+                </td>
+                <td id="Fr-2" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-2" style="display: none;">[[Fr-2]]</span>
+                </td>
+                <td id="Sa-2" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-2" style="display: none;">[[Sa-2]]</span>
+                </td>
+                <td id="So-2" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-2" style="display: none;">[[So-2]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile03">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile03"></strong><br>
+                        <span id="ZeitZeile03"></span>
+                    </div>
+                </td>
+                <td id="Mo-3" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-3" style="display: none;">[[Mo-3]]</span>
+                </td>
+                <td id="Di-3" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-3" style="display: none;">[[Di-3]]</span>
+                </td>
+                <td id="Mi-3" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-3" style="display: none;">[[Mi-3]]</span>
+                </td>
+                <td id="Do-3" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-3" style="display: none;">[[Do-3]]</span>
+                </td>
+                <td id="Fr-3" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-3" style="display: none;">[[Fr-3]]</span>
+                </td>
+                <td id="Sa-3" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-3" style="display: none;">[[Sa-3]]</span>
+                </td>
+                <td id="So-3" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-3" style="display: none;">[[So-3]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile04">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile04"></strong><br>
+                        <span id="ZeitZeile04"></span>
+                    </div>
+                </td>
+                <td id="Mo-4" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-4" style="display: none;">[[Mo-4]]</span>
+                </td>
+                <td id="Di-4" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-4" style="display: none;">[[Di-4]]</span>
+                </td>
+                <td id="Mi-4" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-4" style="display: none;">[[Mi-4]]</span>
+                </td>
+                <td id="Do-4" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-4" style="display: none;">[[Do-4]]</span>
+                </td>
+                <td id="Fr-4" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-4" style="display: none;">[[Fr-4]]</span>
+                </td>
+                <td id="Sa-4" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-4" style="display: none;">[[Sa-4]]</span>
+                </td>
+                <td id="So-4" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-4" style="display: none;">[[So-4]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile05">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile05"></strong><br>
+                        <span id="ZeitZeile05"></span>
+                    </div>
+                </td>
+                <td id="Mo-5" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-5" style="display: none;">[[Mo-5]]</span>
+                </td>
+                <td id="Di-5" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-5" style="display: none;">[[Di-5]]</span>
+                </td>
+                <td id="Mi-5" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-5" style="display: none;">[[Mi-5]]</span>
+                </td>
+                <td id="Do-5" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-5" style="display: none;">[[Do-5]]</span>
+                </td>
+                <td id="Fr-5" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-5" style="display: none;">[[Fr-5]]</span>
+                </td>
+                <td id="Sa-5" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-5" style="display: none;">[[Sa-5]]</span>
+                </td>
+                <td id="So-5" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-5" style="display: none;">[[So-5]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile06">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile06"></strong><br>
+                        <span id="ZeitZeile06"></span>
+                    </div>
+                </td>
+                <td id="Mo-6" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-6" style="display: none;">[[Mo-6]]</span>
+                </td>
+                <td id="Di-6" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-6" style="display: none;">[[Di-6]]</span>
+                </td>
+                <td id="Mi-6" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-6" style="display: none;">[[Mi-6]]</span>
+                </td>
+                <td id="Do-6" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-6" style="display: none;">[[Do-6]]</span>
+                </td>
+                <td id="Fr-6" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-6" style="display: none;">[[Fr-6]]</span>
+                </td>
+                <td id="Sa-6" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-6" style="display: none;">[[Sa-6]]</span>
+                </td>
+                <td id="So-6" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-6" style="display: none;">[[So-6]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile07">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile07"></strong><br>
+                        <span id="ZeitZeile07"></span>
+                    </div>
+                </td>
+                <td id="Mo-7" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-7" style="display: none;">[[Mo-7]]</span>
+                </td>
+                <td id="Di-7" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-7" style="display: none;">[[Di-7]]</span>
+                </td>
+                <td id="Mi-7" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-7" style="display: none;">[[Mi-7]]</span>
+                </td>
+                <td id="Do-7" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-7" style="display: none;">[[Do-7]]</span>
+                </td>
+                <td id="Fr-7" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-7" style="display: none;">[[Fr-7]]</span>
+                </td>
+                <td id="Sa-7" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-7" style="display: none;">[[Sa-7]]</span>
+                </td>
+                <td id="So-7" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-7" style="display: none;">[[So-7]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile08">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile08"></strong><br>
+                        <span id="ZeitZeile08"></span>
+                    </div>
+                </td>
+                <td id="Mo-8" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-8" style="display: none;">[[Mo-8]]</span>
+                </td>
+                <td id="Di-8" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-8" style="display: none;">[[Di-8]]</span>
+                </td>
+                <td id="Mi-8" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-8" style="display: none;">[[Mi-8]]</span>
+                </td>
+                <td id="Do-8" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-8" style="display: none;">[[Do-8]]</span>
+                </td>
+                <td id="Fr-8" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-8" style="display: none;">[[Fr-8]]</span>
+                </td>
+                <td id="Sa-8" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-8" style="display: none;">[[Sa-8]]</span>
+                </td>
+                <td id="So-8" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-8" style="display: none;">[[So-8]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile09">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile09"></strong><br>
+                        <span id="ZeitZeile09"></span>
+                    </div>
+                </td>
+                <td id="Mo-9" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-9" style="display: none;">[[Mo-9]]</span>
+                </td>
+                <td id="Di-9" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-9" style="display: none;">[[Di-9]]</span>
+                </td>
+                <td id="Mi-9" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-9" style="display: none;">[[Mi-9]]</span>
+                </td>
+                <td id="Do-9" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-9" style="display: none;">[[Do-9]]</span>
+                </td>
+                <td id="Fr-9" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-9" style="display: none;">[[Fr-9]]</span>
+                </td>
+                <td id="Sa-9" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-9" style="display: none;">[[Sa-9]]</span>
+                </td>
+                <td id="So-9" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-9" style="display: none;">[[So-9]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile10">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile10"></strong><br>
+                        <span id="ZeitZeile10"></span>
+                    </div>
+                </td>
+                <td id="Mo-10" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-10" style="display: none;">[[Mo-10]]</span>
+                </td>
+                <td id="Di-10" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-10" style="display: none;">[[Di-10]]</span>
+                </td>
+                <td id="Mi-10" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-10" style="display: none;">[[Mi-10]]</span>
+                </td>
+                <td id="Do-10" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-10" style="display: none;">[[Do-10]]</span>
+                </td>
+                <td id="Fr-10" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-10" style="display: none;">[[Fr-10]]</span>
+                </td>
+                <td id="Sa-10" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-10" style="display: none;">[[Sa-10]]</span>
+                </td>
+                <td id="So-10" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-10" style="display: none;">[[So-10]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile11">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile11"></strong><br>
+                        <span id="ZeitZeile11"></span>
+                    </div>
+                </td>
+                <td id="Mo-11" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-11" style="display: none;">[[Mo-11]]</span>
+                </td>
+                <td id="Di-11" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-11" style="display: none;">[[Di-11]]</span>
+                </td>
+                <td id="Mi-11" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-11" style="display: none;">[[Mi-11]]</span>
+                </td>
+                <td id="Do-11" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-11" style="display: none;">[[Do-11]]</span>
+                </td>
+                <td id="Fr-11" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-11" style="display: none;">[[Fr-11]]</span>
+                </td>
+                <td id="Sa-11" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-11" style="display: none;">[[Sa-11]]</span>
+                </td>
+                <td id="So-11" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-11" style="display: none;">[[So-11]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile12">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile12"></strong><br>
+                        <span id="ZeitZeile12"></span>
+                    </div>
+                </td>
+                <td id="Mo-12" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-12" style="display: none;">[[Mo-12]]</span>
+                </td>
+                <td id="Di-12" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-12" style="display: none;">[[Di-12]]</span>
+                </td>
+                <td id="Mi-12" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-12" style="display: none;">[[Mi-12]]</span>
+                </td>
+                <td id="Do-12" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-12" style="display: none;">[[Do-12]]</span>
+                </td>
+                <td id="Fr-12" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-12" style="display: none;">[[Fr-12]]</span>
+                </td>
+                <td id="Sa-12" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-12" style="display: none;">[[Sa-12]]</span>
+                </td>
+                <td id="So-12" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-12" style="display: none;">[[So-12]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile13">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile13"></strong><br>
+                        <span id="ZeitZeile13"></span>
+                    </div>
+                </td>
+                <td id="Mo-13" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-13" style="display: none;">[[Mo-13]]</span>
+                </td>
+                <td id="Di-13" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-13" style="display: none;">[[Di-13]]</span>
+                </td>
+                <td id="Mi-13" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-13" style="display: none;">[[Mi-13]]</span>
+                </td>
+                <td id="Do-13" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-13" style="display: none;">[[Do-13]]</span>
+                </td>
+                <td id="Fr-13" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-13" style="display: none;">[[Fr-13]]</span>
+                </td>
+                <td id="Sa-13" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-13" style="display: none;">[[Sa-13]]</span>
+                </td>
+                <td id="So-13" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-13" style="display: none;">[[So-13]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile14">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile14"></strong><br>
+                        <span id="ZeitZeile14"></span>
+                    </div>
+                </td>
+                <td id="Mo-14" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-14" style="display: none;">[[Mo-14]]</span>
+                </td>
+                <td id="Di-14" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-14" style="display: none;">[[Di-14]]</span>
+                </td>
+                <td id="Mi-14" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-14" style="display: none;">[[Mi-14]]</span>
+                </td>
+                <td id="Do-14" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-14" style="display: none;">[[Do-14]]</span>
+                </td>
+                <td id="Fr-14" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-14" style="display: none;">[[Fr-14]]</span>
+                </td>
+                <td id="Sa-14" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-14" style="display: none;">[[Sa-14]]</span>
+                </td>
+                <td id="So-14" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-14" style="display: none;">[[So-14]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile15">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile15"></strong><br>
+                        <span id="ZeitZeile15"></span>
+                    </div>
+                </td>
+                <td id="Mo-15" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-15" style="display: none;">[[Mo-15]]</span>
+                </td>
+                <td id="Di-15" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-15" style="display: none;">[[Di-15]]</span>
+                </td>
+                <td id="Mi-15" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-15" style="display: none;">[[Mi-15]]</span>
+                </td>
+                <td id="Do-15" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-15" style="display: none;">[[Do-15]]</span>
+                </td>
+                <td id="Fr-15" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-15" style="display: none;">[[Fr-15]]</span>
+                </td>
+                <td id="Sa-15" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-15" style="display: none;">[[Sa-15]]</span>
+                </td>
+                <td id="So-15" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-15" style="display: none;">[[So-15]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile16">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile16"></strong><br>
+                        <span id="ZeitZeile16"></span>
+                    </div>
+                </td>
+                <td id="Mo-16" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-16" style="display: none;">[[Mo-16]]</span>
+                </td>
+                <td id="Di-16" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-16" style="display: none;">[[Di-16]]</span>
+                </td>
+                <td id="Mi-16" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-16" style="display: none;">[[Mi-16]]</span>
+                </td>
+                <td id="Do-16" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-16" style="display: none;">[[Do-16]]</span>
+                </td>
+                <td id="Fr-16" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-16" style="display: none;">[[Fr-16]]</span>
+                </td>
+                <td id="Sa-16" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-16" style="display: none;">[[Sa-16]]</span>
+                </td>
+                <td id="So-16" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-16" style="display: none;">[[So-16]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile17">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile17"></strong><br>
+                        <span id="ZeitZeile17"></span>
+                    </div>
+                </td>
+                <td id="Mo-17" class="text-center spalte-1">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mo-17" style="display: none;">[[Mo-17]]</span>
+                </td>
+                <td id="Di-17" class="text-center spalte-2">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Di-17" style="display: none;">[[Di-17]]</span>
+                </td>
+                <td id="Mi-17" class="text-center spalte-3">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Mi-17" style="display: none;">[[Mi-17]]</span>
+                </td>
+                <td id="Do-17" class="text-center spalte-4">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Do-17" style="display: none;">[[Do-17]]</span>
+                </td>
+                <td id="Fr-17" class="text-center spalte-5">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Fr-17" style="display: none;">[[Fr-17]]</span>
+                </td>
+                <td id="Sa-17" class="text-center spalte-6">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel Sa-17" style="display: none;">[[Sa-17]]</span>
+                </td>
+                <td id="So-17" class="text-center spalte-7">
+                    <i class="fa fa-check-square-o fa-2x" aria-hidden="true" style="display: none;"></i>
+                    <span class="ziel So-17" style="display: none;">[[So-17]]</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col text-right">
+            <button id="screenshotTabelle" type="button" class="btn btn-lila mb-1 ">
+                <i class="fa fa-calendar"></i> Screenshot Tabelle
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="alert alert-light text-right" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+        Datenbank: Termine finden v1.0 — <nobr>GNU General Public Licence 3.0 —</nobr>
+        <nobr>Copyright © 2023 — <a href="https://www.margomius.com/" target="_blank">@margomius</a></nobr>
+    </div>
+</div>
+
+<script>
+    // Termine finden v1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
+    // GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html
+    //
+    // Dieser Code wurde mit Unterstützung von ChatGPT geschrieben und ist möglicherweise nicht perfekt.
+    // Ich empfehle, den Code zu überprüfen, bevor er eingesetzt oder verändert wird.
+    // Ich übernehme keine Verantwortung für Fehler oder Probleme, die durch Einsetzen des Codes verursacht werden könnten.
+
+
+
+    // ++++++++++ Links der Listenansicht immer mit 1000 Einträgen ++++++++++
+    var url = window.location.href; // URL der aktuellen Seite abrufen
+    var index = url.indexOf('&'); // Index des ersten Parameters (&) finden
+    var urlWithoutParams = url.substring(0, index); // Teil der URL vor den Parametern (&) extrahieren
+
+    // Alle Links auf der Seite auswählen, die genau mit urlWithoutParams übereinstimmen
+    var links = document.querySelectorAll('a[href="' + urlWithoutParams + '"]');
+
+    // Alle Links durchlaufen und um den String "&perpage=1000" ergänzen
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        link.href += '&perpage=1000';
+    }
+
+
+    // ++++++++++ Link "Listenansicht" in Button einfügen ++++++++++
+    var listlink = document.getElementById("listlink")
+    listlink.href = urlWithoutParams + '&perpage=1000';
+
+
+    // ++++++++++ Moodle-Namen für Trainer:innen anzeigen ++++++++++
+    const adminControl = document.querySelectorAll('.navbar .custom-control-input').length;
+    if (adminControl > 0) {
+        // Moodle 4
+        document.querySelectorAll('.adminonly').forEach(el => {
+            el.style.display = 'inherit';
+        });
+    } else {
+        const adminControl = document.querySelectorAll('.nav-link[href*="field"]').length;
+        if (adminControl > 0) {
+            // Moodle 3
+            document.querySelectorAll('.adminonly').forEach(el => {
+                el.style.display = 'inherit';
+            });
+        }
+    }
+
+    // ++++++++++ Verfügbarkeiten zählen und einblenden ++++++++++
+    const einzel = document.getElementById("einzel");
+    const spans = einzel.getElementsByTagName("span");
+    let count = 0;
+
+    for (let i = 0; i < spans.length; i++) {
+        const span = spans[i];
+        const td = span.parentElement;
+
+        if (span.textContent.trim().length > 0) {
+            const iElem = td.querySelector("i");
+            iElem.style.display = "inline";
+            td.classList.add('highlight');
+            count++;
+        }
+    }
+
+    const termine = document.getElementById("termine");
+    if (count === 1) {
+        termine.textContent = "Ein Termin angegeben";
+        termine.style.backgroundColor = "#fff5cc";
+    } else if (count === 0) {
+        termine.textContent = "Kein Termin angegeben";
+        termine.style.backgroundColor = "#ffe8d9";
+    } else {
+        termine.textContent = count + " Termine angegeben";
+    }
+
+
+    // ++++++++++ Anmerkung ausblenden, wenn sie leer ist ++++++++++
+    const anmerkungSpan = document.querySelector(".anmerkung");
+    if (anmerkungSpan && anmerkungSpan.textContent.trim() === "Anmerkung:") {
+        anmerkungSpan.style.display = "none";
+    }
+
+
+    // ++++++++++ Screenshot (Tabelle)) in Zwischenablage kopieren und als Datei speichern ++++++++++
+    const screenshotTableButton = document.getElementById('screenshotTabelle');
+    const selectedTableScreen = document.getElementById('einzelansicht');
+
+    screenshotTableButton.addEventListener('click', function () {
+        html2canvas(selectedTableScreen).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                try {
+                    navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                } catch (error) {
+                    const popup = document.createElement('div');
+                    popup.classList.add('popup-error');
+                    popup.innerHTML = '<h2 style="background-color: #ffc199 !important;">Fehler</h2><br><div style="background-color: ffe8d9 !important;"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></div><div style="background-color: ffe8d9 !important;">Die Zwischenablage-Funktion wird von Ihrem Browser nicht unterstützt!</div><br>';
+                    document.body.appendChild(popup);
+                    setTimeout(() => {
+                        popup.remove();
+                    }, 3000);
+                }
+                const popup = document.createElement('div');
+                popup.classList.add('popup-info');
+                popup.innerHTML = '<h2>Screenshot</h2><br><div><i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></div><div>Ein Bildschirmfoto wurde in die Zwischenablage kopiert und heruntergeladen!</div><br>';
+                document.body.appendChild(popup);
+                setTimeout(() => {
+                    popup.remove();
+                }, 3000);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = 'screenshot.png';
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    });
+
+
+    // ++++++++++ Zeilen/Stunden abhängig von den Einstellungen ein- bzw. ausblenden ++++++++++
+
+    if (typeof AnzahlZeilen !== 'undefined') {
+        for (let i = 1; i <= AnzahlZeilen; i++) {
+            const ZeilenName = `Zeile${i.toString().padStart(2, '0')}Anzeigen`;
+            eval(`${ZeilenName} = true;`);
+
+            for (let j = i + 1; j <= 17; j++) {
+                const ZeilenName = `Zeile${j.toString().padStart(2, '0')}Anzeigen`;
+                eval(`${ZeilenName} = false;`);
+            }
+        }
+    }
+
+    if (Zeile01Anzeigen === false) {
+        document.querySelector("#Zeile01").style.display = "none";
+    } else {
+        document.querySelector("#Zeile01").style.display = "";
+    }
+
+    if (Zeile02Anzeigen === false) {
+        document.querySelector("#Zeile02").style.display = "none";
+    } else {
+        document.querySelector("#Zeile02").style.display = "";
+    }
+
+    if (Zeile03Anzeigen === false) {
+        document.querySelector("#Zeile03").style.display = "none";
+    } else {
+        document.querySelector("#Zeile03").style.display = "";
+    }
+
+    if (Zeile04Anzeigen === false) {
+        document.querySelector("#Zeile04").style.display = "none";
+    } else {
+        document.querySelector("#Zeile04").style.display = "";
+    }
+
+    if (Zeile05Anzeigen === false) {
+        document.querySelector("#Zeile05").style.display = "none";
+    } else {
+        document.querySelector("#Zeile05").style.display = "";
+    }
+
+    if (Zeile06Anzeigen === false) {
+        document.querySelector("#Zeile06").style.display = "none";
+    } else {
+        document.querySelector("#Zeile06").style.display = "";
+    }
+
+    if (Zeile07Anzeigen === false) {
+        document.querySelector("#Zeile07").style.display = "none";
+    } else {
+        document.querySelector("#Zeile07").style.display = "";
+    }
+
+    if (Zeile08Anzeigen === false) {
+        document.querySelector("#Zeile08").style.display = "none";
+    } else {
+        document.querySelector("#Zeile08").style.display = "";
+    }
+
+    if (Zeile09Anzeigen === false) {
+        document.querySelector("#Zeile09").style.display = "none";
+    } else {
+        document.querySelector("#Zeile09").style.display = "";
+    }
+
+    if (Zeile10Anzeigen === false) {
+        document.querySelector("#Zeile10").style.display = "none";
+    } else {
+        document.querySelector("#Zeile10").style.display = "";
+    }
+
+    if (Zeile11Anzeigen === false) {
+        document.querySelector("#Zeile11").style.display = "none";
+    } else {
+        document.querySelector("#Zeile11").style.display = "";
+    }
+
+    if (Zeile12Anzeigen === false) {
+        document.querySelector("#Zeile12").style.display = "none";
+    } else {
+        document.querySelector("#Zeile12").style.display = "";
+    }
+
+    if (Zeile13Anzeigen === false) {
+        document.querySelector("#Zeile13").style.display = "none";
+    } else {
+        document.querySelector("#Zeile13").style.display = "";
+    }
+
+    if (Zeile14Anzeigen === false) {
+        document.querySelector("#Zeile14").style.display = "none";
+    } else {
+        document.querySelector("#Zeile14").style.display = "";
+    }
+
+    if (Zeile15Anzeigen === false) {
+        document.querySelector("#Zeile15").style.display = "none";
+    } else {
+        document.querySelector("#Zeile15").style.display = "";
+    }
+
+    if (Zeile16Anzeigen === false) {
+        document.querySelector("#Zeile16").style.display = "none";
+    } else {
+        document.querySelector("#Zeile16").style.display = "";
+    }
+
+    if (Zeile17Anzeigen === false) {
+        document.querySelector("#Zeile17").style.display = "none";
+    } else {
+        document.querySelector("#Zeile17").style.display = "";
+    }
+
+
+    // ++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++
+    for (let i = 1; i <= 17; i++) {
+        if (eval("DunkleZeile" + ("0" + i).slice(-2)) === true) {
+            document.querySelector("#Zeile" + ("0" + i).slice(-2)).classList.add("dunkler");
+        }
+    }
+
+    // ++++++++++ Ersetze die Platzhalter durch die definierten Variablen in den Einstellungen ++++++++++
+    document.getElementById("d-spalte-0").innerHTML = TextSpalte00;
+    document.getElementById("d-spalte-1").innerHTML = TextSpalte01;
+    document.getElementById("d-spalte-2").innerHTML = TextSpalte02;
+    document.getElementById("d-spalte-3").innerHTML = TextSpalte03;
+    document.getElementById("d-spalte-4").innerHTML = TextSpalte04;
+    document.getElementById("d-spalte-5").innerHTML = TextSpalte05;
+    document.getElementById("d-spalte-6").innerHTML = TextSpalte06;
+    document.getElementById("d-spalte-7").innerHTML = TextSpalte07;
+
+    document.getElementById("d-0").innerHTML = AbkSpalte00;
+    document.getElementById("d-1").innerHTML = AbkSpalte01;
+    document.getElementById("d-2").innerHTML = AbkSpalte02;
+    document.getElementById("d-3").innerHTML = AbkSpalte03;
+    document.getElementById("d-4").innerHTML = AbkSpalte04;
+    document.getElementById("d-5").innerHTML = AbkSpalte05;
+    document.getElementById("d-6").innerHTML = AbkSpalte06;
+    document.getElementById("d-7").innerHTML = AbkSpalte07;
+
+    document.getElementById("TextZeile01").innerHTML = TextZeile01;
+    document.getElementById("ZeitZeile01").innerHTML = ZeitZeile01;
+    document.getElementById("TextZeile02").innerHTML = TextZeile02;
+    document.getElementById("ZeitZeile02").innerHTML = ZeitZeile02;
+    document.getElementById("TextZeile03").innerHTML = TextZeile03;
+    document.getElementById("ZeitZeile03").innerHTML = ZeitZeile03;
+    document.getElementById("TextZeile04").innerHTML = TextZeile04;
+    document.getElementById("ZeitZeile04").innerHTML = ZeitZeile04;
+    document.getElementById("TextZeile05").innerHTML = TextZeile05;
+    document.getElementById("ZeitZeile05").innerHTML = ZeitZeile05;
+    document.getElementById("TextZeile06").innerHTML = TextZeile06;
+    document.getElementById("ZeitZeile06").innerHTML = ZeitZeile06;
+    document.getElementById("TextZeile07").innerHTML = TextZeile07;
+    document.getElementById("ZeitZeile07").innerHTML = ZeitZeile07;
+    document.getElementById("TextZeile08").innerHTML = TextZeile08;
+    document.getElementById("ZeitZeile08").innerHTML = ZeitZeile08;
+    document.getElementById("TextZeile09").innerHTML = TextZeile09;
+    document.getElementById("ZeitZeile09").innerHTML = ZeitZeile09;
+    document.getElementById("TextZeile10").innerHTML = TextZeile10;
+    document.getElementById("ZeitZeile10").innerHTML = ZeitZeile10;
+    document.getElementById("TextZeile11").innerHTML = TextZeile11;
+    document.getElementById("ZeitZeile11").innerHTML = ZeitZeile11;
+    document.getElementById("TextZeile12").innerHTML = TextZeile12;
+    document.getElementById("ZeitZeile12").innerHTML = ZeitZeile12;
+    document.getElementById("TextZeile13").innerHTML = TextZeile13;
+    document.getElementById("ZeitZeile13").innerHTML = ZeitZeile13;
+    document.getElementById("TextZeile14").innerHTML = TextZeile14;
+    document.getElementById("ZeitZeile14").innerHTML = ZeitZeile14;
+    document.getElementById("TextZeile15").innerHTML = TextZeile15;
+    document.getElementById("ZeitZeile15").innerHTML = ZeitZeile15;
+    document.getElementById("TextZeile16").innerHTML = TextZeile16;
+    document.getElementById("ZeitZeile16").innerHTML = ZeitZeile16;
+    document.getElementById("TextZeile17").innerHTML = TextZeile17;
+    document.getElementById("ZeitZeile17").innerHTML = ZeitZeile17;
+
+    // ++++++++++ Spalten ein-/ausblenden durch die definierten Variablen in den Einstellungen ++++++++++
+    let Spalte01Anzeigen = false
+    let Spalte02Anzeigen = false
+    let Spalte03Anzeigen = false
+    let Spalte04Anzeigen = false
+    let Spalte05Anzeigen = false
+    let Spalte06Anzeigen = false
+    let Spalte07Anzeigen = false
+
+    for (let i = 1; i <= AnzahlSpalten; i++) {
+        const SpaltenName = `Spalte${i.toString().padStart(2, '0')}Anzeigen`;
+        eval(`${SpaltenName} = true;`);
+    }
+
+    for (let i = 1; i <= 7; i++) {
+        const SpalteAnzeigen = eval(`Spalte${String(i).padStart(2, '0')}Anzeigen`);
+        if (SpalteAnzeigen === false) {
+            const SpalteID = document.querySelector(`#d-spalte-${i}`);
+            SpalteID.classList.remove('d-sm-table-cell');
+            const S_ID = document.querySelector(`#d-${i}`);
+            S_ID.classList.remove('d-table-cell');
+            S_ID.classList.add('d-none');
+            const SpalteListe = document.querySelectorAll(`.spalte-${i}`);
+            for (let j = 0; j < SpalteListe.length; j++) {
+                SpalteListe[j].style.display = "none";
+            }
+        } else {
+            const SpalteID = document.querySelector(`#d-spalte-${i}`);
+            SpalteID.classList.add('d-sm-table-cell');
+            const S_ID = document.querySelector(`#d-${i}`);
+            S_ID.classList.add('d-table-cell');
+            S_ID.classList.remove('d-none');
+            const SpalteListe = document.querySelectorAll(`.spalte-${i}`);
+            for (let j = 0; j < SpalteListe.length; j++) {
+                SpalteListe[j].style.display = "table-cell";
+            }
+        }
+    }
+
+    // ++++++++++ YouTube Video abhängig von Einstellungen laden ++++++++++
+    if (VideoTutorial === true) {
+        document.querySelector('#video-tutorial').style.display = 'inline-block';
+        document.querySelector('#EnableVideo').style.display = 'block';
+        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/3ORsUGVNxGs?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
+    }
+</script>

@@ -1,0 +1,1223 @@
+<!-- Termine finden v.1.0 - Copyright (C) 2023, @margomius - https://margomius.com/ -->
+<!-- GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html -->
+
+<div class="container mt-3">
+    <a id="listlink" class="btn btn-success mb-1 mr-2" href="#"><i class="fa fa-calendar"
+            aria-hidden="true"></i>&nbsp;&nbsp;Listenansicht</a>
+    <a id="video-tutorial" class="btn btn-lila mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
+        aria-expanded="false" aria-controls="collapseVideo"><i class="fa fa-youtube"
+            aria-hidden="true"></i>&nbsp;&nbsp;Video-Tutorial</a>
+    <div id="EnableVideo">
+        <div id="collapseVideo" class="collapse mt-2">
+            <div class="card card-body">
+                <div id="insertIframe" class="iframe-container">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-sm-6 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Name&nbsp;&nbsp;<i id="pflichtfeld" class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    </h6>
+                </div>
+                <div class="card-body pb-0 pt-3">
+                    <div class="row">
+                        <div class="col-lg-6 justify-content-center align-items-center mb-3">
+                            <span class="standard">[[Name]]</span>
+                        </div>
+                        <div class="col-lg-6 justify-content-center align-items-center mb-3">
+                            <button id="PasteMoodleName" class="btn btn-lila pull-left"
+                                onclick="NameEinfuegen(); return false;">Moodle-Name einfügen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Anmerkung</h6>
+                </div>
+                <div class="card-body pb-3 pt-3"><span class="standard">[[Anmerkung]]</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm text-right">
+            <div class="btn-group" role="group">
+                <button id="activateAll" type="button" class="btn btn-lila mb-1 mt-2 mr-1">
+                    <i class="fa fa-check-square-o"></i> Alle
+                </button>
+                <button id="deactivateAll" type="button" class="btn btn-lila mb-1 mt-2">
+                    <i class="fa fa-square-o"></i> Keins
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="stundenplan" class="container mt-1">
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th id="d-spalte-0" style="padding-left: 0.75rem;" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-1" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-2" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-3" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-4" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-5" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-6" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-spalte-7" class="text-center d-none d-sm-table-cell"></th>
+                <th id="d-0" style="padding-left: 0.6rem;" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-1" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-2" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-3" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-4" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-5" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-6" class="text-center d-table-cell d-sm-none"></th>
+                <th id="d-7" class="text-center d-table-cell d-sm-none"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="Zeile01">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile01"></strong><br>
+                        <span id="ZeitZeile01"></span>
+                    </div>
+                </td>
+                <td id="Mo-1" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-1" style="display: none;">[[Mo-1]]</span>
+                </td>
+                <td id="Di-1" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-1" style="display: none;">[[Di-1]]</span>
+                </td>
+                <td id="Mi-1" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-1" style="display: none;">[[Mi-1]]</span>
+                </td>
+                <td id="Do-1" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-1" style="display: none;">[[Do-1]]</span>
+                </td>
+                <td id="Fr-1" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-1" style="display: none;">[[Fr-1]]</span>
+                </td>
+                <td id="Sa-1" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-1" style="display: none;">[[Sa-1]]</span>
+                </td>
+                <td id="So-1" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-1-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-1" style="display: none;">[[So-1]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile02">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile02"></strong><br>
+                        <span id="ZeitZeile02"></span>
+                    </div>
+                <td id="Mo-2" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-2" style="display: none;">[[Mo-2]]</span>
+                </td>
+                <td id="Di-2" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-2" style="display: none;">[[Di-2]]</span>
+                </td>
+                <td id="Mi-2" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-2" style="display: none;">[[Mi-2]]</span>
+                </td>
+                <td id="Do-2" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-2" style="display: none;">[[Do-2]]</span>
+                </td>
+                <td id="Fr-2" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-2" style="display: none;">[[Fr-2]]</span>
+                </td>
+                <td id="Sa-2" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-2" style="display: none;">[[Sa-2]]</span>
+                </td>
+                <td id="So-2" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-2-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-2" style="display: none;">[[So-2]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile03">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile03"></strong><br>
+                        <span id="ZeitZeile03"></span>
+                    </div>
+                <td id="Mo-3" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-3" style="display: none;">[[Mo-3]]</span>
+                </td>
+                <td id="Di-3" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-3" style="display: none;">[[Di-3]]</span>
+                </td>
+                <td id="Mi-3" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-3" style="display: none;">[[Mi-3]]</span>
+                </td>
+                <td id="Do-3" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-3" style="display: none;">[[Do-3]]</span>
+                </td>
+                <td id="Fr-3" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-3" style="display: none;">[[Fr-3]]</span>
+                </td>
+                <td id="Sa-3" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-3" style="display: none;">[[Sa-3]]</span>
+                </td>
+                <td id="So-3" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-3-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-3" style="display: none;">[[So-3]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile04">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile04"></strong><br>
+                        <span id="ZeitZeile04"></span>
+                    </div>
+                <td id="Mo-4" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-4" style="display: none;">[[Mo-4]]</span>
+                </td>
+                <td id="Di-4" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-4" style="display: none;">[[Di-4]]</span>
+                </td>
+                <td id="Mi-4" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-4" style="display: none;">[[Mi-4]]</span>
+                </td>
+                <td id="Do-4" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-4" style="display: none;">[[Do-4]]</span>
+                </td>
+                <td id="Fr-4" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-4" style="display: none;">[[Fr-4]]</span>
+                </td>
+                <td id="Sa-4" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-4" style="display: none;">[[Sa-4]]</span>
+                </td>
+                <td id="So-4" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-4-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-4" style="display: none;">[[So-4]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile05">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile05"></strong><br>
+                        <span id="ZeitZeile05"></span>
+                    </div>
+                <td id="Mo-5" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-5" style="display: none;">[[Mo-5]]</span>
+                </td>
+                <td id="Di-5" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-5" style="display: none;">[[Di-5]]</span>
+                </td>
+                <td id="Mi-5" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-5" style="display: none;">[[Mi-5]]</span>
+                </td>
+                <td id="Do-5" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-5" style="display: none;">[[Do-5]]</span>
+                </td>
+                <td id="Fr-5" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-5" style="display: none;">[[Fr-5]]</span>
+                </td>
+                <td id="Sa-5" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-5" style="display: none;">[[Sa-5]]</span>
+                </td>
+                <td id="So-5" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-5-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-5" style="display: none;">[[So-5]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile06">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile06"></strong><br>
+                        <span id="ZeitZeile06"></span>
+                    </div>
+                <td id="Mo-6" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-6" style="display: none;">[[Mo-6]]</span>
+                </td>
+                <td id="Di-6" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-6" style="display: none;">[[Di-6]]</span>
+                </td>
+                <td id="Mi-6" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-6" style="display: none;">[[Mi-6]]</span>
+                </td>
+                <td id="Do-6" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-6" style="display: none;">[[Do-6]]</span>
+                </td>
+                <td id="Fr-6" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-6" style="display: none;">[[Fr-6]]</span>
+                </td>
+                <td id="Sa-6" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-6" style="display: none;">[[Sa-6]]</span>
+                </td>
+                <td id="So-6" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-6-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-6" style="display: none;">[[So-6]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile07">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile07"></strong><br>
+                        <span id="ZeitZeile07"></span>
+                    </div>
+                <td id="Mo-7" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-7" style="display: none;">[[Mo-7]]</span>
+                </td>
+                <td id="Di-7" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-7" style="display: none;">[[Di-7]]</span>
+                </td>
+                <td id="Mi-7" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-7" style="display: none;">[[Mi-7]]</span>
+                </td>
+                <td id="Do-7" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-7" style="display: none;">[[Do-7]]</span>
+                </td>
+                <td id="Fr-7" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-7" style="display: none;">[[Fr-7]]</span>
+                </td>
+                <td id="Sa-7" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-7" style="display: none;">[[Sa-7]]</span>
+                </td>
+                <td id="So-7" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-7-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-7" style="display: none;">[[So-7]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile08">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile08"></strong><br>
+                        <span id="ZeitZeile08"></span>
+                    </div>
+                <td id="Mo-8" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-8" style="display: none;">[[Mo-8]]</span>
+                </td>
+                <td id="Di-8" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-8" style="display: none;">[[Di-8]]</span>
+                </td>
+                <td id="Mi-8" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-8" style="display: none;">[[Mi-8]]</span>
+                </td>
+                <td id="Do-8" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-8" style="display: none;">[[Do-8]]</span>
+                </td>
+                <td id="Fr-8" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-8" style="display: none;">[[Fr-8]]</span>
+                </td>
+                <td id="Sa-8" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-8" style="display: none;">[[Sa-8]]</span>
+                </td>
+                <td id="So-8" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-8-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-8" style="display: none;">[[So-8]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile09">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile09"></strong><br>
+                        <span id="ZeitZeile09"></span>
+                    </div>
+                <td id="Mo-9" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-9" style="display: none;">[[Mo-9]]</span>
+                </td>
+                <td id="Di-9" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-9" style="display: none;">[[Di-9]]</span>
+                </td>
+                <td id="Mi-9" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-9" style="display: none;">[[Mi-9]]</span>
+                </td>
+                <td id="Do-9" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-9" style="display: none;">[[Do-9]]</span>
+                </td>
+                <td id="Fr-9" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-9" style="display: none;">[[Fr-9]]</span>
+                </td>
+                <td id="Sa-9" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-9" style="display: none;">[[Sa-9]]</span>
+                </td>
+                <td id="So-9" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-9-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-9" style="display: none;">[[So-9]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile10">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile10"></strong><br>
+                        <span id="ZeitZeile10"></span>
+                    </div>
+                <td id="Mo-10" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-10" style="display: none;">[[Mo-10]]</span>
+                </td>
+                <td id="Di-10" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-10" style="display: none;">[[Di-10]]</span>
+                </td>
+                <td id="Mi-10" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-10" style="display: none;">[[Mi-10]]</span>
+                </td>
+                <td id="Do-10" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-10" style="display: none;">[[Do-10]]</span>
+                </td>
+                <td id="Fr-10" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-10" style="display: none;">[[Fr-10]]</span>
+                </td>
+                <td id="Sa-10" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-10" style="display: none;">[[Sa-10]]</span>
+                </td>
+                <td id="So-10" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-10-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-10" style="display: none;">[[So-10]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile11">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile11"></strong><br>
+                        <span id="ZeitZeile11"></span>
+                    </div>
+                <td id="Mo-11" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-11" style="display: none;">[[Mo-11]]</span>
+                </td>
+                <td id="Di-11" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-11" style="display: none;">[[Di-11]]</span>
+                </td>
+                <td id="Mi-11" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-11" style="display: none;">[[Mi-11]]</span>
+                </td>
+                <td id="Do-11" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-11" style="display: none;">[[Do-11]]</span>
+                </td>
+                <td id="Fr-11" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-11" style="display: none;">[[Fr-11]]</span>
+                </td>
+                <td id="Sa-11" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-11" style="display: none;">[[Sa-11]]</span>
+                </td>
+                <td id="So-11" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-11-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-11" style="display: none;">[[So-11]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile12">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile12"></strong><br>
+                        <span id="ZeitZeile12"></span>
+                    </div>
+                <td id="Mo-12" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-12" style="display: none;">[[Mo-12]]</span>
+                </td>
+                <td id="Di-12" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-12" style="display: none;">[[Di-12]]</span>
+                </td>
+                <td id="Mi-12" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-12" style="display: none;">[[Mi-12]]</span>
+                </td>
+                <td id="Do-12" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-12" style="display: none;">[[Do-12]]</span>
+                </td>
+                <td id="Fr-12" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-12" style="display: none;">[[Fr-12]]</span>
+                </td>
+                <td id="Sa-12" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-12" style="display: none;">[[Sa-12]]</span>
+                </td>
+                <td id="So-12" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-12-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-12" style="display: none;">[[So-12]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile13">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile13"></strong><br>
+                        <span id="ZeitZeile13"></span>
+                    </div>
+                <td id="Mo-13" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-13" style="display: none;">[[Mo-13]]</span>
+                </td>
+                <td id="Di-13" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-13" style="display: none;">[[Di-13]]</span>
+                </td>
+                <td id="Mi-13" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-13" style="display: none;">[[Mi-13]]</span>
+                </td>
+                <td id="Do-13" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-13" style="display: none;">[[Do-13]]</span>
+                </td>
+                <td id="Fr-13" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-13" style="display: none;">[[Fr-13]]</span>
+                </td>
+                <td id="Sa-13" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-13" style="display: none;">[[Sa-13]]</span>
+                </td>
+                <td id="So-13" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-13-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-13" style="display: none;">[[So-13]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile14">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile14"></strong><br>
+                        <span id="ZeitZeile14"></span>
+                    </div>
+                <td id="Mo-14" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-14" style="display: none;">[[Mo-14]]</span>
+                </td>
+                <td id="Di-14" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-14" style="display: none;">[[Di-14]]</span>
+                </td>
+                <td id="Mi-14" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-14" style="display: none;">[[Mi-14]]</span>
+                </td>
+                <td id="Do-14" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-14" style="display: none;">[[Do-14]]</span>
+                </td>
+                <td id="Fr-14" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-14" style="display: none;">[[Fr-14]]</span>
+                </td>
+                <td id="Sa-14" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-14" style="display: none;">[[Sa-14]]</span>
+                </td>
+                <td id="So-14" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-14-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-14" style="display: none;">[[So-14]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile15">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile15"></strong><br>
+                        <span id="ZeitZeile15"></span>
+                    </div>
+                <td id="Mo-15" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-15" style="display: none;">[[Mo-15]]</span>
+                </td>
+                <td id="Di-15" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-15" style="display: none;">[[Di-15]]</span>
+                </td>
+                <td id="Mi-15" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-15" style="display: none;">[[Mi-15]]</span>
+                </td>
+                <td id="Do-15" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-15" style="display: none;">[[Do-15]]</span>
+                </td>
+                <td id="Fr-15" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-15" style="display: none;">[[Fr-15]]</span>
+                </td>
+                <td id="Sa-15" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-15" style="display: none;">[[Sa-15]]</span>
+                </td>
+                <td id="So-15" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-15-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-15" style="display: none;">[[So-15]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile16">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile16"></strong><br>
+                        <span id="ZeitZeile16"></span>
+                    </div>
+                <td id="Mo-16" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-16" style="display: none;">[[Mo-16]]</span>
+                </td>
+                <td id="Di-16" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-16" style="display: none;">[[Di-16]]</span>
+                </td>
+                <td id="Mi-16" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-16" style="display: none;">[[Mi-16]]</span>
+                </td>
+                <td id="Do-16" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-16" style="display: none;">[[Do-16]]</span>
+                </td>
+                <td id="Fr-16" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-16" style="display: none;">[[Fr-16]]</span>
+                </td>
+                <td id="Sa-16" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-16" style="display: none;">[[Sa-16]]</span>
+                </td>
+                <td id="So-16" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-16-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-16" style="display: none;">[[So-16]]</span>
+                </td>
+            </tr>
+            <tr id="Zeile17">
+                <td style="padding-left: 0.75rem;">
+                    <div><strong id="TextZeile17"></strong><br>
+                        <span id="ZeitZeile17"></span>
+                    </div>
+                <td id="Mo-17" class="text-center spalte-1">
+                    <label><input class="form-check-input" type="checkbox" id="Mo-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mo-17" style="display: none;">[[Mo-17]]</span>
+                </td>
+                <td id="Di-17" class="text-center spalte-2">
+                    <label><input class="form-check-input" type="checkbox" id="Di-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Di-17" style="display: none;">[[Di-17]]</span>
+                </td>
+                <td id="Mi-17" class="text-center spalte-3">
+                    <label><input class="form-check-input" type="checkbox" id="Mi-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Mi-17" style="display: none;">[[Mi-17]]</span>
+                </td>
+                <td id="Do-17" class="text-center spalte-4">
+                    <label><input class="form-check-input" type="checkbox" id="Do-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Do-17" style="display: none;">[[Do-17]]</span>
+                </td>
+                <td id="Fr-17" class="text-center spalte-5">
+                    <label><input class="form-check-input" type="checkbox" id="Fr-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Fr-17" style="display: none;">[[Fr-17]]</span>
+                </td>
+                <td id="Sa-17" class="text-center spalte-6">
+                    <label><input class="form-check-input" type="checkbox" id="Sa-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel Sa-17" style="display: none;">[[Sa-17]]</span>
+                </td>
+                <td id="So-17" class="text-center spalte-7">
+                    <label><input class="form-check-input" type="checkbox" id="So-17-check" value=""
+                            aria-label="..."></label>
+                    <span class="ziel So-17" style="display: none;">[[So-17]]</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <div class="alert alert-light text-right" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+        Datenbank: Termine finden v1.0 — <nobr>GNU General Public Licence 3.0 —</nobr>
+        <nobr>Copyright © 2023 — <a href="https://www.margomius.com/" target="_blank">@margomius</a></nobr>
+    </div>
+</div>
+<script>
+    // Termine finden v1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
+    // GNU General Public Licence 3.0 - http://www.gnu.de/documents/gpl-3.0.en.html
+    //
+    // Dieser Code wurde mit Unterstützung von ChatGPT geschrieben und ist möglicherweise nicht perfekt.
+    // Ich empfehle, den Code zu überprüfen, bevor er eingesetzt oder verändert wird.
+    // Ich übernehme keine Verantwortung für Fehler oder Probleme, die durch Einsetzen des Codes verursacht werden könnten.
+
+
+
+    // ++++++++++ Moodle-Namen einfügen ++++++++++
+    let standardInputField = document.querySelector('.standard .basefieldinput');
+
+    function NameEinfuegen() {
+        let getName = '';
+
+        if (document.querySelector('.logininfo a')) {
+            const NameElement = document.querySelector('.logininfo a');
+            getName = NameElement.textContent.trim();
+        }
+        else if (document.querySelector('.userbutton > .usertext')) {
+            const spanElement = document.querySelector('.userbutton > .usertext');
+            getName = spanElement.textContent;
+        }
+
+        standardInputField.value = getName;
+
+        // löse ein input Event aus, um den eingegebenen Text als Input zu registrieren
+        const inputEvent = new Event('input');
+        standardInputField.dispatchEvent(inputEvent);
+    }
+
+
+    // ++++++++++ Textfelder der Wochenstunden füllen/löschen je nach Checkbox-Status ++++++++++
+    const checkboxCells = document.querySelectorAll('td input[type="checkbox"]');
+
+    // Schleife durch alle Checkbox-Zellen
+    checkboxCells.forEach(function (cell) {
+        // Event-Listener hinzufügen
+        cell.addEventListener('change', function () {
+            // Textfeld in der gleichen Zeile auswählen
+            const inputField = this.parentNode.nextElementSibling.querySelector('.basefieldinput');
+            // Wenn Checkbox aktiviert ist, Wert aus dem Standard-Textfeld in das Textfeld in der Zelle kopieren
+            if (this.checked) {
+                inputField.value = standardInputField.value;
+
+                // Event-Listener hinzufügen, um Änderungen im standardInputField zu verfolgen
+                const updateInputField = function () {
+                    if (cell.checked) { // Überprüfen, ob Checkbox noch aktiviert ist
+                        inputField.value = standardInputField.value;
+                    }
+                }
+                standardInputField.addEventListener('input', updateInputField);
+                inputField.updateInputField = updateInputField;
+            } else {
+                // Wenn Checkbox deaktiviert ist, Wert im Textfeld in der Zelle löschen
+                inputField.value = '';
+
+                // Event-Listener von standardInputField entfernen, wenn Checkbox deaktiviert ist
+                standardInputField.removeEventListener('input', inputField.updateInputField);
+            }
+        });
+
+        // Überprüfen, ob das zugehörige Textfeld bereits Text enthält, und Checkbox aktivieren, falls ja
+        if (cell.parentNode.nextElementSibling.querySelector('.basefieldinput').value !== '') {
+            cell.checked = true;
+        }
+    });
+
+    // Event-Listener hinzufügen, um Änderungen im standardInputField zu verfolgen
+    standardInputField.addEventListener('input', function () {
+
+        // Schleife durch alle Checkbox-Zellen
+        checkboxCells.forEach(function (cell) {
+            // Wenn Checkbox aktiviert ist
+            if (cell.checked) {
+                // Textfeld in der gleichen Zeile auswählen und mit Wert von standardInputField aktualisieren
+                const UpdateinputField = cell.parentNode.nextElementSibling.querySelector('.basefieldinput');
+                UpdateinputField.value = standardInputField.value;
+            }
+        });
+    });
+
+
+    // ++++++++++ Alle Zellen sind anklickbar ++++++++++
+    // Auf Klickereignis aller anklickbaren Zellen reagieren
+    document.querySelectorAll("#stundenplan > table > tbody > tr > td.text-center").forEach(function (zelle) {
+        zelle.addEventListener("click", function (event) {
+            // Checkbox im DOM-Baum der Zelle finden
+            var checkbox = event.target.querySelector("input[type=checkbox]");
+
+            // Wenn Checkbox gefunden wurde, checked-Eigenschaft umkehren und change-Event auslösen
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event("change"));
+            }
+        });
+    });
+
+
+    // ++++++++++ Zoom-Effekt zu Input-Elementen innerhalb von Label-Elementen beim Mouseover und Klick hinzufügen ++++++++++
+    const tdElements = document.querySelectorAll('#stundenplan td.text-center');
+
+    tdElements.forEach(td => {
+        td.addEventListener('mouseenter', (event) => {
+            const input = event.target.querySelector('label input');
+            if (input) {
+                input.style.transition = 'transform 0.1s ease-in-out';
+                input.style.transform = 'scale(2)';
+            }
+        });
+        td.addEventListener('mouseleave', (event) => {
+            const input = event.target.querySelector('label input');
+            if (input) {
+                input.style.transition = 'transform 0.1s ease-in-out';
+                input.style.transform = 'scale(1.5)';
+            }
+        });
+        td.querySelectorAll('label input').forEach(input => {
+            input.addEventListener('change', (event) => {
+                const checkbox = event.currentTarget;
+                checkbox.style.transition = 'transform 0.1s ease-in-out';
+                checkbox.style.transform = checkbox.checked ? 'scale(1.5)' : 'scale(2)';
+            });
+        });
+    });
+
+
+    // ++++++++++ Buttons für Alle/Keins auswählen ++++++++++
+    // Erhalte eine Referenz auf die beiden Schaltflächen und alle Checkboxen.
+    const activateAllBtn = document.getElementById('activateAll');
+    const deactivateAllBtn = document.getElementById('deactivateAll');
+    const checkboxes = document.querySelectorAll('.form-check-input');
+
+    // Füge einen Klickereignis-Listener zu jedem Button hinzu.
+    activateAllBtn.addEventListener('click', function () {
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = true;
+            const inputField = checkbox.parentNode.nextElementSibling.querySelector('.basefieldinput');
+            const standardInputField = document.querySelector('.standard .basefieldinput');
+            inputField.value = standardInputField.value;
+            const updateInputField = function () {
+                if (checkbox.checked) { // Überprüfen, ob Checkbox noch aktiviert ist
+                    inputField.value = standardInputField.value;
+                }
+            }
+            standardInputField.addEventListener('input', updateInputField);
+            inputField.updateInputField = updateInputField;
+        });
+    });
+
+    deactivateAllBtn.addEventListener('click', function () {
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = false;
+            const inputField = checkbox.parentNode.nextElementSibling.querySelector('.basefieldinput');
+            inputField.value = '';
+            const standardInputField = document.querySelector('.standard .basefieldinput');
+            standardInputField.removeEventListener('input', inputField.updateInputField);
+        });
+    });
+
+
+    // ++++++++++ Links der Listenansicht immer mit 1000 Einträgen ++++++++++
+    const url = window.location.href; // URL der aktuellen Seite abrufen
+    let shortUrl = '';
+    let UrlID = '';
+    let ListUrl = '';
+
+    // Wenn die URL "edit.php?id" enthält
+    if (url.includes('edit.php?id')) {
+        shortUrl = url.match(/^.+?\.php\?id=\d+/)[0]; // Extrahieren des Anfangs der URL
+        const urlParams = new URLSearchParams(new URL(url).search);
+        UrlID = urlParams.get('id');
+        ListUrl = shortUrl + 'id' + UrlID
+    }
+    else if (url.includes('edit.php?d')) {
+        shortUrl = url.match(/^.+?\.php\?d=\d+/)[0]; // Extrahieren des Anfangs der URL
+        const urlParams = new URLSearchParams(new URL(url).search);
+        UrlID = urlParams.get('d');
+        ListUrl = shortUrl + 'd' + UrlID
+    }
+
+    // Das Wort "edit" in der URL durch "view" ersetzen
+    const newUrl = shortUrl.replace('edit', 'view');
+
+    // Alle Links auf der Seite auswählen, die genau mit newUrl übereinstimmen
+    const links = document.querySelectorAll('a[href^="' + newUrl + '"]');
+
+    // Alle Links durchlaufen und um den String "&perpage=1000" ergänzen
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        link.href += '&perpage=1000';
+    }
+
+    // ++++++++++ Link "Listenansicht" im Info-Alert einfügen ++++++++++
+    const listlink = document.getElementById("listlink")
+    listlink.href = newUrl + '&perpage=1000';
+
+    // ++++++++++ Moodle-Namen je nach Einstellungen erzwingen ++++++++++
+    document.addEventListener('DOMContentLoaded', function () {
+        if (MoodleName) {
+            NameEinfuegen();
+            standardInputField.readOnly = true;
+            document.querySelector("#PasteMoodleName").style.display = "none";
+            document.querySelector("#pflichtfeld").style.display = "none";
+        }
+    });
+
+    // ++++++++++ Zeilen/Stunden abhängig von den Einstellungen ein- bzw. ausblenden ++++++++++
+
+    if (typeof AnzahlZeilen !== 'undefined') {
+        for (let i = 1; i <= AnzahlZeilen; i++) {
+            const ZeilenName = `Zeile${i.toString().padStart(2, '0')}Anzeigen`;
+            eval(`${ZeilenName} = true;`);
+
+            for (let j = i + 1; j <= 17; j++) {
+                const ZeilenName = `Zeile${j.toString().padStart(2, '0')}Anzeigen`;
+                eval(`${ZeilenName} = false;`);
+            }
+        }
+    }
+
+    if (Zeile01Anzeigen === false) {
+        document.querySelector("#Zeile01").style.display = "none";
+    } else {
+        document.querySelector("#Zeile01").style.display = "";
+    }
+
+    if (Zeile02Anzeigen === false) {
+        document.querySelector("#Zeile02").style.display = "none";
+    } else {
+        document.querySelector("#Zeile02").style.display = "";
+    }
+
+    if (Zeile03Anzeigen === false) {
+        document.querySelector("#Zeile03").style.display = "none";
+    } else {
+        document.querySelector("#Zeile03").style.display = "";
+    }
+
+    if (Zeile04Anzeigen === false) {
+        document.querySelector("#Zeile04").style.display = "none";
+    } else {
+        document.querySelector("#Zeile04").style.display = "";
+    }
+
+    if (Zeile05Anzeigen === false) {
+        document.querySelector("#Zeile05").style.display = "none";
+    } else {
+        document.querySelector("#Zeile05").style.display = "";
+    }
+
+    if (Zeile06Anzeigen === false) {
+        document.querySelector("#Zeile06").style.display = "none";
+    } else {
+        document.querySelector("#Zeile06").style.display = "";
+    }
+
+    if (Zeile07Anzeigen === false) {
+        document.querySelector("#Zeile07").style.display = "none";
+    } else {
+        document.querySelector("#Zeile07").style.display = "";
+    }
+
+    if (Zeile08Anzeigen === false) {
+        document.querySelector("#Zeile08").style.display = "none";
+    } else {
+        document.querySelector("#Zeile08").style.display = "";
+    }
+
+    if (Zeile09Anzeigen === false) {
+        document.querySelector("#Zeile09").style.display = "none";
+    } else {
+        document.querySelector("#Zeile09").style.display = "";
+    }
+
+    if (Zeile10Anzeigen === false) {
+        document.querySelector("#Zeile10").style.display = "none";
+    } else {
+        document.querySelector("#Zeile10").style.display = "";
+    }
+
+    if (Zeile11Anzeigen === false) {
+        document.querySelector("#Zeile11").style.display = "none";
+    } else {
+        document.querySelector("#Zeile11").style.display = "";
+    }
+
+    if (Zeile12Anzeigen === false) {
+        document.querySelector("#Zeile12").style.display = "none";
+    } else {
+        document.querySelector("#Zeile12").style.display = "";
+    }
+
+    if (Zeile13Anzeigen === false) {
+        document.querySelector("#Zeile13").style.display = "none";
+    } else {
+        document.querySelector("#Zeile13").style.display = "";
+    }
+
+    if (Zeile14Anzeigen === false) {
+        document.querySelector("#Zeile14").style.display = "none";
+    } else {
+        document.querySelector("#Zeile14").style.display = "";
+    }
+
+    if (Zeile15Anzeigen === false) {
+        document.querySelector("#Zeile15").style.display = "none";
+    } else {
+        document.querySelector("#Zeile15").style.display = "";
+    }
+
+    if (Zeile16Anzeigen === false) {
+        document.querySelector("#Zeile16").style.display = "none";
+    } else {
+        document.querySelector("#Zeile16").style.display = "";
+    }
+
+    if (Zeile17Anzeigen === false) {
+        document.querySelector("#Zeile17").style.display = "none";
+    } else {
+        document.querySelector("#Zeile17").style.display = "";
+    }
+
+    // ++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++
+    for (let i = 1; i <= 17; i++) {
+        if (eval("DunkleZeile" + ("0" + i).slice(-2)) === true) {
+            document.querySelector("#Zeile" + ("0" + i).slice(-2)).classList.add("dunkler");
+        }
+    }
+
+    // ++++++++++ Ersetze die Platzhalter durch die definierten Variablen in den Einstellungen ++++++++++
+    document.getElementById("d-spalte-0").innerHTML = TextSpalte00;
+    document.getElementById("d-spalte-1").innerHTML = TextSpalte01;
+    document.getElementById("d-spalte-2").innerHTML = TextSpalte02;
+    document.getElementById("d-spalte-3").innerHTML = TextSpalte03;
+    document.getElementById("d-spalte-4").innerHTML = TextSpalte04;
+    document.getElementById("d-spalte-5").innerHTML = TextSpalte05;
+    document.getElementById("d-spalte-6").innerHTML = TextSpalte06;
+    document.getElementById("d-spalte-7").innerHTML = TextSpalte07;
+
+    document.getElementById("d-0").innerHTML = AbkSpalte00;
+    document.getElementById("d-1").innerHTML = AbkSpalte01;
+    document.getElementById("d-2").innerHTML = AbkSpalte02;
+    document.getElementById("d-3").innerHTML = AbkSpalte03;
+    document.getElementById("d-4").innerHTML = AbkSpalte04;
+    document.getElementById("d-5").innerHTML = AbkSpalte05;
+    document.getElementById("d-6").innerHTML = AbkSpalte06;
+    document.getElementById("d-7").innerHTML = AbkSpalte07;
+
+    document.getElementById("TextZeile01").innerHTML = TextZeile01;
+    document.getElementById("ZeitZeile01").innerHTML = ZeitZeile01;
+    document.getElementById("TextZeile02").innerHTML = TextZeile02;
+    document.getElementById("ZeitZeile02").innerHTML = ZeitZeile02;
+    document.getElementById("TextZeile03").innerHTML = TextZeile03;
+    document.getElementById("ZeitZeile03").innerHTML = ZeitZeile03;
+    document.getElementById("TextZeile04").innerHTML = TextZeile04;
+    document.getElementById("ZeitZeile04").innerHTML = ZeitZeile04;
+    document.getElementById("TextZeile05").innerHTML = TextZeile05;
+    document.getElementById("ZeitZeile05").innerHTML = ZeitZeile05;
+    document.getElementById("TextZeile06").innerHTML = TextZeile06;
+    document.getElementById("ZeitZeile06").innerHTML = ZeitZeile06;
+    document.getElementById("TextZeile07").innerHTML = TextZeile07;
+    document.getElementById("ZeitZeile07").innerHTML = ZeitZeile07;
+    document.getElementById("TextZeile08").innerHTML = TextZeile08;
+    document.getElementById("ZeitZeile08").innerHTML = ZeitZeile08;
+    document.getElementById("TextZeile09").innerHTML = TextZeile09;
+    document.getElementById("ZeitZeile09").innerHTML = ZeitZeile09;
+    document.getElementById("TextZeile10").innerHTML = TextZeile10;
+    document.getElementById("ZeitZeile10").innerHTML = ZeitZeile10;
+    document.getElementById("TextZeile11").innerHTML = TextZeile11;
+    document.getElementById("ZeitZeile11").innerHTML = ZeitZeile11;
+    document.getElementById("TextZeile12").innerHTML = TextZeile12;
+    document.getElementById("ZeitZeile12").innerHTML = ZeitZeile12;
+    document.getElementById("TextZeile13").innerHTML = TextZeile13;
+    document.getElementById("ZeitZeile13").innerHTML = ZeitZeile13;
+    document.getElementById("TextZeile14").innerHTML = TextZeile14;
+    document.getElementById("ZeitZeile14").innerHTML = ZeitZeile14;
+    document.getElementById("TextZeile15").innerHTML = TextZeile15;
+    document.getElementById("ZeitZeile15").innerHTML = ZeitZeile15;
+    document.getElementById("TextZeile16").innerHTML = TextZeile16;
+    document.getElementById("ZeitZeile16").innerHTML = ZeitZeile16;
+    document.getElementById("TextZeile17").innerHTML = TextZeile17;
+    document.getElementById("ZeitZeile17").innerHTML = ZeitZeile17;
+
+    // ++++++++++ Spalten ein-/ausblenden durch die definierten Variablen in den Einstellungen ++++++++++
+    let Spalte01Anzeigen = false
+    let Spalte02Anzeigen = false
+    let Spalte03Anzeigen = false
+    let Spalte04Anzeigen = false
+    let Spalte05Anzeigen = false
+    let Spalte06Anzeigen = false
+    let Spalte07Anzeigen = false
+
+    for (let i = 1; i <= AnzahlSpalten; i++) {
+        const SpaltenName = `Spalte${i.toString().padStart(2, '0')}Anzeigen`;
+        eval(`${SpaltenName} = true;`);
+    }
+
+    for (let i = 1; i <= 7; i++) {
+        const SpalteAnzeigen = eval(`Spalte${String(i).padStart(2, '0')}Anzeigen`);
+        if (SpalteAnzeigen === false) {
+            const SpalteID = document.querySelector(`#d-spalte-${i}`);
+            SpalteID.classList.remove('d-sm-table-cell');
+            const S_ID = document.querySelector(`#d-${i}`);
+            S_ID.classList.remove('d-table-cell');
+            S_ID.classList.add('d-none');
+            const SpalteListe = document.querySelectorAll(`.spalte-${i}`);
+            for (let j = 0; j < SpalteListe.length; j++) {
+                SpalteListe[j].style.display = "none";
+            }
+        } else {
+            const SpalteID = document.querySelector(`#d-spalte-${i}`);
+            SpalteID.classList.add('d-sm-table-cell');
+            const S_ID = document.querySelector(`#d-${i}`);
+            S_ID.classList.add('d-table-cell');
+            S_ID.classList.remove('d-none');
+            const SpalteListe = document.querySelectorAll(`.spalte-${i}`);
+            for (let j = 0; j < SpalteListe.length; j++) {
+                SpalteListe[j].style.display = "table-cell";
+            }
+        }
+    }
+
+    // ++++++++++ YouTube Video abhängig von Einstellungen laden ++++++++++
+    if (VideoTutorial === true) {
+        document.querySelector('#video-tutorial').style.display = 'inline-block';
+        document.querySelector('#EnableVideo').style.display = 'block';
+        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/3ORsUGVNxGs?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
+    }
+
+</script>

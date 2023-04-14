@@ -1,0 +1,420 @@
+/* Termine finden v1.0 - Copyright (C) 2023, @margomius - https://margomius.com/ */
+/* GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html */
+
+.path-mod-data .adminonly {
+    display: none;
+}
+
+.table-bordered th,
+.table-bordered tr,
+.table-bordered td {
+    border: 1px solid #bbbbbb !important;
+}
+
+.table {
+    margin-bottom: 0.5rem;
+}
+
+td:first-of-type {
+    background-color: #f3f9fa;
+  }
+
+.dunkler td:not(:first-child) {
+    background-color: #f2f2f2;
+}
+
+.dunkler td:first-child {
+    background-color: #e2eef0;
+}
+
+.highlight {
+    background-color: #ddecd2 !important;
+}
+
+.dunkler .highlight {
+    /* background-color: #d0e1c4 !important;*/
+    background-color: #d3e2c7 !important;
+}
+
+.second-highlight {
+    background-color: #fff8d9 !important;
+}
+
+.dunkler .second-highlight {
+    /* background-color: #efe8c6 !important; */
+    background-color: #fbf1cc !important;
+}
+
+#page-mod-data-edit #region-main input[type="checkbox"] {
+    vertical-align: middle;
+    transform:scale(1.5, 1.5);
+}
+
+#page-mod-data-edit #region-main label {
+    display: inline-block;
+    height: 100%;
+}
+
+#page-mod-data-edit #region-main .table td {
+    vertical-align: middle;
+}
+
+#page-mod-data-edit #stundenplan > table > tbody > tr > td.text-center:hover {
+    cursor: pointer;
+}
+
+#page-mod-data-view #region-main td {
+    vertical-align: middle;
+}
+
+#page-mod-data-view #region-main td:has(.gruppe) {
+    vertical-align: middle;
+    padding: 0;
+}
+
+.gruppe {
+    line-height: 1.4;
+}
+
+#page-mod-data-view #region-main label {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+#einzel td .fa-2x {
+    color: #774997;
+}
+
+#region-main .btn {
+    border-radius: 0.5rem;
+}
+
+#TrainerContainer .btn-group > .btn:not(:last-child):not(:first-child) {
+    border-radius: 0;
+}
+
+#TrainerContainer .btn-group > .btn:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#TrainerContainer .btn-group > .btn:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#region-main .btn-outline-lila {
+    color: #774997;
+    border-color: #774997;
+}
+
+#region-main .btn-lila {
+    color: #ffffff;
+    background-color: #774997;
+}
+
+#region-main .btn-lila:hover {
+    background-color: #57356e;
+}
+
+#region-main .btn-lila:focus, .btn-lila.focus {
+    outline: none;
+}
+
+#region-main .btn:focus, .btn.focus {
+    outline: none;
+}
+
+.btn:not(:disabled):not(.disabled):active:focus,
+.btn:not(:disabled):not(.disabled).active:focus,
+.show>.btn.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+#page-mod-data-edit #region-main .card-header {
+    background-color: #008196 !important;
+}
+
+#page-mod-data-edit #region-main .card-header h4 {
+    color: #ffffff;
+}
+
+#page-mod-data-edit .mod-data-input {
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.card-text div:has(input.basefieldinput) {
+    margin-right: 1rem;
+}
+
+#page-mod-data-edit .basefieldinput {
+    width: 100%;
+}
+
+#page-mod-data-edit .form-check-input {
+    position: relative;
+    margin-left: 0;
+}
+
+#page-mod-data-view #region-main .card-header {
+    background-color: #008196 !important;
+}
+
+#page-mod-data-view #region-main .card-header h4 {
+    color: #ffffff;
+}
+
+#region-main .card-header .icon {
+    color: #ffffff;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+#region-main th {
+    background-color: #008196;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+#region-main>div[role=main]>br:first-of-type {
+    display: none
+}
+
+#region-main .card-header {
+    padding: 0.25rem;
+}
+
+#region-main .card-header h6 {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.25rem;
+}
+
+#page-mod-data-edit #region-main .card-body {
+    padding-top: 0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+#page-mod-data-view #region-main .card-body {
+    padding: 0.75rem;
+}
+
+
+#region-main .card {
+    border-color: #c8ccd0;
+}
+
+#page-mod-data-view #selectall-listview-entries,
+#page-mod-data-view input[value="Auswahl löschen"],
+#page-mod-data-view input[value="Ins Portfolio exportieren"] {
+    margin-top: 0.25rem;
+}
+
+/* Farben für Badges */
+.farbe-1 { background-color: #2980B9; color: #ffffff !important; }
+.farbe-2 { background-color: #d36900; color: #ffffff !important; }
+.farbe-3 { background-color: #8E44AD; color: #ffffff !important; }
+.farbe-4 { background-color: #00820d; color: #ffffff !important; }
+.farbe-5 { background-color: #9a0404; color: #ffffff !important; }
+.farbe-6 { background-color: #16A085; color: #ffffff !important; }
+.farbe-7 { background-color: #792800; color: #ffffff !important; }
+.farbe-8 { background-color: #004d37; color: #ffffff !important; }
+.farbe-9 { background-color: #9f5a00; color: #ffffff !important; }
+.farbe-10 { background-color: #00667a; color: #ffffff !important; }
+.farbe-11 { background-color: #003375; color: #ffffff !important; }
+.farbe-12 { background-color: #c73200; color: #ffffff !important; }
+.farbe-13 { background-color: #66005a; color: #ffffff !important; }
+.farbe-14 { background-color: #2C3E50; color: #ffffff !important; }
+.farbe-15 { background-color: #2f1773; color: #ffffff !important; }
+.farbe-16 { background-color: #ffa616; color: #000000; }
+.farbe-17 { background-color: #91cc4d; color: #000000; }
+.farbe-18 { background-color: #d476e4; color: #000000; }
+.farbe-19 { background-color: #52c6ba; color: #000000; }
+.farbe-20 { background-color: #EF5350; color: #000000; }
+.farbe-21 { background-color: #D4E157; color: #000000; }
+.farbe-22 { background-color: #8897e3; color: #000000; }
+.farbe-23 { background-color: #4DD0E1; color: #000000; }
+.farbe-24 { background-color: #90A4AE; color: #000000; }
+.farbe-25 { background-color: #F06292; color: #000000; }
+.farbe-26 { background-color: #59a1ff; color: #000000; }
+.farbe-27 { background-color: #fedb60; color: #000000; }
+.farbe-28 { background-color: #fe9ecf; color: #000000; }
+.farbe-29 { background-color: #ffb38c; color: #000000; }
+.farbe-30 { background-color: #c9b3ff; color: #000000; }
+
+/* Druckversion */
+@media print {
+
+    #page-header,
+    #page-footer,
+    .intro,
+    .nav-tabs,
+    .datapreferences,
+    .btn-secondary,
+    i.icon,
+    .comment-area,
+    .pagination,
+    input,
+    .footnote,
+    .activity-navigation {
+        display: none;
+    }
+    
+    #stundenplan th {
+        background-color: none;
+        color: #000000;
+    }
+}
+
+#page-mod-data-edit #region-main .generalbox>h3:first-of-type {
+    display: none;
+}
+
+#stundenplan a.badge {
+    pointer-events: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#page-mod-data-edit #region-main .standard .fa {
+    display: none;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.badge-lg {
+    font-size: 100%;
+}
+
+@media only screen and (max-width: 768px)  {
+    #page-mod-data-view #stundenplan th {
+        font-size: 0.75rem !important;
+    }
+
+    #page-mod-data-view #stundenplan td:first-child {
+        font-size: 0.75rem !important;
+    }
+
+    #stundenplan td {
+        padding: 0;
+    }
+
+    #stundenplan .badge {
+        font-size: 60% !important;
+    }
+
+    #einzel td .fa-2x {
+        font-size: 1.5em;
+    }
+
+    #selectedContainer .btn-group {
+        display: block;
+    }
+
+    #selectedContainer .btn-group .btn,
+    #screenshotTabelle {
+        display: block;
+        float: none;
+        width: 100%;
+    }
+}
+
+.anleitung,
+#achtung {
+    display: none;
+}
+
+.recordcheckbox {
+    vertical-align: middle;
+}
+
+.datapreferences > hr:first-child {
+    display: none;
+  }
+
+.badge {
+    border-radius: .2rem;
+}
+
+div.popup-info {
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:400px;
+    margin-top:-100px;
+    margin-left:-200px;
+    background-color: #e5f1dd;
+    border:2px solid #111;
+    box-shadow:3px 4px 10px 1px rgba(0, 0, 0, 0.3);
+    border-radius:3px;
+    text-align:center;
+    z-index:21;
+    font-size: 1.15rem;
+}
+
+.clicked {
+    -webkit-box-shadow: inset 0px 0px 0px 2px #008196; 
+    box-shadow: inset 0px 0px 0px 2px #008196;
+}
+
+div.popup-info h2 {
+    padding:.5em;
+    margin:0;
+    font-weight:normal;
+    border-bottom:1px solid #ddd;
+    background-color:#bad9a5
+   }
+
+div.popup-info>div {
+    padding:1em
+}
+
+#Highlights.btn-primary {
+    background-color: #478b58;
+}
+
+#Highlights.btn-primary:hover,
+#Highlights.btn-primary:active,
+#Highlights.btn-primary:focus {
+    background-color: #3e6548;
+}
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#EnableVideo,
+#video-tutorial,
+#resetConfig {
+    display: none;
+}
+
+#TrainerContainer .col-form-label {
+    font-weight: 600;
+}
+
+.social-icon .fa { text-align: center; display: table-cell; vertical-align: middle; width: 30px; height: 30px !important; line-height: 1; font-size: 14px; -webkit-transition: all 0.4s ease; transition: all 0.4s ease; color: #fff; background: none; border-radius: 4px !important;}
+.social-icon:hover .fa { opacity:.8} 
+.social-icon .fa-twitter  { background-color: #00aced; }
+.social-icon .fa-youtube  { background-color: #bb0000; }
+.social-icon .fa-github  { background-color: #333333; }
+.social-icon .fa-mastodon  { background-color: #6364ff; }
