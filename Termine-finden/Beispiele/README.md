@@ -12,7 +12,7 @@ Nicht alle Features der Vorlage sind für jedes Einsatzszenarium sinnvoll, denno
 ![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Fortbildungen.png?raw=true)
 
 ### Termin für Elternabend suchen
-![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Screenshot/Elternabend.png?raw=true)
+![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Elternabend.png?raw=true)
 
 ### Ja, Nein, Vielleicht (Doodle)
 ![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Ja_Nein_Vielleicht_(Doodle).png?raw=true)
