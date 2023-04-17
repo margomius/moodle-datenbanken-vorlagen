@@ -10,7 +10,7 @@ Eine Vorlage für Moodle-Datenbanken, um Termine mit kleinen oder großen Gruppe
 Trainer:innen können konfigurieren, welche Termine zur Auswahl stehen und Teilnehmer:innen geben präferierte Termine an.
 Die Datenbank hat viele Funktionen, den beliebtesten Termin der gesamten Gruppe oder einer Teilgruppe zu finden und die Ergebnisse zu teilen.
 
-[Beispiele für Einsatzszenarien](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Termine-finden/Beispiele/README.md)
+[Beispiele für Einsatzszenarien](https://github.com/margomius/moodle-datenbanken-vorlagen/tree/main/Termine-finden/Beispiele)
 
 ## Video-Tutorials (YouTube)
 

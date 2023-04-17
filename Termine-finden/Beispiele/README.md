@@ -15,7 +15,7 @@ Nicht alle Features der Vorlage sind für jedes Einsatzszenarium sinnvoll, denno
 ![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Screenshot/Elternabend.png?raw=true)
 
 ### Ja, Nein, Vielleicht (Doodle)
-![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Screenshot/Ja_Nein_Vielleicht_(Doodle).png?raw=true)
+![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Ja_Nein_Vielleicht_(Doodle).png?raw=true)
 
 ### Küchenplan Klassenfahrt
 ![image](https://github.com/margomius/moodle-datenbanken-vorlagen/blob/main/Termine-finden/Beispiele/Screenshots/Essensplanung_Klassenfahrt.png?raw=true)
