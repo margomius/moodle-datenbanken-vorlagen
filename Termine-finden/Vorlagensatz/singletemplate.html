@@ -7,7 +7,7 @@
 <div class="container mt-2">
     <a id="listlink" class="btn btn-success mb-1 mr-2" href="#"><i class="fa fa-calendar"
             aria-hidden="true"></i>&nbsp;&nbsp;Listenansicht</a>
-    <a id="video-tutorial" class="btn btn-lila mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
+    <a id="video-tutorial" class="btn btn-info mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
         aria-expanded="false" aria-controls="collapseVideo"><i class="fa fa-youtube"
             aria-hidden="true"></i>&nbsp;&nbsp;Video-Tutorial</a>
     <div id="EnableVideo">
@@ -24,12 +24,13 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h6>Einzelansicht <span class="pull-right">##edit## ##delete##</span> </h6>
+                    <h6>&nbsp; Einzelansicht <span class="pull-right">##approve## ##disapprove## ##edit## ##delete##</span></h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-8">
                             <h3>[[Name]]</h3>
+                            <h5><span class="badge badge-warning">##approvalstatus##</span></h5>
                             <span class="anmerkung"><strong>Anmerkung: </strong>[[Anmerkung]]</span>
                         </div>
                         <div class="col-sm-4 text-right">
@@ -43,6 +44,7 @@
             </div>
         </div>
     </div>
+    <div id="EigenerHinweis" class="alert alert-info my-2 text-center" role="alert"></div>
     <table id="einzel" class="table table-sm table-bordered einzel mb-2">
         <thead>
             <tr>
@@ -798,6 +800,15 @@
     });
 
 
+    // ++++++++++ Eigenen Hinweis einblenden ++++++++++
+    if (HinweisEinzel) {
+        if (HinweisEinzel === true) {
+            const EigenerHinweis = document.querySelector('#EigenerHinweis');
+            EigenerHinweis.style.display = 'block';
+            EigenerHinweis.innerHTML = TextEinzel;
+        }
+    }
+
     // ++++++++++ Zeilen/Stunden abhängig von den Einstellungen ein- bzw. ausblenden ++++++++++
 
     if (typeof AnzahlZeilen !== 'undefined') {
@@ -1019,6 +1030,6 @@
     if (VideoTutorial === true) {
         document.querySelector('#video-tutorial').style.display = 'inline-block';
         document.querySelector('#EnableVideo').style.display = 'block';
-        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/3ORsUGVNxGs?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
+        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/XIC7E34uL8s?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
     }
 </script>

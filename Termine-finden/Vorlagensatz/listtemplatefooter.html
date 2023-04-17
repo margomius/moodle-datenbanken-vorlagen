@@ -114,6 +114,49 @@
     });
 
 
+    // ++++++++++ Card für Bulk Löschen erstellen ++++++++++
+    function BulkDelete() {
+        const deleteEls = document.querySelectorAll('.delete');
+        const deleteContent = document.querySelector('#deleteContent');
+        const sortedDeleteEls = Array.from(deleteEls).sort((a, b) => a.textContent.localeCompare(b.textContent));
+
+        sortedDeleteEls.forEach(deleteEl => {
+            const labelEl = document.createElement('label');
+            labelEl.innerHTML = deleteEl.innerHTML;
+            labelEl.classList = deleteEl.classList;
+            // Fügen Sie die folgenden CSS-Regeln hinzu, um den Zoom-Effekt bei Hover zu aktivieren
+            labelEl.style.transition = 'transform 0.1s ease-in-out';
+            labelEl.addEventListener('mouseenter', () => {
+                labelEl.style.transform = 'scale(1.1)';
+            });
+            labelEl.addEventListener('mouseleave', () => {
+                labelEl.style.transform = 'scale(1)';
+            });
+            deleteContent.appendChild(labelEl);
+            deleteEl.remove();
+        });
+    }
+
+
+    // ++++++++++ Elemente für Trainer:innen anzeigen ++++++++++
+    const adminControl = document.querySelectorAll('.navbar .custom-control-input').length;
+    if (adminControl > 0) {
+        // Moodle 4
+        document.querySelectorAll('.adminonly').forEach(el => {
+            el.style.display = 'inherit';
+        });
+        BulkDelete();
+    } else {
+        const adminControl = document.querySelectorAll('.nav-link[href*="field"]').length;
+        if (adminControl > 0) {
+            // Moodle 3
+            document.querySelectorAll('.adminonly').forEach(el => {
+                el.style.display = 'inherit';
+            });
+        BulkDelete();
+        }
+    }
+
 
     // ++++++++++ Zellen mit den meisten Einträgen farbig hervorheben ++++++++++
     function highlightZelle() {
@@ -334,8 +377,10 @@
             highlightNone();
             highlightZelle();
         }
-        updateAufzaehlungen(lastClickedTd);
         UpdateGruppen();
+        setTimeout(() => {
+            updateAufzaehlungen(lastClickedTd);
+        }, 100); // 100 Millisekunden Verzögerung
     });
 
     // Event-Listener hinzufügen, um das Klicken auf den Button "AllePersonen" zu behandeln
@@ -396,7 +441,7 @@
             const stundeDiv = td.parentNode.querySelector('td:first-child > div');
             const stundeZeile1 = stundeDiv.querySelector('strong').textContent;
             const stundeZeile2 = stundeDiv.querySelector('span').textContent;
-            const TagStunde = `<strong>${TagTD}, ${stundeZeile1} </strong>(${stundeZeile2})`;
+            const TagStunde = `<strong>${TagTD}</strong>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>${stundeZeile1}</strong>&nbsp;&nbsp;|&nbsp;&nbsp;${stundeZeile2}`;
             const hinweisText = `<div class="alert alert-primary mb-2" role="alert">${TagStunde}</div>${aufzaehlung1}${aufzaehlung3}${aufzaehlung2}${aufzaehlung4}`;
             selected.innerHTML = hinweisText;
             selectedContainer.style.display = 'block';
@@ -556,7 +601,7 @@
             const stundeDiv = lastClickedTd.parentNode.querySelector('td:first-child > div');
             const stundeZeile1 = stundeDiv.querySelector('strong').textContent;
             const stundeZeile2 = stundeDiv.querySelector('span').textContent;
-            const TagStunde = `<strong>${TagTD}, ${stundeZeile1} </strong>(${stundeZeile2})`;
+            const TagStunde = `<strong>${TagTD}</strong>&nbsp;&nbsp;|&nbsp;&nbsp;<strong>${stundeZeile1}</strong>&nbsp;&nbsp;|&nbsp;&nbsp;${stundeZeile2}`;
             const hinweisText = `<div class="alert alert-primary mb-2" role="alert">${TagStunde}</div>${aufzaehlung1}${aufzaehlung3}${aufzaehlung2}${aufzaehlung4}`;
             selected.innerHTML = hinweisText;
         }
@@ -682,49 +727,6 @@
         });
     });
 
-    // ++++++++++ Moodle-Namen für Trainer:innen anzeigen ++++++++++
-    const adminControl = document.querySelectorAll('.navbar .custom-control-input').length;
-    if (adminControl > 0) {
-        // Moodle 4
-        document.querySelectorAll('.adminonly').forEach(el => {
-            el.style.display = 'inherit';
-            BulkDelete();
-        });
-    } else {
-        const adminControl = document.querySelectorAll('.nav-link[href*="field"]').length;
-        if (adminControl > 0) {
-            // Moodle 3
-            document.querySelectorAll('.adminonly').forEach(el => {
-                el.style.display = 'inherit';
-                BulkDelete();
-            });
-        }
-    }
-
-
-    // ++++++++++ Card für Bulk Löschen erstellen ++++++++++
-    function BulkDelete() {
-        const deleteEls = document.querySelectorAll('.delete');
-        const deleteContent = document.querySelector('#deleteContent');
-        const sortedDeleteEls = Array.from(deleteEls).sort((a, b) => a.textContent.localeCompare(b.textContent));
-
-        sortedDeleteEls.forEach(deleteEl => {
-            const labelEl = document.createElement('label');
-            labelEl.innerHTML = deleteEl.innerHTML;
-            labelEl.classList = deleteEl.classList;
-            // Fügen Sie die folgenden CSS-Regeln hinzu, um den Zoom-Effekt bei Hover zu aktivieren
-            labelEl.style.transition = 'transform 0.1s ease-in-out';
-            labelEl.addEventListener('mouseenter', () => {
-                labelEl.style.transform = 'scale(1.1)';
-            });
-            labelEl.addEventListener('mouseleave', () => {
-                labelEl.style.transform = 'scale(1)';
-            });
-            deleteContent.appendChild(labelEl);
-            deleteEl.remove();
-        });
-    }
-
 
     // ++++++++++ Links der Einträge deaktivieren ++++++++++
     const stundenplanElement = document.querySelector('#stundenplan');
@@ -800,7 +802,7 @@
             for (let i = 0; i < neuesSpans.length; i++) {
                 const neuesSpan = neuesSpans[i];
                 const aElem = neuesSpan.querySelector('a.aktiviert');
-                const zelle = neuesSpan.closest('td');
+                const zelle = neuesSpan.closest('div');
                 zelle.appendChild(aElem);
                 neuesSpan.remove();
                 zelle.appendChild(document.createTextNode(" "));
@@ -810,16 +812,7 @@
             for (let i = 0; i < gruppen.length; i++) {
                 gruppen[i].remove();
             }
-            const neuesSpans = document.querySelectorAll('#stundenplan td.text-center span:not(.gruppe)');
-            for (let i = 0; i < neuesSpans.length; i++) {
-                const neuesSpan = neuesSpans[i];
-                const aElem = neuesSpan.querySelector('a.aktiviert');
-                const zelle = neuesSpan.closest('td');
-                zelle.appendChild(aElem);
-                neuesSpan.remove();
-                zelle.appendChild(document.createTextNode(" "));
-            }
-            const ZellenGruppe = document.querySelectorAll('#stundenplan td.text-center');
+            const ZellenGruppe = document.querySelectorAll('#stundenplan td.text-center .cell-content');
             const anzahlAElem = {}; // Objekt, um Anzahl der aElemente pro Zelle zu speichern
             let minAElemCount = Infinity; // niedrigste Anzahl von aElementen
             let maxAElemCount = 0; // höchste Anzahl von aElementen
@@ -866,12 +859,12 @@
             for (let i = 0; i < neuesSpans.length; i++) {
                 const neuesSpan = neuesSpans[i];
                 const aElem = neuesSpan.querySelector('a.aktiviert');
-                const zelle = neuesSpan.closest('td');
+                const zelle = neuesSpan.closest('div');
                 zelle.appendChild(aElem);
                 neuesSpan.remove();
                 zelle.appendChild(document.createTextNode(" "));
             }
-            const ZellenGruppe = document.querySelectorAll('#stundenplan td.text-center');
+            const ZellenGruppe = document.querySelectorAll('#stundenplan td.text-center .cell-content');
             const anzahlAElem = {}; // Objekt, um Anzahl der aElemente pro Zelle zu speichern
             let minAElemCount = Infinity; // niedrigste Anzahl von aElementen
             let maxAElemCount = 0; // höchste Anzahl von aElementen
@@ -952,7 +945,7 @@
     if (VideoTutorial === true) {
         document.querySelector('#video-tutorial').style.display = 'inline-block';
         document.querySelector('#EnableVideo').style.display = 'block';
-        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/3ORsUGVNxGs?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
+        document.querySelector('#insertIframe').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/XIC7E34uL8s?modestbranding=1&rel=0&hl=de" width="800" height="450" title="A YouTube video" frameborder="0" allowfullscreen></iframe>';
     }
 
 
@@ -1027,6 +1020,16 @@
     });
 
 
+    // ++++++++++ Eigenen Hinweis einblenden ++++++++++
+    if (HinweisListe) {
+        if (HinweisListe === true) {
+            const EigenerHinweis = document.querySelector('#EigenerHinweis');
+            EigenerHinweis.style.display = 'block';
+            EigenerHinweis.innerHTML = TextListe;
+        }
+    }
+
+
     // ++++++++++ Konfiguration zurücksetzen ++++++++++
     // zeige resetConfig an oder blende es aus, wenn ShowReset geklickt wird
     document.getElementById("ShowReset").addEventListener("click", function (event) {
@@ -1087,7 +1090,20 @@ const MoodleName = false;               // false = Eigene Eingabe; true = Moodle
 
 const VideoTutorial = false;            // false = ausgeblendet; true = eingeblendet
 
-// ++++++++++ Spalten ein-/ausblenden und Spalten-Überschriften eingeben ++++++++++
+// ++++++++++ Eigene Hinweise über den Tabellen ++++++++++
+
+// Die Hinweise-Texte unterstützen HTML Text-Formattierungen (fett, kursiv etc.)
+
+const HinweisEintrag = false;           // false = ausgeblendet; true = eingeblendet
+const TextEintrag = "Platzhalter";      // Hinweis über "Eintrag hinzufügen"
+
+const HinweisEinzel = false;            // false = ausgeblendet; true = eingeblendet
+const TextEinzel = "Platzhalter";       // Hinweis über "Einzelansicht"
+
+const HinweisListe = false;             // false = ausgeblendet; true = eingeblendet
+const TextListe = "Platzhalter";        // Hinweis über "Listenansicht"
+
+// +++++++++++++++ Spalten konfigurieren +++++++++++++++
 
 const TextSpalte00 = "Stunde"           // Überschrift Spalte 0 (Kann nicht ausgeblendet werden)
 const AbkSpalte00 = "Std."              // Kurzer Text für schmale Bildschirme
@@ -1117,13 +1133,15 @@ const AbkSpalte06 = "Sa"
 const TextSpalte07 = "Sonntag"
 const AbkSpalte07 = "So"
 
-// ++++++++++ X Zeilen ein-/ausblenden ++++++++++
+// +++++++++++++++ X Zeilen ein-/ausblenden +++++++++++++++
+
 // "AnzahlZeilen" = 0, dann werden die Zeilen durch die Einstellungen unten ein-/ausgeblendet.
-// "AnzahlZeilen" = X, dann werden X Zeilen eingeblendet, unabhängig von den Einstellungen unten.
+// "AnzahlZeilen" = 8, dann werden 8 Zeilen eingeblendet, unabhängig von den Einstellungen unten.
 
 const AnzahlZeilen = 0                  // Mögliche Anzahl: 1 - 17  |   0 = deaktiviert
 
-// ++++++++++ Zeilen individuell ein-/ausblenden und Zeilen-Texte eingeben ++++++++++
+// +++++++++++++ Zeilen individuell konfigurieren +++++++++++++
+
 // Um Zeilen einzeln ein-/auszublenden, muss die Zeile "AnzahlZeilen" mit "//" auskommentiert sein.
 
 let Zeile01Anzeigen = true;             // false = ausgeblendet true = eingeblendet
@@ -1170,7 +1188,7 @@ let Zeile11Anzeigen = true;
 const TextZeile11 = "8. Stunde"
 const ZeitZeile11 = "14:35 - 15:20"
 
-// ++++++++++ 5 weitere Einträge ein-/ausblenden (standardmäßig ausgeblendet) ++++++++++
+// +++++++ 5 weitere Zeilen konfigurieren (standardmäßig ausgeblendet) +++++++
 
 let Zeile12Anzeigen = false;            // false = ausgeblendet true = eingeblendet
 const TextZeile12 = "9. Stunde"         // Fetter Text, der in der ersten Spalte der 12. Zeile steht
@@ -1196,7 +1214,7 @@ let Zeile17Anzeigen = false;
 const TextZeile17 = "14. Stunde"
 const ZeitZeile17 = "19:15 - 20:00"
 
-// ++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++
+// ++++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++++
 
 const DunkleZeile01 = false             // false = Zeile nicht dunkler; true = Zeile dunkler
 const DunkleZeile02 = false
@@ -1220,7 +1238,7 @@ const DunkleZeile17 = false
 // +++++++++++++++++ EINSTELLUNGEN ENDE +++++++++++++++++
 
 
-// Termine finden v.1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
+// Termine finden v1.0 - Copyright (C) 2023, @margomius - https://margomius.com/
 // GNU General Public Licence 3.0 - http://www.gnu.de/documents/gpl-3.0.en.html
 </p>
 

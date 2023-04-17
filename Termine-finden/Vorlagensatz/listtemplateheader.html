@@ -44,7 +44,7 @@
     <a class="btn btn-secondary mb-1 pull-right" data-toggle="collapse" href="#collapsePreference" role="button"
         aria-expanded="false" aria-pressed="true" aria-controls="collapsePreference">
         <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Suche</a>
-    <a id="video-tutorial" class="btn btn-lila mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
+    <a id="video-tutorial" class="btn btn-info mb-1 mr-2" data-toggle="collapse" href="#collapseVideo" role="button"
         aria-expanded="false" aria-controls="collapseVideo"><i class="fa fa-youtube"
             aria-hidden="true"></i>&nbsp;&nbsp;Video-Tutorial</a>
     <button id="anleitung" class="btn btn-secondary mb-1" onclick="AnleitungEinblenden(); return false;"><i
@@ -107,9 +107,10 @@
     </div>
 </div>
 <div id="stundenplanContainer" class="container">
-    <div class="alert alert-dark anleitung mb-0" role="alert">Klicke auf eine Stunde/Pause im Stundenplan, um unter der
+    <div id="EigenerHinweis" class="alert alert-info my-2 text-center" role="alert"></div>
+    <div class="alert alert-dark anleitung mb-0" role="alert">Klicke auf eine Zelle in der Tabelle, um unter der
         Tabelle eine
-        Zusammenfassung des Termins angezeigt zu bekommen. <br>
+        Zusammenfassung des Eintrages angezeigt zu bekommen. <br>
         Klicke auf den Namen einer Person, um zu ihrer Einzelansicht zu gelangen.</div>
     <table id="stundenplan" class="table table-sm table-bordered">
         <thead>
@@ -627,7 +628,7 @@
         <div class="col-sm text-right">
             <div class="btn-group mb-1" role="group">
                 <button id="buttonAnmerkung" type="button" class="btn btn-lila mb-1 mr-1">
-                    <i class="fa fa-comment"></i> Anmerkungen ein/ausblenden
+                    <i class="fa fa-comment"></i> Anmerkungen ein-/ausblenden
                 </button>
                 <button id="copy" type="button" class="btn btn-lila mb-1 mr-1">
                     <i class="fa fa-clipboard"></i> Zusammenfassung kopieren
@@ -707,7 +708,8 @@
                 In dieser Datenbank-Vorlage lassen sich die Anzahl und Inhalte der Spalten und Zeilen konfigurieren.<br>
                 Der <i class="fa fa-cog" aria-hidden="true"></i> – Button führt direkt zur Konfiguration (Alternativ:
                 "Vorlagen" > "JavaScript").<br>
-                Über den <i class="fa fa-undo" aria-hidden="true"></i> – Button lässt sich die Standard-Konfiguration anzeigen, bearbeiten und kopieren.
+                Über den <i class="fa fa-undo" aria-hidden="true"></i> – Button lässt sich die Standard-Konfiguration
+                anzeigen, bearbeiten und kopieren.
             </p>
             <a id="config" class="btn btn-lila mb-1" href="#"><i class="fa fa-cog"
                     aria-hidden="true"></i>&nbsp;&nbsp;Terminfindung konfigurieren</a>
@@ -715,11 +717,13 @@
                     aria-hidden="true"></i>&nbsp;&nbsp;Standard Konfiguration anzeigen</a>
         </div>
         <div id="resetConfig" class="card-body px-3 px-md-6">
-                <p class="card-text">Hier ist die Standard-Konfiguration des Vorlagensatzes.<br>
-                    Diese kann über den Button kopiert und unter "Terminfindung konfigurieren" eingefügt werden.</p>
-                <div class="row">
+            <p class="card-text">Hier ist die Standard-Konfiguration des Vorlagensatzes.<br>
+                Diese kann über den Button kopiert und unter "Terminfindung konfigurieren" eingefügt werden.</p>
+            <div class="row">
                 <div class="col-md-8">
-                    <textarea id="OrigConfig" class="form-control form-control-sm input-block-level mt-2 mb-2" placeholder="Fehler: Konfiguration konnte nicht geladen werden!" style="height: 12em;"></textarea>
+                    <textarea id="OrigConfig" class="form-control form-control-sm input-block-level mt-2 mb-2"
+                        placeholder="Fehler: Konfiguration konnte nicht geladen werden!"
+                        style="height: 16em;"></textarea>
                 </div>
                 <div class="col-md-4">
                     <button id="copyConfig" type="button" class="btn btn-lila mt-2">Konfiguration kopieren</button>
@@ -736,11 +740,11 @@
                 Dadurch erscheint ein Button in der Kopfzeile, über den das YouTube-Video eingebettet abgespielt werden
                 kann.
             </p>
-            <a class="btn btn-info mb-1" href="#" target="_blank"><i class="fa fa-youtube"
+            <a class="btn btn-info mb-1" href="https://youtu.be/yI1ob7h-KJ8" target="_blank"><i class="fa fa-youtube"
                     aria-hidden="true"></i>&nbsp;&nbsp;Tutorial für Trainer:innen</a>
-            <a class="btn btn-info mb-1" href="#" target="_blank"><i class="fa fa-youtube"
+            <a class="btn btn-info mb-1" href="https://youtu.be/XIC7E34uL8s" target="_blank"><i class="fa fa-youtube"
                     aria-hidden="true"></i>&nbsp;&nbsp;Tutorial für Teilnehmer:innen</a>
-            <a class="btn btn-dark mb-1" href="#" target="_blank"><i class="fa fa-github"
+            <a class="btn btn-dark mb-1" href="https://github.com/margomius/moodle-datenbanken-vorlagen/tree/main/Termine-finden" target="_blank"><i class="fa fa-github"
                     aria-hidden="true"></i>&nbsp;&nbsp;Download Vorlagensatz</a>
         </div>
         <hr>
@@ -757,7 +761,7 @@
                 alle User:innen schneller.</p>
         </div>
         <div class="card-body mb-2">
-            <form class="form-horizontal generator" autocomplete="off">
+            <div class="form-horizontal generator" autocomplete="off">
                 <div class="container-fluid">
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label form-control-sm text-md-right">Button Text:</label>
@@ -839,13 +843,14 @@
                         <label class="col-md-2 col-form-label form-control-sm text-md-right mt-2">HTML-Code:</label>
                         <div class="col-md-8">
                             <textarea id="output" class="form-control form-control-sm input-block-level mt-2"
-                                placeholder="Fehler: HTML-Code konnte nicht geladen werden!" style="height: 6em;"></textarea>
+                                placeholder="Fehler: HTML-Code konnte nicht geladen werden!"
+                                style="height: 6em;"></textarea>
                             <button id="copyBtn" type="button" class="btn btn-lila mt-2">Code
                                 kopieren</button>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="card-footer text-center text-muted">
             <div class="col-md-12 col-sm-12 center-col text-center">
@@ -906,7 +911,7 @@
 
     // ++++++++++ Zeilen/Stunden abhängig von den Einstellungen ein- bzw. ausblenden ++++++++++
 
-    if (typeof AnzahlZeilen === 'number' && AnzahlZeilen >= 1 && AnzahlZeilen <= 17) {
+    if (typeof AnzahlZeilen !== 'undefined') {
         for (let i = 1; i <= AnzahlZeilen; i++) {
             const ZeilenName = `Zeile${i.toString().padStart(2, '0')}Anzeigen`;
             eval(`${ZeilenName} = true;`);

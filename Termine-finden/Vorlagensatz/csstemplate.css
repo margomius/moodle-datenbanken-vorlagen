@@ -5,6 +5,13 @@
     display: none;
 }
 
+#EnableVideo,
+#video-tutorial,
+#resetConfig,
+#EigenerHinweis {
+    display: none;
+}
+
 .table-bordered th,
 .table-bordered tr,
 .table-bordered td {
@@ -115,6 +122,18 @@ td:first-of-type {
 
 #region-main .btn-lila:hover {
     background-color: #57356e;
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #008196;
+  border-color: #008196;
+}
+
+.btn-info:hover {
+  color: #fff;
+  background-color: #006070;
+  border-color: #005563;
 }
 
 #region-main .btn-lila:focus, .btn-lila.focus {
@@ -400,12 +419,6 @@ div.popup-info>div {
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-#EnableVideo,
-#video-tutorial,
-#resetConfig {
-    display: none;
 }
 
 #TrainerContainer .col-form-label {

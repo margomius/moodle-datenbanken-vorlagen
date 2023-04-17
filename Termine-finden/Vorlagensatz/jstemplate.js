@@ -14,7 +14,20 @@ const MoodleName = false;               // false = Eigene Eingabe; true = Moodle
 
 const VideoTutorial = false;            // false = ausgeblendet; true = eingeblendet
 
-// ++++++++++ Spalten ein-/ausblenden und Spalten-Überschriften eingeben ++++++++++
+// ++++++++++ Eigene Hinweise über den Tabellen ++++++++++
+
+// Die Hinweise-Texte unterstützen HTML Text-Formattierungen (fett, kursiv etc.)
+
+const HinweisEintrag = false;           // false = ausgeblendet; true = eingeblendet
+const TextEintrag = "Platzhalter";      // Hinweis über "Eintrag hinzufügen"
+
+const HinweisEinzel = false;            // false = ausgeblendet; true = eingeblendet
+const TextEinzel = "Platzhalter";       // Hinweis über "Einzelansicht"
+
+const HinweisListe = false;             // false = ausgeblendet; true = eingeblendet
+const TextListe = "Platzhalter";        // Hinweis über "Listenansicht"
+
+// +++++++++++++++ Spalten konfigurieren +++++++++++++++
 
 const TextSpalte00 = "Stunde"           // Überschrift Spalte 0 (Kann nicht ausgeblendet werden)
 const AbkSpalte00 = "Std."              // Kurzer Text für schmale Bildschirme
@@ -44,13 +57,15 @@ const AbkSpalte06 = "Sa"
 const TextSpalte07 = "Sonntag"
 const AbkSpalte07 = "So"
 
-// ++++++++++ X Zeilen ein-/ausblenden ++++++++++
+// +++++++++++++++ X Zeilen ein-/ausblenden +++++++++++++++
+
 // "AnzahlZeilen" = 0, dann werden die Zeilen durch die Einstellungen unten ein-/ausgeblendet.
-// "AnzahlZeilen" = X, dann werden X Zeilen eingeblendet, unabhängig von den Einstellungen unten.
+// "AnzahlZeilen" = 8, dann werden 8 Zeilen eingeblendet, unabhängig von den Einstellungen unten.
 
 const AnzahlZeilen = 0                  // Mögliche Anzahl: 1 - 17  |   0 = deaktiviert
 
-// ++++++++++ Zeilen individuell ein-/ausblenden und Zeilen-Texte eingeben ++++++++++
+// +++++++++++++ Zeilen individuell konfigurieren +++++++++++++
+
 // Um Zeilen einzeln ein-/auszublenden, muss die Zeile "AnzahlZeilen" mit "//" auskommentiert sein.
 
 let Zeile01Anzeigen = true;             // false = ausgeblendet true = eingeblendet
@@ -97,7 +112,7 @@ let Zeile11Anzeigen = true;
 const TextZeile11 = "8. Stunde"
 const ZeitZeile11 = "14:35 - 15:20"
 
-// ++++++++++ 5 weitere Einträge ein-/ausblenden (standardmäßig ausgeblendet) ++++++++++
+// +++++++ 5 weitere Zeilen konfigurieren (standardmäßig ausgeblendet) +++++++
 
 let Zeile12Anzeigen = false;            // false = ausgeblendet true = eingeblendet
 const TextZeile12 = "9. Stunde"         // Fetter Text, der in der ersten Spalte der 12. Zeile steht
@@ -123,7 +138,7 @@ let Zeile17Anzeigen = false;
 const TextZeile17 = "14. Stunde"
 const ZeitZeile17 = "19:15 - 20:00"
 
-// ++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++
+// ++++++++++++ Einzelne Zeilen dunkel hervorheben  ++++++++++++
 
 const DunkleZeile01 = false             // false = Zeile nicht dunkler; true = Zeile dunkler
 const DunkleZeile02 = false
