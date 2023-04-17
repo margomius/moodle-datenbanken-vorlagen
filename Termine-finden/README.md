@@ -10,11 +10,14 @@ Eine Vorlage für Moodle-Datenbanken, um Termine mit kleinen oder großen Gruppe
 Trainer:innen können konfigurieren, welche Termine zur Auswahl stehen und Teilnehmer:innen geben präferierte Termine an.
 Die Datenbank hat viele Funktionen, den beliebtesten Termin der gesamten Gruppe oder einer Teilgruppe zu finden und die Ergebnisse zu teilen.
 
+[Beispiele für Einsatzszenarien](https://github.com/margomius/moodle-datenbanken-vorlagen/raw/main/Termine-finden/Beispiele/Beispiele.md)
+
 ## Video-Tutorials (YouTube)
 
-Datenbank erstellen und Vorlagensatz importieren: [Video] (#)
-"Termine finden" für Teilnehmer:innen: [Video](#)
-""Termine finden" für Trainer:innen: [Video](#)
+* ["Termine finden" für Teilnehmer:innen](https://youtu.be/XIC7E34uL8s)
+* ["Termine finden" für Trainer:innen](https://youtu.be/yI1ob7h-KJ8)
+* [Datenbank anlegen und Vorlagensatz importieren](https://youtu.be/VE2DsP4JiKQ)
+* [Datenbank-Vorlagensatz der eigenen Institution bereitstellen](https://youtu.be/E93p_CxusOw)
 
 ## Features
 
@@ -28,7 +31,7 @@ Datenbank erstellen und Vorlagensatz importieren: [Video] (#)
 
 * Die Funktion überarbeiten, wie der Moodle Name in "Eintrag hinzufügen" ausgelesen wird
 * Die Farben intelligenter programmieren, sodass auch mehr als 30 verschiedene Farben möglich sind
-* Eine "Wenn-es-sein-muss"-Option hinzufügen
+* Eine richtige "Wenn-es-sein-muss"-Option hinzufügen
 
 ## Versionsverlauf
 
