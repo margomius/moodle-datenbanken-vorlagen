@@ -35,8 +35,10 @@ Beispiele für Einsatzszenarien: [Screenshots](https://github.com/margomius/mood
 
 ## Versionsverlauf
 
+* 1.0.2
+    * Listenansicht: Die Links zu den Einzelansichten werden nun auch alphabetisch sortiert.
 * 1.0.1
-    * Behebung eines Fehlers im Button-Generator: Die URL zur Datenbank wurde nicht immer korrekt eingefügt.
+    * Listenansicht: Behebung eines Fehlers im Button-Generator: Die URL zur Datenbank wurde nicht immer korrekt eingefügt.
 * 1.0
     * Veröffentlichung
 

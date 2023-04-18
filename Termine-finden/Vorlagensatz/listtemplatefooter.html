@@ -1,5 +1,5 @@
 <script>
-    // Termine finden v1.0.1 - Copyright (C) 2023, @margomius - https://margomius.com/
+    // Termine finden v1.0.2 - Copyright (C) 2023, @margomius - https://margomius.com/
     // GNU General Public Licence 3.0 - https://www.gnu.org/licenses/gpl-3.0.html
     //
     // Dieser Code wurde mit Unterstützung von ChatGPT geschrieben und ist möglicherweise nicht perfekt.
@@ -44,8 +44,9 @@
     // ++++++++++ Links in #Einzelansichten verschieben ++++++++++
     const einzelansichtLinks = document.querySelectorAll('.eingabe a.einzelansicht');
     const einzelansichtContent = document.querySelector('#EinzelansichtContent');
+    const linksArray = Array.from(einzelansichtLinks).sort((a, b) => a.textContent.localeCompare(b.textContent));
 
-    einzelansichtLinks.forEach(link => {
+    linksArray.forEach(link => {
         einzelansichtContent.appendChild(link);
         // Fügen Sie die folgenden CSS-Regeln hinzu, um den Zoom-Effekt bei Hover zu aktivieren
         link.style.transition = 'transform 0.1s ease-in-out';
@@ -1238,7 +1239,7 @@ const DunkleZeile17 = false
 // +++++++++++++++++ EINSTELLUNGEN ENDE +++++++++++++++++
 
 
-// Termine finden v1.0.1 - Copyright (C) 2023, @margomius - https://margomius.com/
+// Termine finden v1.0.2 - Copyright (C) 2023, @margomius - https://margomius.com/
 // GNU General Public Licence 3.0 - http://www.gnu.de/documents/gpl-3.0.en.html
 </p>
 
