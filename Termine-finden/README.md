@@ -35,6 +35,8 @@ Beispiele für Einsatzszenarien: [Screenshots](https://github.com/margomius/mood
 
 ## Versionsverlauf
 
+* 1.0.3
+    * Listenansicht: Checkboxen für Massen-Löschen sind nun korrekt vertikal zentriert.
 * 1.0.2
     * Listenansicht: Die Links zu den Einzelansichten werden nun auch alphabetisch sortiert.
 * 1.0.1

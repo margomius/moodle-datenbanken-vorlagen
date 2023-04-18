@@ -162,5 +162,5 @@ const DunkleZeile17 = false
 // +++++++++++++++++ EINSTELLUNGEN ENDE +++++++++++++++++
 
 
-// Termine finden v1.0.2 - Copyright (C) 2023, @margomius - https://margomius.com/
+// Termine finden v1.0.3 - Copyright (C) 2023, @margomius - https://margomius.com/
 // GNU General Public Licence 3.0 - http://www.gnu.de/documents/gpl-3.0.en.html
