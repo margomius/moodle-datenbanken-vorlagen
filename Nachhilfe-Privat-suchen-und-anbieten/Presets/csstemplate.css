@@ -25,19 +25,25 @@
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
 }
 
+.profilfoto img {
+    max-height: 350px;
+}
+
 .bg-suche {
-    background-color: #F5EBF2;
+    background-color: #69004a;
+    color: #fff;
 }
 
 .bg-eintrag {
-    background-color: #E8F0E6;
+    background-color: #008196;
+    color: #fff;
 }
 
-.bg-suche-eintrag {
+.Suche {
     background-color: #fff9e6;
 }
 
-.bg-biete-eintrag {
+.Biete {
     background-color: #cfe4e6;
 }
 

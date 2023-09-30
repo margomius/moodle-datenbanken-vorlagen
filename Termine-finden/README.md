@@ -35,6 +35,8 @@ Beispiele für Einsatzszenarien: [Screenshots](https://github.com/margomius/mood
 
 ## Versionsverlauf
 
+* 1.0.5
+    * Listenansicht: Uhrzeit bricht nicht mehr um.
 * 1.0.4
     * Listenansicht: Buttons "Keine" und "Alle" nutzen nun Augen-Symbole
 * 1.0.3

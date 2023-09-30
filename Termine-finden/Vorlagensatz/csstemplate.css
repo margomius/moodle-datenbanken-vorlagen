@@ -22,6 +22,10 @@
     margin-bottom: 0.5rem;
 }
 
+.zeit-zeile {
+    white-space: nowrap;
+}
+
 td:first-of-type {
     background-color: #f3f9fa;
   }

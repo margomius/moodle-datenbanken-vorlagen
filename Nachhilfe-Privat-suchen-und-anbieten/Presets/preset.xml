@@ -116,4 +116,11 @@ Student
 Lehrer</param1>
 </field>
 
+<field>
+<type>picture</type>
+<name>Foto</name>
+<required>0</required>
+<param3>0</param3>
+</field>
+
 </preset>
